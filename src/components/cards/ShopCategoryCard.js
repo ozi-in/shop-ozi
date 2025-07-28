@@ -263,7 +263,9 @@ const ShopCategoryCard = (props) => {
                   }}
                 >
                   <CustomText fontSize="12px">{item?.name}</CustomText>
-                  <CustomText fontSize="10px">125+ products</CustomText>
+                  <CustomText fontSize="10px">
+                    {item?.products_count - 1}+ Products
+                  </CustomText>
                 </Box>
               </Grid>
               {/* <Grid item xs={12}>
