@@ -1155,3 +1155,32 @@ export function maskSensitiveInfo(input) {
     }
   }
 }
+
+
+// get amount with discount
+
+export const handleProductValueWithDiscount = (product) => {
+  let productPrice = product?.price;
+  // console.log("handleProductValueWithDiscount", product?.price);
+  if (getCurrentModuleType() === "food") {
+    if (product?.food_variations?.length > 0) {
+      productPrice += handleVariationValuesSum(product?.food_variations);
+      return productPrice;
+    } else {
+      return productPrice;
+    }
+  } else {
+    if (
+      product?.variations?.length > 0 &&
+      product?.selectedOption?.length > 0
+    ) {
+      if (product?.selectedOption?.length > 0) {
+        productPrice = product?.selectedOption?.[0]?.price;
+        return productPrice;
+      }
+    } else {
+      productPrice = product.price - product.discount;
+      return productPrice;
+    }
+  }
+};
