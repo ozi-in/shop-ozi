@@ -1,4 +1,5 @@
 import { store } from "redux/store";
+import { getSubTotalPrice } from "utils/CustomFunctions";
 
 // export const getAmountWithSign = (amount, needDecimal = true) => {
 //   const stores = store?.getState();
@@ -36,9 +37,28 @@ export const getAmountWithSign = (amount, needDecimal = true) => {
   const formattedAmount = formatLargeNumber(Number(amount));
 
   // Return amount with currency symbol
-  return direction === "left" ? `${symbol}${formattedAmount}` : `${formattedAmount}${symbol}`;
+  return direction === "left"
+    ? `${symbol}${formattedAmount}`
+    : `${formattedAmount}${symbol}`;
 };
+export const getDiscountPercentage = (cartList, discountedPrice) => {
+  const originalPrice = getSubTotalPrice(cartList);
 
+  if (
+    originalPrice == null ||
+    discountedPrice == null ||
+    isNaN(originalPrice) ||
+    isNaN(discountedPrice) ||
+    originalPrice === 0
+  ) {
+    return "0%";
+  }
+
+  const discount =
+    100 - ((originalPrice - discountedPrice) / originalPrice) * 100;
+
+  return `${Math.round(discount)}%`;
+};
 
 export const getDiscountedAmount = (
   price,

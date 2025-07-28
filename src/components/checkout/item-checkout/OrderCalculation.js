@@ -13,6 +13,7 @@ import { Box, alpha } from "@mui/system";
 import {
   getAmountWithSign,
   getReferDiscount,
+  getDiscountPercentage,
 } from "helper-functions/CardHelpers";
 import { getToken } from "helper-functions/getToken";
 import React, { useState } from "react";
@@ -58,7 +59,7 @@ const OrderCalculation = (props) => {
     customerData,
     initVauleEx,
     isLoading,
-    taxAmount
+    taxAmount,
   } = props;
 
   const token = getToken();
@@ -152,10 +153,10 @@ const OrderCalculation = (props) => {
     dispatch(setTotalAmount(totalAmount));
     return totalAmount;
   };
-  let diffDiscount={
-    value:0
-  }
-  const discountedPrice = getProductDiscount(cartList, storeData,diffDiscount);
+  let diffDiscount = {
+    value: 0,
+  };
+  const discountedPrice = getProductDiscount(cartList, storeData, diffDiscount);
   const totalAmountAfterPartial = handleOrderAmount() - walletBalance;
   const finalTotalAmount = profileInfo?.is_valid_for_discount
     ? handleOrderAmount() - referDiscount
@@ -214,7 +215,6 @@ const OrderCalculation = (props) => {
         <Grid item md={4} xs={4} align="right">
           <Typography textTransform="capitalize" align="right">
             {getAmountWithSign(getSubTotalPrice(cartList))}
-
           </Typography>
         </Grid>
         <Grid item md={8} xs={8}>
@@ -228,9 +228,12 @@ const OrderCalculation = (props) => {
             justifyContent="flex-end"
             spacing={0.5}
           >
-            <Typography>{"(-)"}</Typography>
+            <Typography>{"-"}</Typography>
             <Typography>
-              {storeData ? getAmountWithSign(discountedPrice) : null}
+              {/* {storeData ? getAmountWithSign(discountedPrice) : null} */}
+              {storeData
+                ? getDiscountPercentage(cartList, discountedPrice)
+                : null}
             </Typography>
           </Stack>
         </Grid>
@@ -279,28 +282,26 @@ const OrderCalculation = (props) => {
             </Grid>
           </>
         ) : null}
-        {
-          taxAmount?.tax_included!==null && taxAmount?.tax_included === 0 ? (
-            <>
-              <Grid item md={8} xs={8}>
-                {t("VAT/TAX")}
-              </Grid>
-              <Grid item md={4} xs={4} align="right">
-                <Stack
-                  direction="row"
-                  alignItems="center"
-                  justifyContent="flex-end"
-                  spacing={0.5}
-                >
-                  <Typography>
-                    {taxAmount?.tax_included === 0 && <>{"(+)"}</>}
-                    {getAmountWithSign(taxAmount?.tax_amount)}
-                  </Typography>
-                </Stack>
-              </Grid>
-            </>
-          ) : null
-      }
+        {taxAmount?.tax_included !== null && taxAmount?.tax_included === 0 ? (
+          <>
+            <Grid item md={8} xs={8}>
+              {t("VAT/TAX")}
+            </Grid>
+            <Grid item md={4} xs={4} align="right">
+              <Stack
+                direction="row"
+                alignItems="center"
+                justifyContent="flex-end"
+                spacing={0.5}
+              >
+                <Typography>
+                  {taxAmount?.tax_included === 0 && <>{"(+)"}</>}
+                  {getAmountWithSign(taxAmount?.tax_amount)}
+                </Typography>
+              </Stack>
+            </Grid>
+          </>
+        ) : null}
         {orderType === "delivery" || orderType === "schedule_order" ? (
           Number.parseInt(configData?.dm_tips_status) === 1 ? (
             <>
@@ -438,13 +439,20 @@ const OrderCalculation = (props) => {
               >
                 <Typography
                   component="span"
-                sx={{ textTransform: "capitalize",
-                  fontWeight: "700",}}
+                  sx={{ textTransform: "capitalize", fontWeight: "700" }}
                 >
-                {t("Total")}
-                <Typography sx={{marginInlineStart:"5px"}} component="span" fontSize="12px" fontWeight="400" color={theme.palette.primary.main}>
-                  {taxAmount?.tax_included === 1 && taxAmount?.tax_included!==null && ("(Vat/Tax incl.)")}
-                </Typography>
+                  {t("Total")}
+                  <Typography
+                    sx={{ marginInlineStart: "5px" }}
+                    component="span"
+                    fontSize="12px"
+                    fontWeight="400"
+                    color={theme.palette.primary.main}
+                  >
+                    {taxAmount?.tax_included === 1 &&
+                      taxAmount?.tax_included !== null &&
+                      "(Vat/Tax incl.)"}
+                  </Typography>
                 </Typography>
               </Grid>
               <Grid item md={4} xs={4} align="right">
@@ -465,19 +473,25 @@ const OrderCalculation = (props) => {
             </>
           )}
         </TotalGrid>
-        {diffDiscount?.value>0  ?<Typography
-          sx={{
-            fontSize: "14px",
-            fontWeight: "400",
-            width: "100%",
-            color: (theme) => theme.palette.neutral[1000],
-            padding: "5px 0px",
-            backgroundColor: "#FFF6CA",
-          }}
-          align="center"
-        >
-          {t(`You got ${getAmountWithSign(diffDiscount?.value)} additional discount`)}
-        </Typography> : null}
+        {diffDiscount?.value > 0 ? (
+          <Typography
+            sx={{
+              fontSize: "14px",
+              fontWeight: "400",
+              width: "100%",
+              color: (theme) => theme.palette.neutral[1000],
+              padding: "5px 0px",
+              backgroundColor: "#FFF6CA",
+            }}
+            align="center"
+          >
+            {t(
+              `You got ${getAmountWithSign(
+                diffDiscount?.value
+              )} additional discount`
+            )}
+          </Typography>
+        ) : null}
         {token && cashbackAmount?.cashback_amount > 0 && (
           <Grid item xs={12}>
             <Box
