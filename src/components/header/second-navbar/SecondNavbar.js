@@ -1768,7 +1768,7 @@ const SecondNavBar = ({ configData }) => {
                     e.currentTarget.style.background = "#FF7A59";
                   }}
                 >
-                  Login/Register
+                  Login
                 </button>
               </Stack>
             )}
