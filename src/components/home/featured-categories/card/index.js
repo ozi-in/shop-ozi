@@ -4,7 +4,9 @@ import {
   Stack,
   styled,
   Tooltip,
-  Typography, useMediaQuery, useTheme,
+  Typography,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import { Box } from "@mui/system";
 import { useState } from "react";
@@ -48,7 +50,7 @@ const FeaturedItemCard = ({ image, title, id, onlyshimmer }) => {
           search: "category",
           id: id,
           module_id: `${getModuleId()}`,
-          name: title && (title),
+          name: title && title,
           data_type: "category",
         },
       }}
@@ -62,7 +64,7 @@ const FeaturedItemCard = ({ image, title, id, onlyshimmer }) => {
         sx={{
           padding: ".5rem",
           cursor: "pointer",
-          height: { xs: "130px", md: "155px" },
+          height: { xs: "150px", md: "155px" },
           width: { xs: "100px", md: "124px" },
           backgroundColor: (theme) => theme.palette.background.paper,
           border: (theme) =>
@@ -86,18 +88,16 @@ const FeaturedItemCard = ({ image, title, id, onlyshimmer }) => {
             position: "relative",
             height: { xs: "95px", md: "110px" },
             width: "100%",
-            img:{
-              width:"100%",
-              height: "100%",}
+            img: {
+              width: "100%",
+              height: "100%",
+            },
           }}
         >
           {onlyshimmer ? (
-              <Skeleton
-                  width="100%"
-                  height="100%"
-                  variant="rectangle"
-                />
-          ) : (<NextImage
+            <Skeleton width="100%" height="100%" variant="rectangle" />
+          ) : (
+            <NextImage
               src={image}
               alt={title}
               height={110}
@@ -123,7 +123,7 @@ const FeaturedItemCard = ({ image, title, id, onlyshimmer }) => {
           }}
         >
           <CustomBoxFullWidth sx={{ px: "10px" }}>
-            <Typography
+            {/* <Typography
               textAlign="center"
               className={classes.singleLineEllipsis}
               maxHeight="20px"
@@ -131,6 +131,29 @@ const FeaturedItemCard = ({ image, title, id, onlyshimmer }) => {
               component="h4"
             >
               {onlyshimmer ? <Skeleton width="70px" variant="text" sx={{mx: "auto"}} /> : title}
+            </Typography>
+            
+            */}
+            <Typography
+              textAlign="center"
+              sx={{
+                overflow: "visible",
+                whiteSpace: "normal",
+                textOverflow: "unset",
+                display: "block",
+                wordBreak: "break-word",
+                fontSize: "13px",
+                lineHeight: "1.3",
+                maxHeight: "2.6em", // roughly 2 lines (optional)
+              }}
+              color={hover && "primary.main"}
+              component="h4"
+            >
+              {onlyshimmer ? (
+                <Skeleton width="70px" variant="text" sx={{ mx: "auto" }} />
+              ) : (
+                title
+              )}
             </Typography>
           </CustomBoxFullWidth>
         </Tooltip>

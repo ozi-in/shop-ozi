@@ -60,9 +60,9 @@ const FooterComponent = (props) => {
     <CustomStackFullWidth
       sx={{
         mt: {
-          xs: "6rem",
+          xs: "3rem",
           sm: "3rem",
-          md: router.pathname === "/" ? "2rem" : "9rem",
+          md: router.pathname === "/" ? "2rem" : "4rem",
         },
       }}
     >

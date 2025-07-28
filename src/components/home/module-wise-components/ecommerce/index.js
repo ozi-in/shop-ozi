@@ -34,7 +34,9 @@ import {
   itemsData,
 } from "../../../../styled-components/CustomStyles.style";
 import HeroBanner from "components/home/initial-banner";
-// import Footer2 from "components/downloadapp/downloadapp";
+import Footer2 from "components/downloadapp/downloadapp";
+import MobileSearchBar from "./MobileSearchBar";
+import MobileFeaturedCategoriesSlider from "./MobileFeaturedCategoriesSlider";
 // import { SingleRowFacilityHighLight ,itemsData } from '../../../styled-components/CustomStyles.style';
 
 const Shop = ({ configData }) => {
@@ -88,6 +90,13 @@ const Shop = ({ configData }) => {
 
   return (
     <Grid container gap={1}>
+      {isMobile && (
+        <CustomStackFullWidth sx={{ mt: "10%", px: 1 }}>
+          <MobileSearchBar />
+        </CustomStackFullWidth>
+      )}
+
+      <MobileFeaturedCategoriesSlider />
       {!isMobile && <HeroBanner />}
 
       {isMobile && (
@@ -114,7 +123,6 @@ const Shop = ({ configData }) => {
                 borderRadius: "25px",
               }}
             >
-              
               <Typography sx={{ color: "#fff" }}>
                 Trusted By 100+ parents
               </Typography>
@@ -339,9 +347,9 @@ const Shop = ({ configData }) => {
           <WhyParentsChoose />
         </CustomContainer>
       </Grid>
-      <div style={{ marginTop: isMobile ? "0px" : "100px" }}>
-        {/* <Footer2 /> */}
-      </div>
+      <CustomContainer>
+        <Footer2 />
+      </CustomContainer>
       <OrderDetailsModal
         orderDetailsModalOpen={orderDetailsModalOpen && !token}
       />

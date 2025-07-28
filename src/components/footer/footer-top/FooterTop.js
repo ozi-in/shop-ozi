@@ -149,7 +149,7 @@ const FooterTop = (props) => {
           justifyContent="center"
           sx={{ height: "100%" }}
         >
-          <Grid container spacing={6}>
+          <Grid container spacing={2}>
             {/* RIGHT SIDE - JOIN US + SUBTITLE + SUBSCRIBE BAR */}
             <Grid item xs={12} md={6} order={{ xs: 1, md: 2 }}>
               <Stack spacing={2} sx={{ color: "#364153" }}>
