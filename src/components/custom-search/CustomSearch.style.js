@@ -43,14 +43,6 @@ export const Search = styled(CustomStackFullWidth)(({ theme, type2 }) => ({
   backgroundColor: theme.palette.neutral[100],
   color: theme.palette.neutral[600],
   height: "40px",
-  border:
-    type2 &&
-    `1px solid ${alpha(
-      getCurrentModuleType() === ModuleTypes.FOOD
-        ? theme.palette.moduleTheme.food
-        : theme.palette.primary.main,
-      0.4
-    )}`,
   borderRadius: "5px",
   [theme.breakpoints.down("sm")]: {
     backgroundColor: "transparent",
