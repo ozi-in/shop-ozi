@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import MicNoneIcon from "@mui/icons-material/MicNone";
 import { useTranslation } from "react-i18next";
@@ -23,6 +23,9 @@ const CustomSearch = ({
 }) => {
   const { t } = useTranslation();
   const [value, setValue] = useState("");
+  const [animatedLabel, setAnimatedLabel] = useState(label);
+  const [fade, setFade] = useState(true);
+  const labelRef = useRef(label);
   let language_direction = undefined;
   if (typeof window !== "undefined") {
     language_direction = localStorage.getItem("direction");
@@ -35,6 +38,17 @@ const CustomSearch = ({
       setValue("");
     }
   }, [selectedValue]);
+
+  useEffect(() => {
+    if (label !== labelRef.current) {
+      setFade(false);
+      setTimeout(() => {
+        setAnimatedLabel(label);
+        setFade(true);
+        labelRef.current = label;
+      }, 300); // 300ms fade out, then fade in
+    }
+  }, [label]);
 
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
@@ -75,30 +89,72 @@ const CustomSearch = ({
               marginInlineEnd: "-8px",
             }}
           />
-          <StyledInputBase
-            placeholder={t(label)}
-            value={value}
-            onChange={(e) => handleChange(e.target.value)}
-            onKeyPress={(e) => handleKeyPress(e)}
-            language_direction={language_direction}
-            // onFocus={() => handleOnFocus?.(value)}
-          />
+          <Box sx={{ position: "relative", width: "100%" }}>
+            <StyledInputBase
+              placeholder=""
+              value={value}
+              onChange={(e) => handleChange(e.target.value)}
+              onKeyPress={(e) => handleKeyPress(e)}
+              language_direction={language_direction}
+              // onFocus={() => handleOnFocus?.(value)}
+            />
+            {value === "" && (
+              <span
+                style={{
+                  position: "absolute",
+                  left: 0,
+                  top: 0,
+                  width: "100%",
+                  color: "#aaa",
+                  opacity: fade ? 1 : 0,
+                  transition: "opacity 0.5s",
+                  pointerEvents: "none",
+                  paddingLeft: 25,
+                  lineHeight: "40px",
+                  fontSize: "1rem",
+                }}
+              >
+                {t(animatedLabel)}
+              </span>
+            )}
+          </Box>
         </>
       );
     } else {
       return (
         <>
-          <StyledInputBase
-            placeholder={t(label)}
-            value={value}
-            onChange={(e) => handleChange(e.target.value)}
-            onKeyPress={(e) => handleKeyPress(e)}
-            language_direction={language_direction}
-            sx={{
-              paddingLeft: { xs: "25px" },
-            }}
-            // onFocus={() => handleOnFocus?.(value)}
-          />
+          <Box sx={{ position: "relative", width: "100%" }}>
+            <StyledInputBase
+              placeholder=""
+              value={value}
+              onChange={(e) => handleChange(e.target.value)}
+              onKeyPress={(e) => handleKeyPress(e)}
+              language_direction={language_direction}
+              sx={{
+                paddingLeft: { xs: "25px" },
+              }}
+              // onFocus={() => handleOnFocus?.(value)}
+            />
+            {value === "" && (
+              <span
+                style={{
+                  position: "absolute",
+                  left: 0,
+                  top: 0,
+                  width: "100%",
+                  color: "#aaa",
+                  opacity: fade ? 1 : 0,
+                  transition: "opacity 0.5s",
+                  pointerEvents: "none",
+                  paddingLeft: 25,
+                  lineHeight: "40px",
+                  fontSize: "1rem",
+                }}
+              >
+                {t(animatedLabel)}
+              </span>
+            )}
+          </Box>
           {value === "" ? (
             <SearchIcon
               sx={{
