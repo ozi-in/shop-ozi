@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 const DEFAULT_LAT = 28.402008043336746;
 const DEFAULT_LNG = 77.08577287018689;
 const DEFAULT_ZONEID = "[2]";
-const DEFAULT_ADDRESS = "imperia mindspace, Golf Course Ext Rd, Sector 62, Gurugram, Haryana 122001";
+const DEFAULT_ADDRESS =
+  "Imperia Mindspace, Golf Course Ext Rd, Sector 62, Gurugram, Haryana 122001";
 
 function isCurrentLatLngCorrect(currentLatLng) {
   try {
