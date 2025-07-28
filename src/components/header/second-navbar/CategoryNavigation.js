@@ -9,22 +9,26 @@ import { getModuleId } from "helper-functions/getModuleId";
 const CategoryNavigation = () => {
   const router = useRouter();
   const dispatch = useDispatch();
-  const { categories } = useSelector((state) => state.storedData);
 
+  const { categories } = useSelector((state) => state.storedData);
   const [hoveredCategory, setHoveredCategory] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
   const closeTimer = useRef(null);
 
-  const { data: categoriesData, isLoading } = useGetCategories({
-    enabled: categories.length === 0,
-  });
+  const { data: categoriesData, isLoading, refetch } = useGetCategories();
 
+  // Ensure categories are fetched and stored in Redux on mount
   useEffect(() => {
-    if (categoriesData?.data && categories.length === 0) {
-      dispatch(setCategories(categoriesData?.data));
+    if (!categories?.length) {
+      if (categoriesData?.data?.length) {
+        dispatch(setCategories(categoriesData.data));
+      } else {
+        refetch(); // fetch from server if no local data
+      }
     }
-  }, [categoriesData, categories.length, dispatch]);
+  }, [categories, categoriesData, dispatch, refetch]);
 
+  // Handle hover for top-level category
   const handleCategoryHover = (event, category) => {
     clearTimeout(closeTimer.current);
     if (category?.childes?.length > 0) {
@@ -36,6 +40,7 @@ const CategoryNavigation = () => {
     }
   };
 
+  // Mouse leave logic for hover dropdown
   const handleMouseLeave = () => {
     closeTimer.current = setTimeout(() => {
       setHoveredCategory(null);
@@ -47,6 +52,7 @@ const CategoryNavigation = () => {
     clearTimeout(closeTimer.current);
   };
 
+  // Navigate to category
   const handleCategoryClick = (category) => {
     router.push({
       pathname: "/home",
@@ -62,9 +68,10 @@ const CategoryNavigation = () => {
     setHoveredCategory(null);
   };
 
+  // Navigate to subcategory
   const handleSubCategoryClick = (subCategory) => {
     router.push({
-      pathname: "/home/",
+      pathname: "/home",
       query: {
         search: "category",
         id: subCategory?.id,
@@ -117,7 +124,7 @@ const CategoryNavigation = () => {
               </Typography>
             ))
           ) : categories?.length > 0 ? (
-            categories?.slice(0, 6).map((category) => (
+            categories.slice(0, 6).map((category) => (
               <Typography
                 key={category.id}
                 variant="body2"
