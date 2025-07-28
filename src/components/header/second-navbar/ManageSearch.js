@@ -149,7 +149,6 @@ const ManageSearch = ({
   }, [searchRef]);
 
   const dynamicLabel = () => {
-
     if (getCurrentModuleType() === ModuleTypes.ECOMMERCE) {
       return `Search for 'lotion'`;
     }

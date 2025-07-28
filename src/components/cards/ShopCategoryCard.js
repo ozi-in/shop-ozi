@@ -10,7 +10,12 @@ import { Box } from "@mui/system";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
 import { getModuleId } from "../../helper-functions/getModuleId";
-import { CustomBoxFullWidth, CustomText, ShopNowButton  } from "../../styled-components/CustomStyles.style";import { textWithEllipsis } from "../../styled-components/TextWithEllipsis";
+import {
+  CustomBoxFullWidth,
+  CustomText,
+  ShopNowButton,
+} from "../../styled-components/CustomStyles.style";
+import { textWithEllipsis } from "../../styled-components/TextWithEllipsis";
 import CustomImageContainer from "../CustomImageContainer";
 import { useTheme } from "@emotion/react";
 
@@ -31,7 +36,7 @@ const Wrapper = styled(Box)(({ theme }) => ({
   cursor: "pointer",
 
   width: "160px",
-  height:"250px",
+  height: "250px",
   transition: "all ease 0.5s",
   ".MuiTypography-h7": {
     transition: "all ease 0.5s",
@@ -188,35 +193,34 @@ const ShopCategoryCard = (props) => {
     renderMobileLayout()
   ) : (
     <Wrapper sx={{ width: "180px" }}>
-<Link
-          href={{
-            pathname: "/home",
-            query: {
-              search: "category",
-              id: `${item?.slug ? item?.slug : item?.id}`,
-              module_id: `${getModuleId()}`,
-              name: btoa(item?.name),
-              data_type: "category",
-            },
-          }}
+      <Link
+        href={{
+          pathname: "/home",
+          query: {
+            search: "category",
+            id: `${item?.slug ? item?.slug : item?.id}`,
+            module_id: `${getModuleId()}`,
+            name: btoa(item?.name),
+            data_type: "category",
+          },
+        }}
+      >
+        <CustomBoxFullWidth
+          alignItems="center"
+          justifyContent="space-between"
+          alignContent="center"
         >
-
-        <CustomBoxFullWidth  
-               alignItems="center"
-               justifyContent="space-between"
-               alignContent="center"
-               >
-            <ImageWrapper>
-                <CustomImageContainer
-                  height="100%"
-                  width="100%"
-                  src={imageUrl}
-                  borderRadius="5px"
-                  objectFit="cover"
-                  loading="loading"
-                />
-              </ImageWrapper>
-               <Grid container>
+          <ImageWrapper>
+            <CustomImageContainer
+              height="100%"
+              width="100%"
+              src={imageUrl}
+              borderRadius="5px"
+              objectFit="cover"
+              loading="loading"
+            />
+          </ImageWrapper>
+          <Grid container>
             <Grid
               item
               xs={6}
@@ -251,12 +255,16 @@ const ShopCategoryCard = (props) => {
                   </Typography>
                 </Tooltip> */}
 
-
-                <Box sx={{ display: 'flex', flexDirection: 'column' ,height: "60px" }}>
-  <CustomText fontSize="12px">{item?.name}</CustomText>
-  <CustomText fontSize="10px">125+ products</CustomText>
-</Box>
-
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    height: "60px",
+                  }}
+                >
+                  <CustomText fontSize="12px">{item?.name}</CustomText>
+                  <CustomText fontSize="10px">125+ products</CustomText>
+                </Box>
               </Grid>
               {/* <Grid item xs={12}>
                 <Typography
@@ -268,22 +276,16 @@ const ShopCategoryCard = (props) => {
                 </Typography>
               </Grid> */}
             </Grid>
-             
-            <ShopNowButton variant="contained" onClick={()=>{}} > <Typography color={theme.palette.whiteContainer.main}>
-                                  {t("Shop Now")}
-                                </Typography></ShopNowButton>
-            
-           
+
+            <ShopNowButton variant="contained" onClick={() => {}}>
+              {" "}
+              <Typography color={theme.palette.whiteContainer.main}>
+                {t("Shop Now")}
+              </Typography>
+            </ShopNowButton>
           </Grid>
-
-               </CustomBoxFullWidth>
-
-
-         
-
-
-
-        </Link>
+        </CustomBoxFullWidth>
+      </Link>
     </Wrapper>
   );
 };

@@ -1,4 +1,4 @@
-import {Box, Grid, Typography, useMediaQuery } from "@mui/material";
+import { Box, Grid, Typography, useMediaQuery } from "@mui/material";
 import useGetNewArrivalStores from "api-manage/hooks/react-query/store/useGetNewArrivalStores";
 import { useGetVisitAgain } from "api-manage/hooks/react-query/useGetVisitAgain";
 import Brands from "components/home/brands";
@@ -27,7 +27,12 @@ import SinglePoster from "./SinglePoster";
 import TopOffersNearMe from "components/home/top-offers-nearme";
 import RecommendedStore from "components/home/recommended-store";
 import WhyParentsChoose from "components/wparentBanner/WhyParentsChoose";
-import {CustomStackFullWidth, CustomBoxFullWidth, SingleRowFacilityHighLight ,itemsData} from "../../../../styled-components/CustomStyles.style";
+import {
+  CustomStackFullWidth,
+  CustomBoxFullWidth,
+  SingleRowFacilityHighLight,
+  itemsData,
+} from "../../../../styled-components/CustomStyles.style";
 import HeroBanner from "components/home/initial-banner";
 // import Footer2 from "components/downloadapp/downloadapp";
 // import { SingleRowFacilityHighLight ,itemsData } from '../../../styled-components/CustomStyles.style';
@@ -86,7 +91,7 @@ const Shop = ({ configData }) => {
       {!isMobile && <HeroBanner />}
 
       {isMobile && (
-        <CustomStackFullWidth sx={{ padding: 2,pt:5}}>
+        <CustomStackFullWidth sx={{ padding: 2, pt: 5 }}>
           <CustomBoxFullWidth
             sx={{
               minHeight: {
@@ -109,6 +114,7 @@ const Shop = ({ configData }) => {
                 borderRadius: "25px",
               }}
             >
+              
               <Typography sx={{ color: "#fff" }}>
                 Trusted By 100+ parents
               </Typography>
@@ -159,9 +165,11 @@ const Shop = ({ configData }) => {
           </CustomBoxFullWidth>
         </CustomStackFullWidth>
       )}
-            <Grid item xs={12} sx={{ marginTop: { xs: "-10px", sm: "10px" } }}>
-              <CustomContainer>
-          <SingleRowFacilityHighLight items={itemsData}></SingleRowFacilityHighLight>
+      <Grid item xs={12} sx={{ marginTop: { xs: "-10px", sm: "10px" } }}>
+        <CustomContainer>
+          <SingleRowFacilityHighLight
+            items={itemsData}
+          ></SingleRowFacilityHighLight>
         </CustomContainer>
 
         <CustomContainer>
@@ -169,8 +177,7 @@ const Shop = ({ configData }) => {
         </CustomContainer>
       </Grid>
       <Grid item xs={12}>
-        <CustomContainer>
-        </CustomContainer>
+        <CustomContainer></CustomContainer>
       </Grid>
       <Grid item xs={12}>
         {IsSmallScreen() ? (
@@ -196,21 +203,17 @@ const Shop = ({ configData }) => {
           <PaidAds />
         </CustomContainer>
       </Grid> */}
-<Grid item xs={12}>
+      <Grid item xs={12}>
         <CustomContainer>
           <Brands />
         </CustomContainer>
       </Grid>
 
-
-         <Grid item xs={12}>
+      <Grid item xs={12}>
         <CustomContainer>
           <CampaignBanners />
         </CustomContainer>
       </Grid>
-
-
-
 
       <Grid item xs={12}>
         <CustomContainer>
@@ -218,7 +221,6 @@ const Shop = ({ configData }) => {
         </CustomContainer>
       </Grid>
 
-     
       <Grid item xs={12}>
         <CustomContainer>
           <PopularItemsNearby
@@ -233,16 +235,11 @@ const Shop = ({ configData }) => {
         </CustomContainer>
       </Grid>
 
-
-   
-
       {/* <Grid item xs={12}>
         <CustomContainer>
           <SpecialFoodOffers />
         </CustomContainer>
       </Grid> */}
-
-
 
       {/* <Grid item xs={12}>
         <CustomContainer>
@@ -260,7 +257,7 @@ const Shop = ({ configData }) => {
           />
         </CustomContainer>
       </Grid>
- {/* <Grid item xs={12}>
+      {/* <Grid item xs={12}>
         <CustomContainer>
           <LoveItem />
 
@@ -274,36 +271,29 @@ const Shop = ({ configData }) => {
         </CustomContainer>
       </Grid>
 
- <Grid item xs={12}>
+      <Grid item xs={12}>
         <CustomContainer>
           <RunningCampaigns />
         </CustomContainer>
       </Grid>
 
-
-        <Grid item xs={12}>
+      <Grid item xs={12}>
         <CustomContainer>
           <SpecialFoodOffers />
         </CustomContainer>
       </Grid>
 
-
-      <Grid item xs={12}>
-        <CustomContainer>
-
-          <RunningCampaigns />
-        </CustomContainer>
-      </Grid>
-
-
-
-  
       <Grid item xs={12}>
         <CustomContainer>
           <RunningCampaigns />
         </CustomContainer>
       </Grid>
 
+      <Grid item xs={12}>
+        <CustomContainer>
+          <RunningCampaigns />
+        </CustomContainer>
+      </Grid>
 
       {/* <Grid item xs={12}>
         <CustomContainer>
@@ -311,16 +301,13 @@ const Shop = ({ configData }) => {
         </CustomContainer>
       </Grid> */}
 
+      {/* add a new componnet shop by concerns */}
 
-{/* add a new componnet shop by concerns */}
-
-  {/* <Grid item xs={12}>
+      {/* <Grid item xs={12}>
         <CustomContainer>
           <ShopConcern />
         </CustomContainer>
       </Grid> */}
-
-
 
       {/* <Grid item xs={12}>
         <CustomContainer>
@@ -328,11 +315,7 @@ const Shop = ({ configData }) => {
         </CustomContainer>
       </Grid> */}
 
-
-
-
-
-{/* 
+      {/* 
 
   <Grid item xs={12}>
         <CustomContainer>
@@ -346,15 +329,6 @@ const Shop = ({ configData }) => {
         </CustomContainer>
       </Grid> */}
 
-
-
-
-
-
-
-
-
-
       {/* <Grid item xs={12}>
         <CustomContainer>
           <Brands />
@@ -366,12 +340,11 @@ const Shop = ({ configData }) => {
         </CustomContainer>
       </Grid>
       <div style={{ marginTop: isMobile ? "0px" : "100px" }}>
-            {/* <Footer2 /> */}
+        {/* <Footer2 /> */}
       </div>
-<OrderDetailsModal
-  orderDetailsModalOpen={orderDetailsModalOpen && !token}
-/>
-
+      <OrderDetailsModal
+        orderDetailsModalOpen={orderDetailsModalOpen && !token}
+      />
     </Grid>
   );
 };

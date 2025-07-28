@@ -4,7 +4,7 @@ import "slick-carousel/slick/slick.css";
 import {
   CustomBoxFullWidth,
   SliderCustom,
-  CustomStackFullWidth
+  CustomStackFullWidth,
 } from "styled-components/CustomStyles.style";
 import { styled } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
@@ -63,32 +63,31 @@ const FeaturedCategories = ({ configData }) => {
     }
   }, [data]);
 
-const smallDeviceSliderSettings = {
-  dots: false,
-  arrows: false,
-  infinite: false,
-  speed: 500,
-  swipeToSlide: true,
-  slidesToShow: 1,
-  slidesToScroll: 1,
-  rows: 2,
-  slidesPerRow: 3, // 2 per row looks more balanced on mobile
-  responsive: [
-    {
-      breakpoint: 400,
-      settings: {
-        slidesPerRow: 3,
-        rows: 2,
+  const smallDeviceSliderSettings = {
+    dots: false,
+    arrows: false,
+    infinite: false,
+    speed: 500,
+    swipeToSlide: true,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    rows: 2,
+    slidesPerRow: 3, // 2 per row looks more balanced on mobile
+    responsive: [
+      {
+        breakpoint: 400,
+        settings: {
+          slidesPerRow: 3,
+          rows: 2,
+        },
       },
-    },
-  ],
-};
+    ],
+  };
 
-
-    const shopCategorySliderSettings = {
+  const shopCategorySliderSettings = {
     dots: false,
     infinite: false,
-    arrows:false,
+    arrows: false,
     speed: 500,
     slidesToShow: 5,
     slidesToScroll: 1,
@@ -386,7 +385,7 @@ const smallDeviceSliderSettings = {
     ],
   };
 
-    const SmallDeviceSlider = () => {
+  const SmallDeviceSlider = () => {
     return (
       <Box mt={1}>
         <Slider {...smallDeviceSliderSettings}>
@@ -409,16 +408,12 @@ const smallDeviceSliderSettings = {
     switch (getCurrentModuleType()) {
       case ModuleTypes.ECOMMERCE:
         return (
-          <CustomStackFullWidth
-          alignItems="center"
-           justyfyContent="center"
-           
-   >        
-  {/* <CustomStackFullWidth
+          <CustomStackFullWidth alignItems="center" justyfyContent="center">
+            {/* <CustomStackFullWidth
                alignItems="center"
                justifyContent="space-between"
                direction="row"
-             >    
+             >
 
         <H2 text="Shop by Category" component="h2" />
               <div className="flex gap-2">
@@ -434,7 +429,7 @@ const smallDeviceSliderSettings = {
     }}  onClick={()=> slider.current.slickPrev() }>
             <ChevronLeft className="w-4 h-4" />
           </Button>
-          
+
    <Button variant="outline" size="icon"  sx={{
       minWidth: '32px',
       width: '32px',
@@ -451,37 +446,31 @@ const smallDeviceSliderSettings = {
         </div>
   </CustomStackFullWidth> */}
 
-    {
-      getTitleButton({title:"Shop by Category",onCLickNext:()=>slider.current.slickNext() ,onClickPrev:()=>slider.current.slickPrev() })
-    }
-
-
-      <CustomStackFullWidth sx={{ minHeight: '100px' } }>
-        <Slider
-         {...shopCategorySliderSettings} ref={slider}
-        >
-            {featuredCategories?.map((item, index) => {
-              return (
-                
-                <ShopCategoryCard
-                  key={index}
-                  imageUrl={item?.image_full_url}
-                  item={item}
-                />
-              );
+            {getTitleButton({
+              title: "Shop by Category",
+              onCLickNext: () => slider.current.slickNext(),
+              onClickPrev: () => slider.current.slickPrev(),
             })}
-      </Slider> 
-      </CustomStackFullWidth>
-  </CustomStackFullWidth>
- );
 
+            <CustomStackFullWidth sx={{ minHeight: "100px" }}>
+              <Slider {...shopCategorySliderSettings} ref={slider}>
+                {featuredCategories?.map((item, index) => {
+                  return (
+                    <ShopCategoryCard
+                      key={index}
+                      imageUrl={item?.image_full_url}
+                      item={item}
+                    />
+                  );
+                })}
+              </Slider>
+            </CustomStackFullWidth>
+          </CustomStackFullWidth>
+        );
     }
   };
   const moduleWiseCardShimmer = () => {
     switch (getCurrentModuleType()) {
-
-
-
       case ModuleTypes.ECOMMERCE:
         return (
           <Box
@@ -510,10 +499,8 @@ const smallDeviceSliderSettings = {
             </Slider>
           </Box>
         );
-
     }
   };
-
 
   return (
     <CustomBoxFullWidth sx={{ mt: "20px" }}>
