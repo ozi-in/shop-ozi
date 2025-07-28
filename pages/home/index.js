@@ -15,7 +15,7 @@ import LocationInitializer from "../../src/components/route-guard/LocationInitia
 const DEFAULT_LAT = 28.6139;
 const DEFAULT_LNG = 77.2090;
 const DEFAULT_ZONEID = "[2]";
-const DEFAULT_ADDRESS = "imperia mindspace, Golf Course Ext Rd, Sector 62, Gurugram, Haryana 122001";
+const DEFAULT_ADDRESS = "Imperia Mindspace, Golf Course Ext Rd, Sector 62, Gurugram, Haryana 122001";
 
 const Home = () => {
 	const dispatch = useDispatch();
