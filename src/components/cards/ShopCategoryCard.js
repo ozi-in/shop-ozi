@@ -110,7 +110,8 @@ const ShopCategoryCard = (props) => {
           pathname: "/home",
           query: {
             search: "category",
-            id: `${item?.slug ? item?.slug : item?.id}`,
+            /* id: `${item?.slug ? item?.slug : item?.id}`,*/
+            id: `${item?.id}`,
             module_id: `${getModuleId()}`,
             name: encodeBase64(item?.name),
             data_type: "category",
@@ -223,7 +224,8 @@ const ShopCategoryCard = (props) => {
           pathname: "/home",
           query: {
             search: "category",
-            id: `${item?.slug ? item?.slug : item?.id}`,
+            /* id: `${item?.slug ? item?.slug : item?.id}`,*/
+            id: `${item?.id}`,
             module_id: `${getModuleId()}`,
             name: btoa(item?.name),
             data_type: "category",

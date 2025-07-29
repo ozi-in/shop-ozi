@@ -2423,7 +2423,7 @@ const ProductCard = (props) => {
                 </Box>
               </Box>
             </CustomCardMedia>
-// Optional wrapping with Box minimum height
+            {/* Optional wrapping with Box minimum height 150px */}
             <CustomStackFullWidth justifyContent="center">
               {cardFor === "popular items" && popularCardUi()}
               {cardFor === "vertical" && verticalCardUi()}

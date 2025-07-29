@@ -56,7 +56,7 @@ function MyApp(props) {
       localStorage.setItem("appVersion", currentVersion); // Update stored version
     }
   }, [currentVersion]);
-  useScrollRestoration();
+  // useScrollRestoration();
   return (
     <>
       <CacheProvider value={emotionCache}>

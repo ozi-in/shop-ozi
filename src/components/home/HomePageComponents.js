@@ -8,9 +8,9 @@ import useReviewReminderCancel from "api-manage/hooks/react-query/review/useRevi
 import { useWishListGet } from "api-manage/hooks/react-query/wish-list/useWishListGet";
 
 import {
-	setFilterData,
-	setStoreSelectedItems,
-	setStoreSelectedItems2,
+  setFilterData,
+  setStoreSelectedItems,
+  setStoreSelectedItems2,
 } from "redux/slices/categoryIds";
 import { setWishList } from "redux/slices/wishList";
 
@@ -27,103 +27,100 @@ import LastOrderReview from "./LastOrderReview";
 import Shop from "./module-wise-components/ecommerce";
 import SearchResult from "./search";
 
-
 export const HomeComponentsWrapper = styled(Box)(({ theme }) => ({
-	width: "100%",
-	gap: "8px",
+  width: "100%",
+  gap: "8px",
 }));
 
 const HomePageComponents = ({ configData, landingPageData }) => {
-	const [wishListsData, setWishListsData] = useState();
-	const [orderId, setOrderId] = useState(null);
-	const [open, setOpen] = useState(false);
-	const [currentTab, setCurrentTab] = useState(0);
-	const { profileInfo } = useSelector((state) => state.profileInfo);
-	const router = useRouter();
-	const dispatch = useDispatch();
-	const token = getToken();
-	const { welcomeModal } = useSelector((state) => state.utilsData);
-	const moduleType = getCurrentModuleType();
+  const [wishListsData, setWishListsData] = useState();
+  const [orderId, setOrderId] = useState(null);
+  const [open, setOpen] = useState(false);
+  const [currentTab, setCurrentTab] = useState(0);
+  const { profileInfo } = useSelector((state) => state.profileInfo);
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const token = getToken();
+  const { welcomeModal } = useSelector((state) => state.utilsData);
+  const moduleType = getCurrentModuleType();
 
+  const zoneid =
+    typeof window !== "undefined" ? localStorage.getItem("zoneid") : undefined;
 
-	const zoneid =
-		typeof window !== "undefined"
-			? localStorage.getItem("zoneid")
-			: undefined;
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [router.query.search]);
+  // for scroll to top when search query changes
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [router.query.search]);
+  const onSuccessHandler = (response) => {
+    setWishListsData(response);
+    dispatch(setWishList(response));
+  };
+  const { refetch } = useWishListGet(onSuccessHandler);
 
+  useEffect(() => {
+    if (token) {
+      refetch();
+    }
+  }, [token]);
 
-	useEffect(() => {
-		window.scrollTo(0, 0);
-	}, [router.query.search]);
+  const { refetch: lastReviewRefetch, data } = useGetLastOrderWithoutReview(
+    (res) => {
+      if (res?.order_id) {
+        setOrderId(res.order_id);
+        setOpen(true);
+      }
+    }
+  );
 
-	const onSuccessHandler = (response) => {
-		setWishListsData(response);
-		dispatch(setWishList(response));
-	};
-	const { refetch } = useWishListGet(onSuccessHandler);
+  useEffect(() => {
+    if (token) lastReviewRefetch();
+  }, [token]);
 
-	useEffect(() => {
-		if (token) {
-			refetch();
-		}
-	}, [token]);
+  const { refetch: cancelReviewRefetch } = useReviewReminderCancel(
+    () => setOpen(false),
+    orderId
+  );
 
-	const { refetch: lastReviewRefetch, data } = useGetLastOrderWithoutReview(
-		(res) => {
-			if (res?.order_id) {
-				setOrderId(res.order_id);
-				setOpen(true);
-			}
-		}
-	);
+  useEffect(() => {
+    if (!router.query.data_type) {
+      dispatch(setStoreSelectedItems([]));
+      dispatch(setStoreSelectedItems2([]));
+      dispatch(setFilterData([]));
+    }
+  }, [router.query.data_type]);
 
-	useEffect(() => {
-		if (token) lastReviewRefetch();
-	}, [token]);
+  const getModuleWiseComponents = () => {
+    switch (getCurrentModuleType()) {
+      case ModuleTypes.ECOMMERCE:
+        return <Shop configData={configData} />;
 
-	const { refetch: cancelReviewRefetch } = useReviewReminderCancel(
-		() => setOpen(false),
-		orderId
-	);
+      default:
+        return null;
+    }
+  };
 
-	useEffect(() => {
-		if (!router.query.data_type) {
-			dispatch(setStoreSelectedItems([]));
-			dispatch(setStoreSelectedItems2([]));
-			dispatch(setFilterData([]));
-		}
-	}, [router.query.data_type]);
+  const handleClose = () => {
+    if (orderId) {
+      cancelReviewRefetch();
+    }
+  };
 
-	const getModuleWiseComponents = () => {
-		switch (getCurrentModuleType()) {
+  const handleRateButtonClick = () => {
+    router.push(`/rate-and-review/${orderId}`, undefined, {
+      shallow: true,
+    });
+  };
+  const handleCloseWelcomeModal = () => {
+    dispatch(setWelcomeModal(false));
+  };
 
-			case ModuleTypes.ECOMMERCE:
-				return <Shop configData={configData} />;
-
-			default:
-				return null;
-		}
-	};
-
-	const handleClose = () => {
-		if (orderId) {
-			cancelReviewRefetch();
-		}
-	};
-
-	const handleRateButtonClick = () => {
-		router.push(`/rate-and-review/${orderId}`, undefined, {
-			shallow: true,
-		});
-	};
-	const handleCloseWelcomeModal = () => {
-		dispatch(setWelcomeModal(false));
-	};
-
-	return (
-		<PushNotificationLayout>
-			<CustomStackFullWidth>
-				{/* <CustomStackFullWidth sx={{ position: "relative" }}>
+  return (
+    <PushNotificationLayout>
+      <CustomStackFullWidth>
+        {/* <CustomStackFullWidth sx={{ position: "relative" }}>
 					<TopBanner />
 					<CustomStackFullWidth
 						alignItems="center"
@@ -149,75 +146,75 @@ const HomePageComponents = ({ configData, landingPageData }) => {
 						/>
 					</CustomStackFullWidth>
 				</CustomStackFullWidth> */}
-				{router.query.data_type ? (
-					<SearchResult
-						key={router.query.id}
-						searchValue={router.query.search}
-						name={router.query.name}
-						isSearch={router.query.fromSearch}
-						routeTo={router.query.from}
-						configData={configData}
-						currentTab={currentTab}
-						setCurrentTab={setCurrentTab}
-					/>
-				) : (
-					<Box width="100%">{getModuleWiseComponents()}</Box>
-				)}
-			</CustomStackFullWidth>
-			{open && (
-				<CustomModal openModal={open} handleClose={handleClose}>
-					<LastOrderReview
-						handleClose={handleClose}
-						handleRateButtonClick={handleRateButtonClick}
-						productImage={data?.images}
-					/>
-				</CustomModal>
-			)}
-			<CustomModal
-				handleClose={handleCloseWelcomeModal}
-				openModal={welcomeModal}
-				closeButton
-			>
-				<Box
-					sx={{
-						maxWidth: "382px",
-						width: "95vw",
-						px: 1.3,
-						pb: 4,
-						textAlign: "center",
-						img: {
-							height: "unset",
-						},
-					}}
-				>
-					<img
-						src={"/static/sign-up-welcome.svg"}
-						alt="welcome"
-						width={183}
-						height={183}
-					/>
-					<Box maxWidth={"308px"} mx={"auto"} mt={2}>
-						<Typography variant="h6" color="primary" mb={2}>
-							{t("Welcome to Ozi!")}
-						</Typography>
-						<Typography variant="body2" lineHeight={"1.5"}>
-							{profileInfo?.is_valid_for_discount
-								? t(
-										`Get ready for a special welcome gift, enjoy a special discount on your first order within`
-								  ) +
-								  " " +
-								  profileInfo?.validity +
-								  "."
-								: " "}
-							{"  "}
-							{t(`Start exploring the best services around you.`)}
-						</Typography>
-					</Box>
-				</Box>
-			</CustomModal>
-			{token && getCurrentModuleType() !== "parcel" && <CashBackPopup />}
-		</PushNotificationLayout>
-	);
+        {router.query.data_type ? (
+          <SearchResult
+            key={router.query.id}
+            searchValue={router.query.search}
+            name={router.query.name}
+            isSearch={router.query.fromSearch}
+            routeTo={router.query.from}
+            configData={configData}
+            currentTab={currentTab}
+            setCurrentTab={setCurrentTab}
+          />
+        ) : (
+          <Box width="100%">{getModuleWiseComponents()}</Box>
+        )}
+      </CustomStackFullWidth>
+      {open && (
+        <CustomModal openModal={open} handleClose={handleClose}>
+          <LastOrderReview
+            handleClose={handleClose}
+            handleRateButtonClick={handleRateButtonClick}
+            productImage={data?.images}
+          />
+        </CustomModal>
+      )}
+      <CustomModal
+        handleClose={handleCloseWelcomeModal}
+        openModal={welcomeModal}
+        closeButton
+      >
+        <Box
+          sx={{
+            maxWidth: "382px",
+            width: "95vw",
+            px: 1.3,
+            pb: 4,
+            textAlign: "center",
+            img: {
+              height: "unset",
+            },
+          }}
+        >
+          <img
+            src={"/static/sign-up-welcome.svg"}
+            alt="welcome"
+            width={183}
+            height={183}
+          />
+          <Box maxWidth={"308px"} mx={"auto"} mt={2}>
+            <Typography variant="h6" color="primary" mb={2}>
+              {t("Welcome to Ozi!")}
+            </Typography>
+            <Typography variant="body2" lineHeight={"1.5"}>
+              {profileInfo?.is_valid_for_discount
+                ? t(
+                    `Get ready for a special welcome gift, enjoy a special discount on your first order within`
+                  ) +
+                  " " +
+                  profileInfo?.validity +
+                  "."
+                : " "}
+              {"  "}
+              {t(`Start exploring the best services around you.`)}
+            </Typography>
+          </Box>
+        </Box>
+      </CustomModal>
+      {token && getCurrentModuleType() !== "parcel" && <CashBackPopup />}
+    </PushNotificationLayout>
+  );
 };
 
 export default React.memo(HomePageComponents);

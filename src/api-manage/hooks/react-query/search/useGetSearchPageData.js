@@ -65,7 +65,7 @@ export default function useGetSearchPageData(pageParams, handleSuccess) {
       },
       getPreviousPageParam: (firstPage, allPages) => firstPage.prevCursor,
       retry: 1,
-      enabled: false,
+      enabled: true,
       onError: onSingleErrorResponse,
       cacheTime: 300000,
       onSuccess: handleSuccess,
