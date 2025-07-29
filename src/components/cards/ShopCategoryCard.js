@@ -28,31 +28,56 @@ const encodeBase64 = (str) => {
   }
 };
 
+// const Wrapper = styled(Box)(({ theme }) => ({
+//   // backgroundColor: theme.palette.background.paper,
+//   padding: "5px",
+//   // border: "1px solid #EAEEF2",
+//   // borderRadius: "10px",
+//   cursor: "pointer",
+
+//   width: "160px",
+//   height: "250px",
+//   transition: "all ease 0.5s",
+//   ".MuiTypography-h7": {
+//     transition: "all ease 0.5s",
+//   },
+//   "&:hover": {
+//     // boxShadow: "0px 10px 20px rgba(88, 110, 125, 0.1)",
+//     // ".MuiTypography-h7": {
+//     //   color: theme.palette.primary.main,
+//     //   letterSpacing: "0.02em",
+//     // },
+//     img: {
+//       transform: "scale(1.1)",
+//     },
+//   },
+// }));
 const Wrapper = styled(Box)(({ theme }) => ({
-  // backgroundColor: theme.palette.background.paper,
+  backgroundColor: "#F9FAFB",
   padding: "5px",
-  // border: "1px solid #EAEEF2",
-  // borderRadius: "10px",
+  border: "2px solid transparent", // Added default transparent border
+  borderRadius: "10px",
   cursor: "pointer",
 
   width: "160px",
   height: "250px",
-  transition: "all ease 0.5s",
+  transition: "all 0.3s ease",
+  position: "relative",
+  overflow: "hidden",
   ".MuiTypography-h7": {
     transition: "all ease 0.5s",
   },
   "&:hover": {
-    // boxShadow: "0px 10px 20px rgba(88, 110, 125, 0.1)",
-    // ".MuiTypography-h7": {
-    //   color: theme.palette.primary.main,
-    //   letterSpacing: "0.02em",
-    // },
-    img: {
-      transform: "scale(1.1)",
+    border: "1px solid  #E5E7EB", // Add border on hover
+    //boxShadow: "0 4px 20px rgba(0, 0, 0, 0.1)",         // Add shadow
+    transform: "translateY(-5px)", // Pop-up effect
+
+    ".MuiTypography-h7": {
+      color: theme.palette.primary.main,
+      letterSpacing: "0.02em",
     },
   },
 }));
-
 const ImageWrapper = styled(CustomBoxFullWidth)(({ theme }) => ({
   position: "relative",
   borderRadius: "10px",

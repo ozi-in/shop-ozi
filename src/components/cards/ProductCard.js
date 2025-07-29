@@ -1,4 +1,3 @@
-
 import DeleteIcon from "@mui/icons-material/Delete";
 import {
   alpha,
@@ -667,7 +666,9 @@ const ProductCard = (props) => {
               {item?.generic_name[0]}
             </Typography>
           ) : (
-            <Body2 text={item?.store_name} component="h4" />
+            // <Body2 text={item?.store_name} component="h4" />
+
+            <></>
           )}
         </CustomBoxFullWidth>
         {item?.unit_type ? (
