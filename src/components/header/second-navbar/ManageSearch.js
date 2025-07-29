@@ -153,7 +153,7 @@ const ManageSearch = ({
   useEffect(() => {
     const interval = setInterval(() => {
       setDynamicLabelIndex((prev) => (prev + 1) % examples.length);
-    }, 12000);
+    }, 5000);
     return () => clearInterval(interval);
   }, []);
 

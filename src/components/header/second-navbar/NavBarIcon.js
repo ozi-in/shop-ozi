@@ -7,42 +7,46 @@ const NavBarIcon = ({ icon, label, user, handleClick, badgeCount }) => {
   const { t } = useTranslation();
 
   return (
-    <>
-      <Stack
-        direction="row"
-        spacing={1}
-        justifyContent="center"
-        alignItems="center"
-      >
-        <IconButton
-          sx={{
-            gap: "15px",
-          }}
-          onClick={() => handleClick()}
-        >
-          <Tooltip
-            title={t(label)}
-            arrow
-            placement="top"
-            componentsProps={{
-              tooltip: {
-                sx: {
-                  bgcolor: (theme) => theme.palette.toolTipColor,
-                  "& .MuiTooltip-arrow": {
-                    color: (theme) => theme.palette.toolTipColor,
-                  },
-                },
+    <IconButton
+      sx={{
+        padding: "8px",
+        borderRadius: "50%",
+        "&:hover": {
+          backgroundColor: "rgba(255, 122, 89, 0.1)",
+        }
+      }}
+      onClick={() => handleClick()}
+    >
+      <Tooltip
+        title={t(label)}
+        arrow
+        placement="top"
+        componentsProps={{
+          tooltip: {
+            sx: {
+              bgcolor: (theme) => theme.palette.toolTipColor,
+              "& .MuiTooltip-arrow": {
+                color: (theme) => theme.palette.toolTipColor,
               },
-            }}
-          >
-            <Badge color="primary" badgeContent={badgeCount} showZero>
-              {icon}
-            </Badge>
-          </Tooltip>
-          {/*<Typography color={theme.palette.neutral[1000]}>{label}</Typography>*/}
-        </IconButton>
-      </Stack>
-    </>
+            },
+          },
+        }}
+      >
+        <Badge 
+          color="primary" 
+          badgeContent={badgeCount} 
+          showZero
+          sx={{
+            "& .MuiBadge-badge": {
+              backgroundColor: "#FF7A59",
+              color: "white",
+            }
+          }}
+        >
+          {icon}
+        </Badge>
+      </Tooltip>
+    </IconButton>
   );
 };
 

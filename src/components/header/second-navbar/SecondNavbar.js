@@ -73,7 +73,7 @@ const Cart = ({ isLoading }) => {
       <NavBarIcon
         icon={
           <ShoppingCartOutlinedIcon
-            sx={{ color: "#ff6159", fontSize: "22px" }}
+            sx={{ color: "#ff6159", fontSize: "24px" }}
           />
         }
         label={t("Cart")}
@@ -106,7 +106,7 @@ const WishListSideBar = ({ totalWishList }) => {
     <>
       <NavBarIcon
         icon={
-          <FavoriteBorderIcon sx={{ color: "#FF6159", fontSize: "22px" }} />
+          <FavoriteBorderIcon sx={{ color: "#FF6159", fontSize: "24px" }} />
         }
         label={t("WishList")}
         user="false"
@@ -482,77 +482,71 @@ const SecondNavBar = ({ configData }) => {
           <Stack
             direction="row"
             alignItems="center"
-            spacing={2}
-            sx={{ justifySelf: "end" }}
+            sx={{ 
+              justifySelf: "end",
+              gap: "12px", // Consistent spacing between icons
+              flexWrap: "nowrap" // Prevent wrapping to new lines
+            }}
           >
             {/* Wishlist */}
-            {/* <NavBarIcon icon={<FavoriteBorderIcon sx={{ fontSize: "22px" }} />} label={t("WishList")} user="false" handleClick={() => router.push("/profile?page=wishlist")} /> */}
             {token && zoneId && moduleType !== "parcel" && (
               <WishListSideBar totalWishList={totalWishList} />
             )}
             {/* Cart */}
             <Cart isLoading={false} />
-            {/* User/Profile logic (restored from previous version) */}
+            {/* User/Profile */}
             {token ? (
               <IconButton
                 ref={anchorRef}
                 onClick={() => handleOpenPopover()}
                 sx={{
-                  padding: "5px",
-                  gap: "10px",
+                  padding: "8px",
+                  borderRadius: "50%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  "&:hover": {
+                    backgroundColor: "rgba(255, 122, 89, 0.1)",
+                  }
                 }}
               >
                 {profileInfo?.image ? (
                   <Avatar
                     alt={profileInfo?.last_name}
-                    sx={{ width: 34, height: 34 }}
+                    sx={{ 
+                      width: 24, 
+                      height: 24,
+                      border: "2px solid #FF7A59"
+                    }}
                     src={profileInfo?.image_full_url}
                   />
                 ) : (
                   <AccountCircleIcon
-                    color="primary"
                     sx={{
-                      fontSize: "30px",
-                      borderRadius: "50%",
-                      backgroundColor: (theme) =>
-                        alpha(theme.palette.primary.main, 0.1),
+                      fontSize: "24px",
+                      color: "#FF7A59",
                     }}
                   />
                 )}
-                <Typography
-                  color={theme.palette.neutral[1000]}
-                  textTransform="capitalize"
-                >
-                  {profileInfo?.f_name}
-                </Typography>
               </IconButton>
             ) : (
-              <Stack justifyContent="flex-end" alignItems="end">
-                <button
-                  onClick={() => setOpenSignIn(true)}
-                  style={{
-                    background: "#FF7A59",
-                    color: "#fff",
-                    borderRadius: 24,
-                    padding: "8px 24px",
-                    fontWeight: 600,
-                    fontSize: 16,
-                    cursor: "pointer",
-                    transition: "background 0.2s",
-                    marginLeft: 8,
-                    border: "none",
-                    // display:'none'
-                  }}
-                  onMouseOver={(e) => {
-                    e.currentTarget.style.background = "#FF8A65";
-                  }}
-                  onMouseOut={(e) => {
-                    e.currentTarget.style.background = "#FF7A59";
-                  }}
-                >
-                  Login
-                </button>
-              </Stack>
+              <IconButton
+                onClick={() => setOpenSignIn(true)}
+                sx={{
+                  padding: "8px",
+                  borderRadius: "50%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  background: "#FF7A59",
+                  color: "#fff",
+                  "&:hover": {
+                    backgroundColor: "#FF8A65",
+                  }
+                }}
+              >
+                <AccountCircleIcon sx={{ fontSize: "26px" }} />
+              </IconButton>
             )}
           </Stack>
         </Box>

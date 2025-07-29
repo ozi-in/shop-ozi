@@ -13,8 +13,11 @@ import { ModuleTypes } from "../../helper-functions/moduleTypes";
 
 const CustomPaper = styled(Paper)(({ theme, display, padding }) => ({
   position: "absolute",
-  top: getCurrentModuleType() === ModuleTypes.FOOD ? 77 : 32,
+  top: getCurrentModuleType() === ModuleTypes.FOOD ? 77 : 45, // Increased from 32 to 45 to prevent overlap
+  left: "50%",
+  transform: "translateX(-50%)", // Center horizontally
   width: "100%",
+  maxWidth: "600px", // Match search box width
   padding: "1.5rem 1.5rem 2rem 1.5rem",
   zIndex: 999,
   display: display ? display : "inherit",
