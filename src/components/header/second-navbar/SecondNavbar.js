@@ -328,8 +328,8 @@ const SecondNavBar = ({ configData }) => {
     }
 
     // Listen for storage events
-    window.addEventListener('storage', handleStorageChange);
-    
+    window.addEventListener("storage", handleStorageChange);
+
     // Check for changes periodically
     const interval = setInterval(() => {
       const newLocation = localStorage.getItem("location");
@@ -339,7 +339,7 @@ const SecondNavBar = ({ configData }) => {
     }, 500);
 
     return () => {
-      window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener("storage", handleStorageChange);
       clearInterval(interval);
     };
   }, [currentLocation]);
@@ -422,7 +422,7 @@ const SecondNavBar = ({ configData }) => {
     };
 
     return (
-      <Box sx={{ width: "100%", bgcolor: "#fff", boxShadow: 1, px: 1, py: 1 }}>
+      <Box sx={{ width: "100%", bgcolor: "#fff", px: 1, py: 1 }}>
         {/* Grid layout for perfect alignment */}
         <Box
           sx={{
@@ -471,6 +471,7 @@ const SecondNavBar = ({ configData }) => {
                   <RoomIcon
                     sx={{
                       fontSize: { xs: "16px", sm: "20px" },
+                      color: "#1E2939",
                     }}
                     color="primary"
                   />
@@ -517,10 +518,10 @@ const SecondNavBar = ({ configData }) => {
           <Stack
             direction="row"
             alignItems="center"
-            sx={{ 
+            sx={{
               justifySelf: "end",
               gap: "12px", // Consistent spacing between icons
-              flexWrap: "nowrap" // Prevent wrapping to new lines
+              flexWrap: "nowrap", // Prevent wrapping to new lines
             }}
           >
             {/* Wishlist */}
@@ -542,16 +543,16 @@ const SecondNavBar = ({ configData }) => {
                   justifyContent: "center",
                   "&:hover": {
                     backgroundColor: "rgba(255, 122, 89, 0.1)",
-                  }
+                  },
                 }}
               >
                 {profileInfo?.image ? (
                   <Avatar
                     alt={profileInfo?.last_name}
-                    sx={{ 
-                      width: 24, 
+                    sx={{
+                      width: 24,
                       height: 24,
-                      border: "2px solid #FF7A59"
+                      border: "2px solid #FF7A59",
                     }}
                     src={profileInfo?.image_full_url}
                   />
@@ -565,23 +566,31 @@ const SecondNavBar = ({ configData }) => {
                 )}
               </IconButton>
             ) : (
-              <IconButton
+              <SignInButton
                 onClick={() => setOpenSignIn(true)}
+                variant="contained"
                 sx={{
-                  padding: "8px",
-                  borderRadius: "50%",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  background: "#FF7A59",
+                  minWidth: "auto",
+                  px: 2,
+                  py: 1,
+                  borderRadius: "32px",
+                  backgroundColor: "#FF7A59",
                   color: "#fff",
                   "&:hover": {
                     backgroundColor: "#FF8A65",
-                  }
+                  },
                 }}
               >
-                <AccountCircleIcon sx={{ fontSize: "26px" }} />
-              </IconButton>
+                <CustomStackFullWidth direction="row" alignItems="center" spacing={1}>
+                  <LockOutlinedIcon
+                    fontSize="small"
+                    style={{ color: "#fff" }}
+                  />
+                  <Typography color="#fff" sx={{ fontSize: "14px", fontWeight: 500 }}>
+                    {t("Sign In")}
+                  </Typography>
+                </CustomStackFullWidth>
+              </SignInButton>
             )}
           </Stack>
         </Box>

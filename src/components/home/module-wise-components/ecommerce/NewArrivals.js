@@ -1,4 +1,3 @@
-
 import styled from "@emotion/styled";
 import {
   Grid,
@@ -134,7 +133,7 @@ const NewArrivals = ({ bannerData, title }) => {
                   >
                     <ProductCard
                       item={product}
-                      cardheight="300px"
+                      cardheight="350px"
                       cardFor="popular items"
                       noMargin
                     />
@@ -153,12 +152,22 @@ const TopRightControls = styled(Box)({
   gap: "8px",
 });
 
+// const ArrowButton = styled(IconButton)({
+//   padding: 0,
+//   background: "transparent",
+//   boxShadow: "none",
+//   "&:hover": {
+//     background: "transparent",
+//   },
+// });
 const ArrowButton = styled(IconButton)({
+  minWidth: "32px",
+  width: "32px",
+  height: "32px",
   padding: 0,
-  background: "transparent",
-  boxShadow: "none",
+  borderRadius: "50%",
   "&:hover": {
-    background: "transparent",
+    backgroundColor: "#ff6259", // light hover background
   },
 });
 

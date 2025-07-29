@@ -114,8 +114,7 @@ const CategoryNavigation = () => {
           width: "100vw", // Full viewport width
           bgcolor: "#fff",
           borderTop: "1px solid #e0e0e0", // Thin border line above categories
-          py: 0, // Removed padding top and bottom
-          px: 0,
+          pt: 1,
           marginLeft: "calc(-50vw + 50%)", // Extend to full width
           marginRight: "calc(-50vw + 50%)", // Extend to full width
         }}

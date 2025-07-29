@@ -140,7 +140,7 @@ const WhyParentsChoose = () => {
                 backgroundColor: "#F3F4F6", // light grey
                 borderRadius: "16px",
                 padding: "16px",
-                minHeight: { xs: "300px", sm: "140px" },
+                minHeight: { xs: "300px", sm: "140px", md: "200px" },
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "start",

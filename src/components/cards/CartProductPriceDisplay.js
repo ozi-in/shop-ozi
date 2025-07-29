@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Typography } from "@mui/material";
 import { Stack } from "@mui/system";
@@ -34,14 +33,16 @@ const CartProductPriceDisplay = ({ item }) => {
       >
         {getAmountWithSign(sellingPrice)}
       </Typography>
-      <Typography
-        fontSize={{ xs: "11px", md: "12px" }}
-        color="text.secondary"
-        fontWeight="400"
-        sx={{ textDecoration: "line-through" }}
-      >
-        {getAmountWithSign(mrp)}
-      </Typography>
+      {sellingPrice !== mrp && (
+        <Typography
+          fontSize={{ xs: "11px", md: "12px" }}
+          color="text.secondary"
+          fontWeight="400"
+          sx={{ textDecoration: "line-through" }}
+        >
+          {getAmountWithSign(mrp)}
+        </Typography>
+      )}
       {percent && percent > 0 && (
         <Typography
           fontSize={{ xs: "11px", md: "12px" }}

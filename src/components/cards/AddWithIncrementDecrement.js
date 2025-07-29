@@ -1,4 +1,3 @@
-
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
@@ -211,6 +210,7 @@ const AddWithIncrementDecrement = (props) => {
             alignItems="center"
             justifyContent="center"
             sx={{
+              marginTop: "22.7px",
               backgroundColor: handleBackgroundColor(),
               borderRadius: "10px",
             }}
@@ -265,6 +265,7 @@ const AddWithIncrementDecrement = (props) => {
                   width: { xs: "25px", md: "35px" },
                   borderRadius: "5px",
                   transition: "all ease 0.5s",
+                  marginTop: "23px",
                   border: (theme) =>
                     `1px solid ${alpha(theme.palette.neutral[400], 0.2)}`,
                 }}
@@ -291,7 +292,7 @@ const AddWithIncrementDecrement = (props) => {
                       minHeight: "38px",
                       padding: "1px 0",
                       margin: 0,
-                      mt: "20px",
+                      // mt: "20px",
                       "&:hover": { backgroundColor: "#FF6159" },
                     }}
                   >
