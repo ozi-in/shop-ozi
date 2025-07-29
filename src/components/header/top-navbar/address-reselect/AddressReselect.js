@@ -147,6 +147,7 @@ const AddressReselect = ({ location, setOpenDrawer }) => {
   const [openReselectModal, setOpenReselectModal] = useState(false);
   const [openPopover, setOpenPopover] = useState(false);
   const [address, setAddress] = useState(null);
+  const [currentLocation, setCurrentLocation] = useState(location);
   const { t } = useTranslation();
   let token = undefined;
   if (typeof window !== "undefined") {
@@ -158,14 +159,38 @@ const AddressReselect = ({ location, setOpenDrawer }) => {
     currentLatLngForMar = JSON.parse(localStorage.getItem("currentLatLng"));
   }
 
-  let currentLatLng;
+  // Listen to localStorage changes
   useEffect(() => {
-    let currentLatLng;
-    if (typeof localStorage.getItem("currentLatLng") !== undefined) {
-      currentLatLng = JSON.parse(localStorage.getItem("currentLatLng"));
-      const location = localStorage.getItem("location");
+    const handleStorageChange = () => {
+      const newLocation = localStorage.getItem("location");
+      if (newLocation && newLocation !== currentLocation) {
+        setCurrentLocation(newLocation);
+      }
+    };
+
+    // Listen for storage events (when localStorage changes from other tabs/windows)
+    window.addEventListener('storage', handleStorageChange);
+    
+    // Also check for changes more frequently (for same-tab changes)
+    const interval = setInterval(() => {
+      const newLocation = localStorage.getItem("location");
+      if (newLocation && newLocation !== currentLocation) {
+        setCurrentLocation(newLocation);
+      }
+    }, 500); // Check every 500ms instead of 1000ms
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+      clearInterval(interval);
+    };
+  }, [currentLocation]);
+
+  // Force update when location prop changes
+  useEffect(() => {
+    if (location && location !== currentLocation) {
+      setCurrentLocation(location);
     }
-  }, []);
+  }, [location]);
 
   useEffect(() => {
     if (address) {
@@ -183,6 +208,8 @@ const AddressReselect = ({ location, setOpenDrawer }) => {
             } address selected.`
           )
         );
+        // Update the current location state immediately
+        setCurrentLocation(address?.address);
         handleClosePopover();
       }
     }
@@ -236,9 +263,9 @@ const AddressReselect = ({ location, setOpenDrawer }) => {
                 // width: "210px",
               }}
             >
-              {location.length > 20
-                ? `${location.slice(0, 20)}.....`
-                : location}
+              {currentLocation && currentLocation.length > 20
+                ? `${currentLocation.slice(0, 20)}.....`
+                : currentLocation || location}
             </Typography>
           </CustomStackFullWidth>
         </Grid>

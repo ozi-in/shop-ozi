@@ -47,7 +47,7 @@ const AddressReselectPopover = (props) => {
     if (currentLocation && location) {
       localStorage.setItem("location", currentLocation);
       localStorage.setItem("currentLatLng", JSON.stringify(location));
-      window.location.reload();
+      // Removed window.location.reload() to prevent page refresh and default address reversion
     }
   };
   const { data: geoCodeResults, isLoading: isLoadingGeoCode } = useGetGeoCode(
@@ -167,9 +167,14 @@ const AddressReselectPopover = (props) => {
           </Stack>
         </Stack>
       </Popover>
-      {openMapModal && (
-        <MapModal open={openMapModal} handleClose={handleCloseMapModal}  selectedLocation={currentLatLngForMar}/>
-      )}
+                  {openMapModal && (
+              <MapModal 
+                open={openMapModal} 
+                handleClose={handleCloseMapModal}  
+                selectedLocation={currentLatLngForMar}
+                fromStore={true}
+              />
+            )}
     </>
   );
 };

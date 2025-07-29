@@ -318,7 +318,7 @@ const DeliveryAddress = ({
   const handleLatLng = (values) => {
     if (renderOnNavbar === "true") {
       setAddress({ ...values, lat: values.latitude, lng: values.longitude });
-      window.location.reload();
+      // Removed window.location.reload() to prevent page refresh and default address reversion
     } else {
       setAddress({ ...values, lat: values.latitude, lng: values.longitude });
     }

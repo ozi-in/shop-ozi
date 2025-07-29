@@ -183,6 +183,7 @@ const SecondNavBar = ({ configData }) => {
   let guestId = undefined;
   const currentModuleType = getCurrentModuleType();
   const [openDrawer, setOpenDrawer] = useState(false);
+  const [currentLocation, setCurrentLocation] = useState("");
 
   const [currentTab, setCurrentTab] = useState(0);
   const zoneid =
@@ -308,6 +309,40 @@ const SecondNavBar = ({ configData }) => {
     token = localStorage.getItem("token");
     zoneId = JSON.parse(localStorage.getItem("zoneid"));
   }
+
+  // Listen to localStorage changes for location
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const newLocation = localStorage.getItem("location");
+      if (newLocation && newLocation !== currentLocation) {
+        setCurrentLocation(newLocation);
+      }
+    };
+
+    // Set initial location
+    if (typeof window !== "undefined") {
+      const initialLocation = localStorage.getItem("location");
+      if (initialLocation) {
+        setCurrentLocation(initialLocation);
+      }
+    }
+
+    // Listen for storage events
+    window.addEventListener('storage', handleStorageChange);
+    
+    // Check for changes periodically
+    const interval = setInterval(() => {
+      const newLocation = localStorage.getItem("location");
+      if (newLocation && newLocation !== currentLocation) {
+        setCurrentLocation(newLocation);
+      }
+    }, 500);
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+      clearInterval(interval);
+    };
+  }, [currentLocation]);
 
   const handleOpenPopover = () => {
     setOpenPopover(true);
@@ -447,7 +482,7 @@ const SecondNavBar = ({ configData }) => {
                   </Typography>
                 </Stack>
                 <AddressReselect
-                  location={location}
+                  location={currentLocation || location}
                   setOpenDrawer={setOpenDrawer}
                 />
               </Stack>
