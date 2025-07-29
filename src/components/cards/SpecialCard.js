@@ -1,4 +1,4 @@
-/* eslint-disable @next/next/no-img-element */
+
 import {
   Grid,
   Tooltip,
@@ -27,6 +27,8 @@ import AddWithIncrementDecrement from "./AddWithIncrementDecrement";
 import { CustomOverLay } from "./Card.style";
 import QuickView, { PrimaryToolTip } from "./QuickView";
 import NextImage from "components/NextImage";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import BadgeWithWishlist from "./BadgeWithWishlist";
 
 const VegNonVegFlag = styled(Box)(({ theme, veg, rounded }) => ({
   height: "14px",
@@ -163,27 +165,35 @@ const SpecialCard = (props) => {
       onMouseLeave={() => setIsHover(false)}
       onClick={handleClick}
     >
+      {/* Badge and heart above image, not overlapping */}
+      <Box
+        sx={{
+          width: "100%",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          mb: 1,
+        }}
+      >
+        <BadgeWithWishlist
+          discount={item?.discount}
+          discountType={item?.discount_type}
+          isWishlisted={item?.isWishlisted}
+          onWishlistClick={() => {}}
+          currencySymbol={configData?.configData?.currency_symbol || "₹"}
+        />
+      </Box>
       <CustomStackFullWidth
         sx={{
           position: "relative",
           height: { xs: "140px", md: "180px" },
         }}
       >
-        {!noRecommended && (
-          <RecommendTag status={item?.recommended} top="70px" />
-        )}
-        {<OrganicTag status={item?.organic} top="40px" />}
-        {handleBadge()}
         <Box
           borderRadius="8px"
           overflow="hidden"
           height="100%"
-          sx={{
-            img: {
-              width: "100%",
-              height: "100%",
-            },
-          }}
+          sx={{ img: { width: "100%", height: "100%" } }}
         >
           <NextImage
             src={item?.image_full_url}
@@ -198,7 +208,6 @@ const SpecialCard = (props) => {
         ) : (
           ""
         )}
-
         <CustomOverLay hover={isHover}>
           <QuickView
             quickViewHandleClick={quickViewHandleClick}
@@ -234,9 +243,10 @@ const SpecialCard = (props) => {
           </Box>
         </CustomOverLay>
       </CustomStackFullWidth>
+      {/* All details below image */}
       <CustomStackFullWidth mt="15px" sx={{ padding: "5px" }} spacing={0.5}>
         {getModuleWiseItemName()}
-        {/* <Body2 text={item?.store_name} component="h4" /> */}
+        <Body2 text={item?.store_name} component="h4" />
       </CustomStackFullWidth>
       <CustomBoxFullWidth sx={{ padding: "0px 5px 5px 5px" }}>
         <Grid container>

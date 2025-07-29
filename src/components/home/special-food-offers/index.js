@@ -1,8 +1,17 @@
-import { alpha, Button, Skeleton } from "@mui/material";
-import Link from "next/link";
-import { useEffect, useState } from "react";
+//
+
+import styled from "@emotion/styled";
+import {
+  Grid,
+  Skeleton,
+  useMediaQuery,
+  useTheme,
+  IconButton,
+  Box,
+  Button,
+} from "@mui/material";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import Slider from "react-slick";
 import useGetDiscountedItems from "../../../api-manage/hooks/react-query/product-details/useGetDiscountedItems";
 import { getLanguage } from "helper-functions/getLanguage";
 import { getModuleId } from "helper-functions/getModuleId";
@@ -11,12 +20,13 @@ import {
   CustomStackFullWidth,
 } from "styled-components/CustomStyles.style";
 import ProductCard from "../../cards/ProductCard";
-import { RTL } from "../../rtl";
-import SpecialOfferCardShimmer from "../../Shimmer/SpecialOfferCardSimmer";
 import H2 from "../../typographies/H2";
-import { NextFood, PrevFood } from "../best-reviewed-items/SliderSettings";
 import { HomeComponentsWrapper } from "../HomePageComponents";
-import {useRouter} from "next/router";
+import { useRouter } from "next/router";
+import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import TabMenu from "../best-reviewed-items/TabMenu";
+import SpecialOfferCardShimmer from "../../Shimmer/SpecialOfferCardSimmer";
 
 const SpecialFoodOffers = ({ title }) => {
   const { t } = useTranslation();
@@ -24,194 +34,194 @@ const SpecialFoodOffers = ({ title }) => {
     offset: 1,
     limit: 15,
   };
-
-  const { data, refetch, isLoading, isFetching } =
-    useGetDiscountedItems(params);
+  const { data, refetch, isLoading } = useGetDiscountedItems(params);
+  const [menu, setMenu] = useState(["All"]);
+  const [filteredData, setFilteredData] = useState([]);
+  const [selectedMenuIndex, setSelectedMenuIndex] = useState(0);
+  const theme = useTheme();
+  const isMedium = useMediaQuery(theme.breakpoints.only("sm"));
+  const scrollRef = useRef();
   const [isHover, setIsHover] = useState(false);
-  const lanDirection = getLanguage() ? getLanguage() : "ltr";
-  const router =useRouter()
+  const router = useRouter();
 
   useEffect(() => {
     refetch();
   }, []);
 
-  const settings = {
-    dots: false,
-    infinite: data?.products?.length > 5,
-    slidesToShow: isLoading ? 1 : 5,
-    cssEase: "ease-in-out",
-    autoplay: true,
-    speed: 800,
-    autoplaySpeed: 4000,
-    variableHeight: true,
-    prevArrow: isHover && <PrevFood displayNoneOnMobile />,
-    nextArrow: isHover && <NextFood displayNoneOnMobile />,
-    responsive: [
-      {
-        breakpoint: 1200,
-        settings: {
-          slidesToShow: 4,
-          slidesToScroll: 1,
-          infinite: data?.products?.length > 4,
-        },
-      },
-      {
-        breakpoint: 992,
-        settings: {
-          slidesToShow: 3.5,
-          infinite: data?.products?.length > 3,
-        },
-      },
-      {
-        breakpoint: 821,
-        settings: {
-          slidesToShow: 3.2,
-          infinite: data?.products?.length > 3,
-        },
-      },
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 3,
-          infinite: data?.products?.length > 3,
-        },
-      },
-      {
-        breakpoint: 576,
-        settings: {
-          slidesToShow: 2,
-          infinite: data?.products?.length > 2,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1.8,
-          infinite: data?.products?.length > 1,
-        },
-      },
-      {
-        breakpoint: 360,
-        settings: {
-          slidesToShow: 1.5,
-          infinite: data?.products?.length > 1,
-        },
-      },
-    ],
+  useEffect(() => {
+    if (data?.categories && data?.products) {
+      setMenu(["All", ...data.categories.map((c) => c.name)]);
+      setFilteredData(data.products);
+    } else if (data?.products) {
+      setFilteredData(data.products);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (!data?.categories || !data?.products) return;
+    if (selectedMenuIndex === 0) {
+      setFilteredData(data.products);
+    } else {
+      const catId = data.categories[selectedMenuIndex - 1]?.id;
+      const filtered = data.products.filter((p) => p.category_id === catId);
+      setFilteredData(filtered);
+    }
+  }, [selectedMenuIndex, data]);
+
+  const itemArrayManage = (arr) =>
+    isMedium ? arr.slice(0, 6) : arr.slice(0, 8);
+
+  const scroll = (direction) => {
+    if (!scrollRef.current) return;
+    const { scrollLeft, clientWidth } = scrollRef.current;
+    const to =
+      direction === "left"
+        ? scrollLeft - clientWidth
+        : scrollLeft + clientWidth;
+    scrollRef.current.scrollTo({ left: to, behavior: "smooth" });
   };
+
   const navigateToHome = () => {
-    router.push({
-      pathname: '/home',
-      query: {
-        search: "special-offer",
-        module_id: getModuleId(),
-        data_type: "discounted",
-      },
-    }).then(() => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    router
+      .push({
+        pathname: "/home",
+        query: {
+          search: "special-offer",
+          module_id: getModuleId(),
+          data_type: "discounted",
+        },
+      })
+      .then(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
   };
 
   return (
-    <>
-      {data?.products?.length > 0 && (
-        <HomeComponentsWrapper
-          onMouseEnter={() => setIsHover(true)}
-          onMouseLeave={() => setIsHover(false)}
-          sx={{
-            cursor: "pointer",
-            ".slick-slide": {
-              padding: "0 5px",
-            },
-          }}
+    data?.products?.length > 0 && (
+      <HomeComponentsWrapper
+        onMouseEnter={() => setIsHover(true)}
+        onMouseLeave={() => setIsHover(false)}
+        sx={{ cursor: "pointer" }}
+      >
+        <CustomStackFullWidth
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
         >
-          <CustomStackFullWidth
-            alignItems="center"
-            justyfyContent="center"
-            mb="10px"
-            spacing={1}
-            onMouseEnter={() => setIsHover(true)}
-            onMouseLeave={() => setIsHover(false)}
-          >
-            <CustomStackFullWidth
-              alignItems="center"
-              justifyContent="space-between"
-              direction="row"
+          {isLoading ? (
+            <Skeleton variant="text" width="110px" />
+          ) : (
+            <H2 text={title ? title : t("Deal of The Day ")} component="h2" />
+          )}
+          <TopRightControls>
+            <ArrowButton
+              onClick={() => scroll("left")}
+              aria-label="scroll left"
             >
-              {isFetching ? (
-                <Skeleton variant="text" width="110px" />
-              ) : (
-
-                <H2 text={title ? title : t("Deal of The Day")} component="h2" />
-
-              )}
-              {isFetching ? (
-                <Skeleton width="100px" variant="80px" />
-              ) : (
-                // <Link
-                //   href={{
-                //     pathname: "/home",
-                //     query: {
-                //       search: "special-offer",
-                //       module_id: getModuleId(),
-                //       data_type: "discounted",
-                //     },
-                //   }}
-                //   scroll={true}
-                // >
-                  <Button
-                    onClick={navigateToHome}
-                    variant="text"
-                    sx={{
-                      transition: "all ease 0.5s",
-                      textTransform: "capitalize",
-                      "&:hover": {
-                        letterSpacing: "0.03em",
-                      },
-                    }}
-                  >
-                    {t("View all")}
-                  </Button>
-                // </Link>
-              )}
-            </CustomStackFullWidth>
-            <RTL direction={lanDirection}>
-              <CustomBoxFullWidth
-                sx={{
-                  paddingTop: { xs: "0px", sm: "0px" },
-                  padding: { xs: "10px", md: "20px" },
-                  backgroundColor: (theme) =>
-                    alpha(theme.palette.neutral[400], 0.1),
-                }}
-              >
-                <>
-                  {isFetching ? (
-                    <Slider {...settings}>
-                      {[...Array(5)].map((item, index) => {
-                        return <SpecialOfferCardShimmer key={index} />;
-                      })}
-                    </Slider>
-                  ) : (
-                    <Slider {...settings}>
-                      {data?.products?.map((item, index) => {
-                        return (
-                          <ProductCard
-                            key={index}
-                            item={item}
-                            specialCard="true"
-                          />
-                        );
-                      })}
-                    </Slider>
-                  )}
-                </>
-              </CustomBoxFullWidth>
-            </RTL>
-          </CustomStackFullWidth>
-        </HomeComponentsWrapper>
-      )}
-    </>
+              <NavigateBeforeIcon fontSize="medium" />
+            </ArrowButton>
+            <ArrowButton
+              onClick={() => scroll("right")}
+              aria-label="scroll right"
+            >
+              <NavigateNextIcon fontSize="medium" />
+            </ArrowButton>
+          </TopRightControls>
+        </CustomStackFullWidth>
+        <CustomStackFullWidth
+          justifyContent="center"
+          alignItems="center"
+          mt="8px"
+        >
+          <ScrollBox>
+            {isLoading ? (
+              <SpecialOfferCardShimmer count={12} />
+            ) : (
+              menu.length > 0 &&
+              data?.categories?.length > 0 && (
+                <TabMenu
+                  selectedMenuIndex={selectedMenuIndex}
+                  setSelectedMenuIndex={setSelectedMenuIndex}
+                  menus={menu}
+                />
+              )
+            )}
+          </ScrollBox>
+        </CustomStackFullWidth>
+        <Box sx={{ position: "relative", width: "100%", mt: ".5rem" }}>
+          <SlideWrapper>
+            <ScrollableContainer ref={scrollRef}>
+              <Grid container spacing={2} wrap="nowrap">
+                {isLoading
+                  ? Array.from({ length: 8 }).map((_, idx) => (
+                      <Grid
+                        item
+                        key={idx}
+                        sx={{
+                          flex: "0 0 auto",
+                          width: { xs: "48%", sm: "30%", md: "20%" },
+                        }}
+                      >
+                        <SpecialOfferCardShimmer />
+                      </Grid>
+                    ))
+                  : filteredData.length > 0 &&
+                    itemArrayManage(filteredData).map((product) => (
+                      <Grid
+                        item
+                        key={product.id}
+                        sx={{
+                          flex: "0 0 auto",
+                          width: { xs: "48%", sm: "30%", md: "20%" },
+                        }}
+                      >
+                        <ProductCard
+                          item={product}
+                          cardheight="300px"
+                          cardFor="popular items"
+                          noMargin
+                        />
+                      </Grid>
+                    ))}
+              </Grid>
+            </ScrollableContainer>
+          </SlideWrapper>
+        </Box>
+      </HomeComponentsWrapper>
+    )
   );
 };
+
+const TopRightControls = styled(Box)({
+  display: "flex",
+  gap: "8px",
+});
+
+const ArrowButton = styled(IconButton)({
+  padding: 0,
+  background: "transparent",
+  boxShadow: "none",
+  "&:hover": {
+    background: "transparent",
+  },
+});
+
+export const ScrollBox = styled(Box)({
+  ".MuiTypography-root": { whiteSpace: "pre" },
+  position: "relative",
+  zIndex: 3,
+});
+
+const SlideWrapper = styled(Box)({
+  position: "relative",
+  width: "100%",
+});
+
+const ScrollableContainer = styled(Box)(({ theme }) => ({
+  overflowX: "auto",
+  scrollBehavior: "smooth",
+  paddingBottom: theme.spacing(0),
+  "&::-webkit-scrollbar": { display: "none" },
+}));
 
 export default SpecialFoodOffers;

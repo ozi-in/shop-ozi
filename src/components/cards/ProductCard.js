@@ -1,3 +1,4 @@
+
 import DeleteIcon from "@mui/icons-material/Delete";
 import {
   alpha,
@@ -37,6 +38,7 @@ import {
 import CustomBadge from "./CustomBadge";
 
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { onErrorResponse } from "api-manage/api-error-response/ErrorResponses";
 import { useAddToWishlist } from "api-manage/hooks/react-query/wish-list/useAddWishList";
 import { useWishListDelete } from "api-manage/hooks/react-query/wish-list/useWishListDelete";
@@ -75,6 +77,7 @@ import ProductsUnavailable from "./ProductsUnavailable";
 import QuickView, { PrimaryToolTip } from "./QuickView";
 import SpecialCard, { FoodHalalHaram, FoodVegNonVegFlag } from "./SpecialCard";
 import NextImage from "components/NextImage";
+import CartProductPriceDisplay from "./CartProductPriceDisplay";
 
 export const CardWrapper = styled(Card)(
   ({
@@ -114,21 +117,19 @@ export const CardWrapper = styled(Card)(
     border:
       getCurrentModuleType() === ModuleTypes.FOOD &&
       `1px solid ${alpha(theme.palette.moduleTheme.food, 0.1)}`,
+    boxShadow: "none",
 
     "&:hover": {
-      boxShadow:
-        theme.palette.mode !== "dark"
-          ? ` 0px 10px 20px 0px ${alpha(theme.palette.neutral[1000], 0.1)}`
-          : "0px 10px 20px 0px rgba(88, 110, 125, 0.10)",
-      img: {
-        transform: "scale(1.05)",
-      },
+      // Remove image zoom effect
+      // img: {
+      //   transform: "scale(1.05)",
+      // },
     },
 
     "&:hover .MuiTypography-subtitle1, &:hover .name": {},
     [theme.breakpoints.down("sm")]: {
       height:
-        horizontalcard !== "true" ? "320px" : cardheight ? "150px" : "150px",
+        horizontalcard !== "true" ? "320px" : cardheight ? "130px" : "150px",
       width:
         horizontalcard === "true"
           ? cardFor === "list-view"
@@ -169,10 +170,10 @@ const CustomCardMedia = styled(CardMedia)(
     alignItems: "center",
     justifyContent: "center",
     overflow: "hidden",
-    borderRadius: "5px",
+    borderRadius: "20px",
     ".MuiBox-root": {
       overflow: "hidden",
-      borderRadius: "5px",
+      borderRadius: "20px",
     },
     backgroundColor:
       horizontalcard === "true" ? theme.palette.neutral[100] : "none",
@@ -557,20 +558,17 @@ const ProductCard = (props) => {
       <CustomStackFullWidth
         justifyContent="center"
         alignItems="flex-start"
-        sx={{ position: "relative", padding: "13px 16px 16px 13px" }}
+        sx={{
+          position: "relative",
+          padding: "0px 0px 0px 0px",
+          boxShadow: "none",
+        }}
       >
-        {isWishlisted && (
-          <Box
-            sx={{
-              color: "primary.main",
-              position: "absolute",
-              top: 20,
-              right: 10,
-            }}
-          >
-            <FavoriteIcon sx={{ fontSize: "15px" }} />
-          </Box>
-        )}
+        {/* Heart icon always at top right */}
+
+        <Box sx={{ position: "absolute", top: 10, right: 10, zIndex: 10 }}>
+          {/* <FavoriteIcon style={{ color: isWishlisted ? theme.palette.error.main : theme.palette.neutral[400], fontSize: 24 }} /> */}
+        </Box>
         <PrimaryToolTip text={item?.name} placement="bottom" arrow="false">
           <Typography
             variant={horizontalcard === "true" ? "subtitle2" : "h6"}
@@ -598,26 +596,18 @@ const ProductCard = (props) => {
             {item?.name}
           </Typography>
         </PrimaryToolTip>
-        <Stack mt="5px">
-          <Typography fontSize="10px" component="h4">
-            {t("start from")}
-          </Typography>
-          <Typography
-            fontSize={{ xs: "14px", md: "16px" }}
-            fontWeight="600"
-            color={theme.palette.text.primary}
-            component="h4"
-          >
-            {getAmountWithSign(item?.price)}
-          </Typography>
-        </Stack>
+
+        {/* Price row just above Add to Cart */}
+        <Box mt={1} mb={1}>
+          <CartProductPriceDisplay item={item} />
+        </Box>
         <CustomStackFullWidth
           direction="row"
           alignItems="flex-start"
           justifyContent="space-between"
-          spacing={2}
+          spacing={0}
           mb="3px"
-          paddingRight="3px"
+          paddingRight="0px"
         >
           <Typography
             mt="4px"
@@ -1008,6 +998,23 @@ const ProductCard = (props) => {
     dispatch({ type: ACTION.setIsTransformed, payload: value });
   };
 
+  // Helper to get the correct image URL
+  const getProductImageUrl = () => {
+    if (item?.image_full_url && /^https?:\/\//.test(item.image_full_url)) {
+      return item.image_full_url;
+    }
+    if (item?.image && /^https?:\/\//.test(item.image)) {
+      return item.image;
+    }
+    if (item?.image && imageBaseUrl) {
+      // Ensure no double slash
+      return (
+        imageBaseUrl.replace(/\/$/, "") + "/" + item.image.replace(/^\//, "")
+      );
+    }
+    return "/static/no-image-found.png"; // fallback
+  };
+
   return (
     <Stack sx={{ position: "relative" }}>
       {state.openModal && getCurrentModuleType() === "food" && item ? (
@@ -1016,8 +1023,20 @@ const ProductCard = (props) => {
         <></>
       )}
       {wishlistcard === "true" && (
-        <HeartWrapper onClick={() => setOpenModal(true)} top="5px" right="5px">
-          <DeleteIcon style={{ color: theme.palette.error.light }} />
+        <HeartWrapper
+          onClick={() => setOpenModal(true)}
+          top="10px"
+          right="10px"
+          style={{ position: "absolute", zIndex: 10 }}
+        >
+          <FavoriteIcon
+            style={{
+              color: isWishlisted
+                ? theme.palette.error.main
+                : theme.palette.neutral[400],
+              fontSize: 24,
+            }}
+          />
         </HeartWrapper>
       )}
 
@@ -1089,6 +1108,15 @@ const ProductCard = (props) => {
               horizontalcard={horizontalcard}
               loveItem={loveItem}
             >
+              {handleBadge()}
+              <NextImage
+                src={getProductImageUrl()}
+                alt={item?.name || "Product Image"}
+                height={180}
+                width={horizontalcard ? "131" : "195"}
+                objectFit="cover"
+                borderRadius="3px"
+              />
               {item?.module?.module_type === "pharmacy" && (
                 <Stack
                   width="100%"
@@ -1112,15 +1140,6 @@ const ProductCard = (props) => {
                   {item?.store_name}
                 </Stack>
               )}
-              {handleBadge()}
-              <NextImage
-                src={item?.image_full_url}
-                alt={item?.title}
-                height={horizontalcard ? "144" : "212"}
-                width={horizontalcard ? "131" : "195"}
-                objectfit="cover"
-                borderRadius="3px"
-              />
               {item?.module?.module_type === "food" && (
                 <ProductsUnavailable product={item} />
               )}
@@ -1129,42 +1148,48 @@ const ProductCard = (props) => {
               ) : (
                 ""
               )}
-              <CustomOverLay hover={state.isTransformed} border_radius="10px">
-                <QuickView
-                  quickViewHandleClick={quickViewHandleClick}
-                  addToWishlistHandler={addToWishlistHandler}
-                  removeFromWishlistHandler={removeFromWishlistHandler}
-                  isWishlisted={isWishlisted}
-                  isProductExist={isProductExist}
-                  addToCartHandler={addToCart}
-                  showAddtocart={cardFor === "vertical" && !isProductExist}
-                  isLoading={isLoading}
-                  openLocationAlert={openLocationAlert}
-                  setOpenLocationAlert={setOpenLocationAlert}
-                />
-              </CustomOverLay>
-              {cardFor === "vertical" && isProductExist && (
+
+              <Box sx={{ position: "absolute", top: 8, right: 8, zIndex: 10 }}>
                 <Box
                   sx={{
-                    position: "absolute",
-                    right: 10,
-                    bottom: 0,
-                    zIndex: 999,
+                    background: "#fff",
+                    borderRadius: "20px",
+                    width: 30,
+                    height: 30,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    boxShadow: 1,
+                    // border: '2px solid #111',
                   }}
                 >
-                  <AddWithIncrementDecrement
-                    verticalCard
-                    onHover={state.isTransformed}
-                    addToCartHandler={addToCart}
-                    isProductExist={isProductExist}
-                    handleIncrement={handleIncrement}
-                    handleDecrement={handleDecrement}
-                    setIsHover={handleHoverOnCartIcon}
-                    count={count}
-                    updateLoading={updateLoading}
-                  />
+                  {isWishlisted ? (
+                    <FavoriteIcon
+                      style={{
+                        color: "#FF6159",
+                        fontSize: 18,
+                        cursor: "pointer",
+                        borderRadius: "50%",
+                        stroke: "#fff",
+                        strokeWidth: 1,
+                      }}
+                      onClick={removeFromWishlistHandler}
+                    />
+                  ) : (
+                    <FavoriteBorderIcon
+                      style={{
+                        color: "#000",
+                        fontSize: 18,
+                        cursor: "pointer",
+                        borderRadius: "50%",
+                        stroke: "#fff",
+                        strokeWidth: 1,
+                      }}
+                      onClick={addToWishlistHandler}
+                    />
+                  )}
                 </Box>
-              )}
+              </Box>
             </CustomCardMedia>
             <CustomStackFullWidth justifyContent="center">
               {cardFor === "popular items" && popularCardUi()}

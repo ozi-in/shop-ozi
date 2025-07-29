@@ -18,6 +18,11 @@ import { getLanguage } from "../../../helper-functions/getLanguage";
 import { SliderCustom } from "../../../styled-components/CustomStyles.style";
 import CustomImageContainer from "../../CustomImageContainer";
 import { ProductsThumbnailsSettings } from "./ProductsThumbnailsSettings";
+import CustomBadge from "../../cards/CustomBadge";
+import {
+  getAmountWithSign,
+  getDiscountedAmount,
+} from "../../../helper-functions/CardHelpers";
 
 const ChildrenImageWrapper = styled(Box)(({ theme, index, image_index }) => ({
   cursor: "pointer",
@@ -59,6 +64,49 @@ const ProductImageView = ({
     <Stack justifyContent="flex-start" spacing={2} width="100%">
       <NoSsr>
         <Stack sx={{ position: "relative" }}>
+          {/* Discount Badge */}
+          {(() => {
+            const price = productDetailsData?.price;
+            const discount = productDetailsData?.discount;
+            const discountType = productDetailsData?.discount_type;
+            const storeDiscount = productDetailsData?.store_discount;
+            let badgeText = null;
+            if (discountType === "percent" && discount > 0) {
+              badgeText = `${Math.round(discount)}% OFF`;
+            } else if (discountType === "amount" && discount > 0) {
+              badgeText = `${getAmountWithSign(discount)} OFF`;
+            } else if (
+              price &&
+              discount &&
+              price >
+                getDiscountedAmount(
+                  price,
+                  discount,
+                  discountType,
+                  storeDiscount,
+                  1
+                )
+            ) {
+              const percent = Math.round(
+                ((price -
+                  getDiscountedAmount(
+                    price,
+                    discount,
+                    discountType,
+                    storeDiscount,
+                    1
+                  )) /
+                  price) *
+                  100
+              );
+              if (percent > 0) badgeText = `${percent}% OFF`;
+            }
+            return badgeText ? (
+              <Box sx={{ position: "relative", top: 8, left: 8, zIndex: 10 }}>
+                <CustomBadge text={badgeText} />
+              </Box>
+            ) : null;
+          })()}
           <Stack
             position="absolute"
             right="10px"

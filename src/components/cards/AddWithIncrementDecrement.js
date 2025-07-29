@@ -1,3 +1,4 @@
+
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
@@ -186,7 +187,7 @@ const AddWithIncrementDecrement = (props) => {
                 border: (theme) =>
                   onHover
                     ? "none"
-                    : "1px solid ${alpha(theme.palette.neutral[400], 0.2)}",
+                    : `1px solid ${alpha(theme.palette.neutral[400], 0.2)}`,
                 "&:hover": {
                   backgroundColor: verticalCard && "primary.main",
                   color: verticalCard && "whiteContainer.main",
@@ -265,7 +266,7 @@ const AddWithIncrementDecrement = (props) => {
                   borderRadius: "5px",
                   transition: "all ease 0.5s",
                   border: (theme) =>
-                    "1px solid ${alpha(theme.palette.neutral[400], 0.2)}",
+                    `1px solid ${alpha(theme.palette.neutral[400], 0.2)}`,
                 }}
               >
                 <Loading color={theme.palette.primary.main} />
@@ -285,20 +286,16 @@ const AddWithIncrementDecrement = (props) => {
                   <ShopNowButton
                     onClick={(e) => handleCart(e)}
                     sx={{
-                      width: "100vw", // 80% of the screen
-                      maxWidth: { xs: "150px", sm: "200px" }, // optional max width
-                      height: "48px",
+                      width: "100%",
+                      height: "38px",
+                      minHeight: "38px",
+                      padding: "1px 0",
+                      margin: 0,
                       mt: "20px",
-                      mb: { xs: "20px", sm: "unset" },
-
-                      "&:hover": {
-                        backgroundColor: theme.palette.primary.dark,
-                      },
+                      "&:hover": { backgroundColor: "#FF6159" },
                     }}
                   >
-                    <Typography color="whiteContainer.main">
-                      + Add to Cart
-                    </Typography>
+                    <Typography color="white">Add to Cart</Typography>
                   </ShopNowButton>
                 </Box>
               </PrimaryToolTip>
