@@ -28,10 +28,19 @@ export const textWithEllipsis = makeStyles({
     display: "block",
     whiteSpace: "normal", // allows wrapping
   },
+  // singleLineEllipsis: {
+  //   overflow: "visible",
+  //   textOverflow: "unset",
+  //   display: "block",
+  //   whiteSpace: "normal",
+  // },
+
+  //changes made by priyanshu
   singleLineEllipsis: {
-    overflow: "visible",
-    textOverflow: "unset",
-    display: "block",
-    whiteSpace: "normal",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    display: "-webkit-box",
+    WebkitLineClamp: 2,
+    WebkitBoxOrient: "vertical",
   },
 });

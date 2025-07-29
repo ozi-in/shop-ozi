@@ -2,10 +2,10 @@ import { Stack, styled } from "@mui/material";
 
 export const CustomOverLay = styled(Stack)(
   ({ theme, hover, border_radius }) => ({
-    background: "rgba(75, 86, 107, 0.50)",
+    // background: "rgba(75, 86, 107, 0.50)", //Changes made by priyanshu
     borderRadius: border_radius ? border_radius : "5px 5px 0px 0px",
     width: "100%",
-    opacity: hover ? 1 : 0,
+    // opacity: hover ? 1 : 0,  //Changes made by priyanshu
     inset: 0,
     position: "absolute",
     top: 0,

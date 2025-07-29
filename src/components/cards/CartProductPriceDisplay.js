@@ -27,7 +27,7 @@ const CartProductPriceDisplay = ({ item }) => {
   return (
     <Stack direction="row" alignItems="center" spacing={1}>
       <Typography
-        fontSize={{ xs: "13px", md: "16px" }}
+        fontSize={{ xs: "12px", lg: "11px" }}
         color="#000"
         fontWeight="700"
       >
@@ -35,7 +35,7 @@ const CartProductPriceDisplay = ({ item }) => {
       </Typography>
       {sellingPrice !== mrp && (
         <Typography
-          fontSize={{ xs: "11px", md: "12px" }}
+          fontSize={{ xs: "8px", lg: "9px" }}
           color="text.secondary"
           fontWeight="400"
           sx={{ textDecoration: "line-through" }}
@@ -45,7 +45,7 @@ const CartProductPriceDisplay = ({ item }) => {
       )}
       {percent && percent > 0 && (
         <Typography
-          fontSize={{ xs: "11px", md: "12px" }}
+          fontSize={{ xs: "7px", lg: "8px" }}
           style={{ color: "#FF6159", fontWeight: 700 }}
           ml={0.5}
         >
