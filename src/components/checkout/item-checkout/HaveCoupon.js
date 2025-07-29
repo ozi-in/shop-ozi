@@ -164,6 +164,14 @@ const HaveCoupon = (props) => {
               pb={{ xs: "8px", sm: "0px", md: "0px" }}
             >
               <CouponButton
+                sx={{
+                  backgroundColor: "#101828", // Button background color
+                  color: "#fff", // Button text color
+                  "&:hover": {
+                    backgroundColor: "#ff6f61", // Background color on hover
+                    color: "#fff", // Text color on hover
+                  },
+                }}
                 loading={isLoading}
                 loadingPosition="start"
                 variant="contained"

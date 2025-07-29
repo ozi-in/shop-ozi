@@ -383,9 +383,9 @@ const DeliveryDetails = (props) => {
   };
   return (
     <CustomStackFullWidth spacing={{ xs: 1.5, md: 3 }}>
-      <DeliveryCaption const id="demo-row-radio-buttons-group-label">
+      {/* <DeliveryCaption const id="demo-row-radio-buttons-group-label">
         {t("Delivery Options")}
-      </DeliveryCaption>
+      </DeliveryCaption> */}
       {storeData && (
         <Stack
           direction="row"
@@ -394,7 +394,7 @@ const DeliveryDetails = (props) => {
           gap={{ xs: "5px", md: "10px" }}
           sx={{ flexWrap: { xs: "wrap", sm: "wrap", md: "nowrap" } }}
         >
-          {isHomeDelivery === 1 && (
+          {/* {isHomeDelivery === 1 && (
             <DeliveryOptionButton
               fullwidth="true"
               orderType={orderType === "delivery"}
@@ -426,7 +426,7 @@ const DeliveryDetails = (props) => {
                 {t("Home Delivery")}
               </Typography>
             </DeliveryOptionButton>
-          )}
+          )} */}
 
           {!forprescription && configData?.takeaway_status === 1 ? (
             <>

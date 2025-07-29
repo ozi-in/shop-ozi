@@ -63,7 +63,7 @@ const AddNewAddressButton = ({
             </Button>
           ) : (
             <CustomIconButton onClick={handleAddressModal} align={align}>
-              <AddCircleOutlineIcon fontSize="14px" color="primary" />
+              <AddCircleOutlineIcon fontSize="14px" color="pink" />
               <Typography
                 fontSize={{ xs: "14", md: "12px" }}
                 fontWeight="600"
