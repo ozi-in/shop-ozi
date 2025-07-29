@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Typography, useMediaQuery } from "@mui/material";
 import CustomImageContainer from "../CustomImageContainer";
@@ -43,6 +42,9 @@ import {
 } from "utils/CustomFunctions";
 import Body2 from "components/typographies/Body2";
 import CartPriceDisplay from "./CartPriceDisplay";
+import ClearIcon from "@mui/icons-material/Clear";
+import Box from "@mui/material/Box";
+import { useRouter } from "next/router";
 
 const CartContent = (props) => {
   const { cartItem, imageBaseUrl } = props;
@@ -54,7 +56,7 @@ const CartContent = (props) => {
   const guestId = localStorage.getItem("guest_id");
   const { mutate, isLoading: removeIsLoading } = useDeleteCartItem();
   const { mutate: updateMutate, isLoading } = useCartItemUpdate();
-
+  const router = useRouter();
   const cartUpdateHandleSuccess = (res) => {
     if (res) {
       res?.forEach((item) => {
@@ -213,64 +215,79 @@ const CartContent = (props) => {
 
   return (
     <>
-      <CustomStackFullWidth
-        direction="row"
-        sx={{
-          padding: ".2rem 2rem .2rem 1.3rem",
-          marginTop: { xs: ".5rem", sm: "1rem", md: "1rem" },
-        }}
-        gap="10px"
-      >
-        <Stack
-          onClick={() => handleUpdateModalOpen()}
-          sx={{ cursor: "pointer" }}
+      <Box position="relative" width="100%">
+        <IconButton
+          aria-label="clear"
+          size="small"
+          sx={{
+            position: "absolute",
+            top: 0,
+            right: "10px",
+            zIndex: 2,
+          }}
+          onClick={handleRemove}
+          disabled={removeIsLoading || isLoading}
         >
-          <CustomImageContainer
-            height="80px"
-            width="80px"
-            smWidth="65px"
-            smHeight="65px"
-            src={cartItem?.image_full_url}
-            borderRadius=".7rem"
-            objectfit="cover"
-          />
-        </Stack>
-        <Stack width="0px" flexGrow="1" justifyContent="center" spacing={0.2}>
-          <Typography fontWeight="500" fontSize={{ xs: "12px", md: "14px" }}>
-            {cartItem?.name}
-          </Typography>
-          {cartItem?.module_type === "pharmacy" && (
-            <Typography
-              sx={{
-                overflow: "hidden",
-                textOverflow: "ellipsis",
-                display: "-webkit-box",
-                WebkitLineClamp: "1",
-                WebkitBoxOrient: "vertical",
-                paddingTop: "3px",
-                wordWrap: "break-word",
-              }}
-              variant="body2"
-              color="#93A2AE"
-              textAlign="center"
-            >
-              {cartItem?.generic_name[0]}
+          <ClearIcon sx={{ width: "18px", height: "18px" }} />
+        </IconButton>
+        <CustomStackFullWidth
+          direction="row"
+          sx={{
+            padding: ".2rem 2rem .2rem 1.3rem",
+            marginTop: { xs: ".5rem", sm: "1rem", md: "1rem" },
+          }}
+          gap="10px"
+        >
+          <Stack
+            onClick={() => handleUpdateModalOpen()}
+            sx={{ cursor: "pointer" }}
+          >
+            <CustomImageContainer
+              height="80px"
+              width="80px"
+              smWidth="65px"
+              smHeight="65px"
+              src={cartItem?.image_full_url}
+              borderRadius=".7rem"
+              objectfit="cover"
+            />
+          </Stack>
+          <Stack width="0px" flexGrow="1" justifyContent="center" spacing={0.2}>
+            <Typography fontWeight="500" fontSize={{ xs: "12px", md: "14px" }}>
+              {cartItem?.name}
             </Typography>
-          )}
-          {cartItem?.is_prescription_required == 1 && (
-            <Typography
-              color={theme.palette.error.main}
-              fontSize="11px"
-              textTransform="capitalize"
-            >
-              {t("prescription is required")}
-            </Typography>
-          )}
-          <VariationContent cartItem={cartItem} />
-          <CartPriceDisplay cartItem={cartItem} />
-        </Stack>
-        <CartIncrementStack>
-          {cartItem?.quantity === 1 ? (
+            {cartItem?.module_type === "pharmacy" && (
+              <Typography
+                sx={{
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  display: "-webkit-box",
+                  WebkitLineClamp: "1",
+                  WebkitBoxOrient: "vertical",
+                  paddingTop: "3px",
+                  wordWrap: "break-word",
+                }}
+                variant="body2"
+                color="#93A2AE"
+                textAlign="center"
+              >
+                {cartItem?.generic_name[0]}
+              </Typography>
+            )}
+            {cartItem?.is_prescription_required == 1 && (
+              <Typography
+                color={theme.palette.error.main}
+                fontSize="11px"
+                textTransform="capitalize"
+              >
+                {t("prescription is required")}
+              </Typography>
+            )}
+            <VariationContent cartItem={cartItem} />
+            <CartPriceDisplay cartItem={cartItem} />
+          </Stack>
+          <CartIncrementStack>
+            {/* {cartItem?.quantity === 1 ? (
             <IconButton
               disabled={removeIsLoading}
               aria-label="delete"
@@ -281,7 +298,8 @@ const CartContent = (props) => {
             >
               <DeleteIcon sx={{ width: "16px" }} />
             </IconButton>
-          ) : (
+          ) 
+           : ( */}
             <IconButton
               aria-label="delete"
               size="small"
@@ -294,39 +312,42 @@ const CartContent = (props) => {
                   color: (theme) => theme.palette.primary.main,
                   width: "16px",
                 }}
-                onClick={() => handleDecrement()}
+                onClick={() =>
+                  cartItem?.quantity === 1 ? handleRemove() : handleDecrement()
+                }
               />
             </IconButton>
-          )}
-          {isLoading ? (
-            <Stack width="16px" height="18px">
-              <Loading color={theme.palette.primary.main} />
-            </Stack>
-          ) : (
-            <Typography fontSize="12px" fontWeight="500">
-              {cartItem?.quantity}
-            </Typography>
-          )}
 
-          <IconButton
-            aria-label="delete"
-            sx={{ padding: "2px" }}
-            disabled={isLoading}
-          >
-            <AddIcon
-              sx={{
-                color: (theme) => theme.palette.primary.main,
-                width: "16px",
-              }}
-              size="small"
-              onClick={() => handleIncrement(cartItem)}
-            />
-          </IconButton>
-        </CartIncrementStack>
-      </CustomStackFullWidth>
-      <Stack paddingLeft="1rem">
-        <CustomDivider paddingTop={isSmall ? ".5rem" : "1rem"} border="2px" />
-      </Stack>
+            {isLoading ? (
+              <Stack width="16px" height="18px">
+                <Loading color={theme.palette.primary.main} />
+              </Stack>
+            ) : (
+              <Typography fontSize="12px" fontWeight="500">
+                {cartItem?.quantity}
+              </Typography>
+            )}
+
+            <IconButton
+              aria-label="delete"
+              sx={{ padding: "2px" }}
+              disabled={isLoading}
+            >
+              <AddIcon
+                sx={{
+                  color: (theme) => theme.palette.primary.main,
+                  width: "16px",
+                }}
+                size="small"
+                onClick={() => handleIncrement(cartItem)}
+              />
+            </IconButton>
+          </CartIncrementStack>
+        </CustomStackFullWidth>
+        <Stack paddingLeft="1rem">
+          <CustomDivider paddingTop={isSmall ? ".5rem" : "1rem"} border="2px" />
+        </Stack>
+      </Box>
     </>
   );
 };
