@@ -39,7 +39,7 @@ const NavBarIcon = ({ icon, label, user, handleClick, badgeCount }) => {
           sx={{
             "& .MuiBadge-badge": {
               backgroundColor: "#FF7A59",
-              color: "white",
+              color: "black",
             }
           }}
         >
