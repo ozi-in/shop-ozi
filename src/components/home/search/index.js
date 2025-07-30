@@ -326,15 +326,15 @@ const SearchResult = (props) => {
         <CustomStackFullWidth
           alignItems="center"
           justifyContent="center"
-          sx={{ marginTop: "20px", marginBottom: "20px" }}
+          sx={{ marginTop: "20px", marginBottom: "50px" }}
         >
-          {selectedBrands?.length == 0 && (
+          {/* {selectedBrands?.length == 0 && (
             <TabsTypeTwo
               tabs={tabs}
               currentTab={currentTab}
               setCurrentTab={handleCurrentTab}
             />
-          )}
+          )} */}
         </CustomStackFullWidth>
 
         <SearchMenu

@@ -19,12 +19,12 @@ const StyledSlider = styled(Slider)(({ theme }) => ({
 }));
 
 const CustomSlider = ({
-                        handleChangePrice,
-                        minMax,
-                        priceFilterRange,
-                        store,
-                        rentalPriceFilterRange,
-                      }) => {
+  handleChangePrice,
+  minMax,
+  priceFilterRange,
+  store,
+  rentalPriceFilterRange,
+}) => {
   const { filterData } = useSelector((state) => state.searchFilterStore);
   const [value, setValue] = useState(
     (rentalPriceFilterRange || minMax).map(Number)
@@ -53,8 +53,9 @@ const CustomSlider = ({
   }, [rentalPriceFilterRange]);
 
   const min = Number(rentalPriceFilterRange?.[0] ?? 0);
-  const max = Number(rentalPriceFilterRange?.[1] ?? 20000);
+  // const max = Number(rentalPriceFilterRange?.[1] ?? 20000); // Getting max from  api
 
+  const max = Number(10000);
   return (
     <Stack
       direction="row"
@@ -76,10 +77,7 @@ const CustomSlider = ({
         }
         min={min}
         max={max}
-        marks={[
-          { value: min },
-          { value: max },
-        ]}
+        marks={[{ value: min }, { value: max }]}
         disableSwap
       />
     </Stack>

@@ -289,17 +289,17 @@ const Filter = (props) => {
 										alignItems="center"
 										justifyContent="center"
 									>
-										<Typography fontWeight="bold">
+										{/* <Typography fontWeight="bold">
 											{t("Ratings")}
-										</Typography>
-										<CustomRatings
+										</Typography> */}
+										{/* <CustomRatings
 											ratingValue={getRatingValue}
 											fontSize="20px"
 											handleChangeRatings={
 												handleChangeRatings
 											}
 										// readOnly
-										/>
+										/> */}
 									</CustomStackFullWidth>
 								</Grid>
 							</Grid>

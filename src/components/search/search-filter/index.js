@@ -80,7 +80,8 @@ const SearchFilter = (props) => {
           fromNav={fromNav}
         />
       )}
-      {brands && currentTab !== 1 && getCurrentModuleType() === "ecommerce" && (
+      {/*removed brand*/}
+      {/* {brands && currentTab !== 1 && getCurrentModuleType() === "ecommerce" && (
         <BrandCheckBox
           linkRouteTo={linkRouteTo}
           title="Brands"
@@ -91,7 +92,7 @@ const SearchFilter = (props) => {
           showAll
           selectedBrandsHandler={selectedBrandsHandler}
         />
-      )}
+      )} */}
 
       {/*<MultipleCheckboxWithTitle title="Brands" data={Dummy} showAll />*/}
       {/*<TagsCheckbox title="Popular Tags" data={Dummy} showAll />*/}
