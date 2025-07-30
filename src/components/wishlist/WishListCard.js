@@ -248,7 +248,15 @@ const WishListCard = ({ item }) => {
     <>
       <CustomStackFullWidth
         direction="row"
-        sx={{ marginTop: "1rem", cursor: "pointer" }}
+        sx={{
+          cursor: "pointer",
+          border: "1px solid #e0e0e0",
+          borderRadius: "8px",
+          padding: "12px",
+          backgroundColor: "#fff",
+          boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+        }}
+        alignItems="center"
         gap="10px"
         onClick={handleClick}
       >
@@ -273,7 +281,7 @@ const WishListCard = ({ item }) => {
               <CartIcon
                 width="18px"
                 height="18px"
-                color={theme.palette.primary.dark}
+                color={theme.palette.primary.main}
               />
             )}
           </CustomIconButton>

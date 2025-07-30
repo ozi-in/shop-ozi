@@ -3,7 +3,7 @@ import { alpha, Button, IconButton, styled } from "@mui/material";
 
 export const CustomIconButton = styled(IconButton)(({ theme }) => ({
   background: theme.palette.neutral[100],
-  boxShadow: `0px 4px 4px ${alpha(theme.palette.footer.inputButton, 0.5)}`,
+  boxShadow: `0px 4px 4px ${alpha(theme.palette.primary.main, 0.2)}`,
   padding: 10,
 }));
 

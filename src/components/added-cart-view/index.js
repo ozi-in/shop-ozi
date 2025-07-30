@@ -1242,7 +1242,7 @@ const CardView = (props) => {
             <CartIcon
               width="18px"
               height="18px"
-              color={theme.palette.primary.dark}
+              color={theme.palette.primary.main}
             />
           }
           title="Shopping Cart "

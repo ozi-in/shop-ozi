@@ -36,7 +36,13 @@ export const Card = styled(Box)(({ theme }) => ({
   },
 }));
 
-const FeaturedItemCard = ({ image, title, id, onlyshimmer }) => {
+const FeaturedItemCard = ({
+  image,
+  title,
+  mobilTopSlider,
+  id,
+  onlyshimmer,
+}) => {
   const [hover, setHover] = useState(false);
   const classes = textWithEllipsis();
   const theme = useTheme();
@@ -65,7 +71,7 @@ const FeaturedItemCard = ({ image, title, id, onlyshimmer }) => {
           padding: ".5rem",
           cursor: "pointer",
           height: { xs: "150px", md: "155px" },
-          width: { xs: "100px", md: "124px" },
+          width: { xs: mobilTopSlider ? "110px" : "120px", md: "124px" },
           backgroundColor: (theme) => theme.palette.background.paper,
           border: (theme) =>
             `1.5px solid ${alpha(theme.palette.neutral[400], 0.2)}`,

@@ -503,7 +503,7 @@ const FeaturedCategories = ({ configData }) => {
   };
 
   return (
-    <CustomBoxFullWidth sx={{ mt: "20px" }}>
+    <CustomBoxFullWidth>
       {isFetching ? (
         <HomeComponentsWrapper>
           <SliderCustom nopadding="true" sx={{ paddingTop: "15px" }}>
@@ -529,6 +529,12 @@ const FeaturedCategories = ({ configData }) => {
                   },
                 }}
               >
+                {isSmallScreen && (
+                  <h2 style={{ marginTop: 0, marginBottom: "8px" }}>
+                    Shop by category
+                  </h2>
+                )}
+
                 {isSmallScreen ? SmallDeviceSlider() : moduleWiseCard()}
               </SliderCustom>
             )}
