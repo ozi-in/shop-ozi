@@ -223,7 +223,7 @@ const MapModal = ({
         if (fromStore) {
           handleClose();
         }else if(location && selectedModule){
-          window.location.reload();
+          // Removed window.location.reload() to prevent page refresh and default address reversion
           handleClose();
         }
         else {

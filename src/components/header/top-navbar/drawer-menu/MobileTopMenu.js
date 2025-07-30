@@ -85,16 +85,16 @@ const MobileTopMenu = ({
         categoriesData?.data?.map((item) => item),
       path: "/category",
     },
-    latest: {
-      text: `${latest} ${getStoresOrRestaurants()}`,
-      items: latestStore?.stores?.slice(0, 12)?.map((i) => i),
-      path:  getCurrentModuleType() === "rental" ? "/rental/provider-details" : "/store",
-    },
-    popularStore: {
-      text: `${popular} ${getStoresOrRestaurants()}`,
-      items: popularStores?.map((i) => i),
-      path: getCurrentModuleType() === "rental" ? "/rental/provider-details" : "/store",
-    },
+    // latest: {
+    //   text: `${latest} ${getStoresOrRestaurants()}`,
+    //   items: latestStore?.stores?.slice(0, 12)?.map((i) => i),
+    //   path:  getCurrentModuleType() === "rental" ? "/rental/provider-details" : "/store",
+    // },
+    // popularStore: {
+    //   text: `${popular} ${getStoresOrRestaurants()}`,
+    //   items: popularStores?.map((i) => i),
+    //   path: getCurrentModuleType() === "rental" ? "/rental/provider-details" : "/store",
+    // },
     profile: {
       text: "Profile",
     },
@@ -143,26 +143,14 @@ const MobileTopMenu = ({
                     pathName="/categories"
                     forcategory="true"
                   />
-                  <CollapsableMenu
-                    value={collapsableMenu.latest}
-                    setOpenDrawer={setOpenDrawer}
-                    toggleDrawers={toggleDrawer}
-                    pathName="/store/latest"
-                  />
-                  <CollapsableMenu
-                    value={collapsableMenu.popularStore}
-                    setOpenDrawer={setOpenDrawer}
-                    toggleDrawers={toggleDrawer}
-                    pathName="/store/popular"
-                  />
                 </>
               )}
-              <ListItemButton
+              {/* <ListItemButton
                 sx={{ color: (theme) => theme.palette.primary.main }}
               >
                 <ListItemText>{t("Theme Mode")}</ListItemText>
                 <ThemeSwitches noText />
-              </ListItemButton>
+              </ListItemButton> */}
               <ListItemButton
                 sx={{ color: (theme) => theme.palette.primary.main }}
               >

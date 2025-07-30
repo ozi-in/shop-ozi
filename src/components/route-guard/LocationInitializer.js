@@ -11,8 +11,8 @@ function isCurrentLatLngCorrect(currentLatLng) {
     const parsed = JSON.parse(currentLatLng);
     return (
       parsed &&
-      Number(parsed.lat) === DEFAULT_LAT &&
-      Number(parsed.lng) === DEFAULT_LNG
+      typeof parsed.lat === 'number' &&
+      typeof parsed.lng === 'number'
     );
   } catch {
     return false;
@@ -31,12 +31,13 @@ export default function LocationInitializer({ children }) {
     const currentLatLng = localStorage.getItem("currentLatLng");
     const storedModule = localStorage.getItem("module");
 
-    if (zoneid !== DEFAULT_ZONEID) {
+    // Only set default values if they don't exist
+    if (!zoneid) {
       localStorage.setItem("zoneid", DEFAULT_ZONEID);
       changed = true;
     }
 
-    if (location !== DEFAULT_ADDRESS) {
+    if (!location) {
       localStorage.setItem("location", DEFAULT_ADDRESS);
       changed = true;
     }
