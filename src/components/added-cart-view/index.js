@@ -1373,6 +1373,7 @@ const CardView = (props) => {
               bottom: "0",
               backgroundColor: "#fff",
               width: "100%",
+              zIndex: "20"
             }}
           >
             <CartTotalPrice cartList={getCartListModuleWise(cartList)} />

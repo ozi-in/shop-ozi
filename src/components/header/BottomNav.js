@@ -41,6 +41,7 @@ const BottomNav = () => {
   const [wishListSideDrawerOpen, setWishListSideDrawerOpen] = useState(false);
   const router = useRouter();
   const currentRoute = router.pathname.replace("/", "");
+  const activeRoute = router.query.page ? router.query.page : currentRoute;
   const handleCartDrawerOpen = () => {
     setSideDrawerOpen(true);
   };
@@ -71,7 +72,7 @@ const BottomNav = () => {
         <SimpleBar style={styles}>
           <BottomNavigation
             showLabels
-            value={currentRoute}
+            value={activeRoute}
             onChange={(event, newValue) => {
               if (newValue !== "cart" && newValue !== "wishlist") {
                 if (newValue !== "home") {
@@ -98,23 +99,27 @@ const BottomNav = () => {
               icon={<HomeIcon />}
             />
 
-              {selectedModule?.module_type === "rental" ? (<CustomBottomNavigationAction
-                  label={t("My Trips")}
-                  value="my-trips"
-                  icon={
-                      <Badge color="error">
-                          <LocalTaxiIcon />
-                      </Badge>
-                  }
-              />) : (<CustomBottomNavigationAction
-                  label={t("My Orders")}
-                  value="my-orders"
-                  icon={
-                      <Badge color="error">
-                          <LibraryBooksIcon/>
-                      </Badge>
-                  }
-              />)}
+            {selectedModule?.module_type === "rental" ? (
+              <CustomBottomNavigationAction
+                label={t("My Trips")}
+                value="my-trips"
+                icon={
+                  <Badge color="error">
+                    <LocalTaxiIcon />
+                  </Badge>
+                }
+              />
+            ) : (
+              <CustomBottomNavigationAction
+                label={t("My Orders")}
+                value="my-orders"
+                icon={
+                  <Badge color="error">
+                    <LibraryBooksIcon />
+                  </Badge>
+                }
+              />
+            )}
 
             {selectedModule?.module_type !== "parcel" &&
               selectedModule?.module_type !== "rental" && (
@@ -134,7 +139,10 @@ const BottomNav = () => {
               )}
             {selectedModule?.module_type === "rental" && (
               <Box sx={{ marginTop: "2px", marginInlineStart: "4px" }}>
-                <Taxi color={(theme) => theme.palette.neutral[1000]} label={t("Carts")} />
+                <Taxi
+                  color={(theme) => theme.palette.neutral[1000]}
+                  label={t("Carts")}
+                />
               </Box>
             )}
             {/* <CustomBottomNavigationAction

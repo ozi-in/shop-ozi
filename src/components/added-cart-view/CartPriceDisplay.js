@@ -30,9 +30,21 @@ const CartPriceDisplay = ({ cartItem }) => {
       <Typography fontSize={{ xs: "13px", md: "16px" }} color="#000" fontWeight="700">
         {getAmountWithSign(sellingPrice)}
       </Typography>
-      <Typography fontSize={{ xs: "11px", md: "12px" }} color="text.secondary" fontWeight="400" sx={{ textDecoration: "line-through" }}>
+      {/* <Typography fontSize={{ xs: "11px", md: "12px" }} color="text.secondary" fontWeight="400" sx={{ textDecoration: "line-through" }}>
         {getAmountWithSign(mrp)}
-      </Typography>
+      </Typography> */}
+      {sellingPrice != mrp ? (
+        <Typography
+          fontSize={{ xs: "11px", md: "12px" }}
+          color="text.secondary"
+          fontWeight="400"
+          sx={{ textDecoration: "line-through" }}
+        >
+          {getAmountWithSign(mrp)}
+        </Typography>
+      ) : (
+        <></>
+      )}
       {percent && percent > 0 && (
         <Typography fontSize={{ xs: "11px", md: "12px" }} style={{ color: '#FF6159', fontWeight: 700 }} ml={0.5}>
           {percent}% OFF

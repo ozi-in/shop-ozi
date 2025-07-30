@@ -13,10 +13,10 @@ const CartTotalPrice = ({ cartList }) => {
         direction="row"
         sx={{ padding: "1.4rem" }}
       >
-        <Typography fontSize="14px" fontWeight="500">
+        <Typography fontSize="14px" fontWeight="500" color="#FF6159">
           {t("Subtotal")}
         </Typography>
-        <Typography fontSize="15px" fontWeight="700">
+        <Typography fontSize="15px" fontWeight="700" color="#101808">
           {getAmountWithSign(cartItemsTotalAmount(cartList))}
         </Typography>
       </CustomStackFullWidth>
