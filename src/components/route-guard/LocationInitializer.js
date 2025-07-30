@@ -5,6 +5,7 @@ const DEFAULT_LNG = 77.08577287018689;
 const DEFAULT_ZONEID = "[2]";
 const DEFAULT_ADDRESS =
   "Imperia Mindspace, Golf Course Ext Rd, Sector 62, Gurugram, Haryana 122001";
+const DEFAULT_LANGUAGE = "en";
 
 function isCurrentLatLngCorrect(currentLatLng) {
   try {
@@ -30,6 +31,7 @@ export default function LocationInitializer({ children }) {
     const location = localStorage.getItem("location");
     const currentLatLng = localStorage.getItem("currentLatLng");
     const storedModule = localStorage.getItem("module");
+    const languageSetting = localStorage.getItem("language-setting");
 
     // Only set default values if they don't exist
     if (!zoneid) {
@@ -47,6 +49,11 @@ export default function LocationInitializer({ children }) {
         "currentLatLng",
         JSON.stringify({ lat: DEFAULT_LAT, lng: DEFAULT_LNG })
       );
+      changed = true;
+    }
+
+    if (!languageSetting) {
+      localStorage.setItem("language-setting", JSON.stringify(DEFAULT_LANGUAGE));
       changed = true;
     }
 
