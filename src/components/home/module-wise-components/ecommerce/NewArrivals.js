@@ -136,6 +136,7 @@ const NewArrivals = ({ bannerData, title }) => {
                       cardheight="350px"
                       cardFor="popular items"
                       noMargin
+                      isFrom="new-arival"
                     />
                   </Grid>
                 ))}

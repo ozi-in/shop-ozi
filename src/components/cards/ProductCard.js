@@ -2490,6 +2490,7 @@ import { CustomButtonPrimary } from "styled-components/CustomButtons.style";
 import {
   CustomBoxFullWidth,
   CustomSpan,
+  CustomFilledButton,
   CustomStackFullWidth,
 } from "styled-components/CustomStyles.style";
 import { textWithEllipsis } from "styled-components/TextWithEllipsis";
@@ -2662,6 +2663,7 @@ const ProductCard = (props) => {
     cardWidth,
     sold,
     stock,
+    isFrom,
     noRecommended,
     isCartContext,
   } = props;
@@ -3078,7 +3080,7 @@ const ProductCard = (props) => {
             >
               {/* {item?.unit_type} */}
             </Typography>
-            <AddWithIncrementDecrement
+            {/* <AddWithIncrementDecrement
               onHover={state.isTransformed}
               addToCartHandler={addToCart}
               isProductExist={isProductExist}
@@ -3087,7 +3089,41 @@ const ProductCard = (props) => {
               count={count}
               isLoading={isLoading}
               updateLoading={updateLoading}
-            />
+            /> */}
+            {isFrom === "new-arival" ? (
+              (item?.stock ?? 0) > 0 ? (
+                <AddWithIncrementDecrement
+                  onHover={state.isTransformed}
+                  addToCartHandler={addToCart}
+                  isProductExist={isProductExist}
+                  handleIncrement={handleIncrement}
+                  handleDecrement={handleDecrement}
+                  count={count}
+                  isLoading={isLoading}
+                  updateLoading={updateLoading}
+                />
+              ) : (
+                <>
+                  <CustomFilledButton
+                    btnName="Out Of Stock"
+                    onClick={() => {
+                      toast.warning("Item is out of stock");
+                    }}
+                  />
+                </>
+              )
+            ) : (
+              <AddWithIncrementDecrement
+                onHover={state.isTransformed}
+                addToCartHandler={addToCart}
+                isProductExist={isProductExist}
+                handleIncrement={handleIncrement}
+                handleDecrement={handleDecrement}
+                count={count}
+                isLoading={isLoading}
+                updateLoading={updateLoading}
+              />
+            )}
           </CustomStackFullWidth>
         </Box>
       </CustomStackFullWidth>
@@ -3574,14 +3610,60 @@ const ProductCard = (props) => {
               loveItem={loveItem}
             >
               {handleBadge()}
-              <NextImage
+              {/* <NextImage
                 src={getProductImageUrl()}
                 alt={item?.name || "Product Image"}
                 height={180}
                 width={horizontalcard ? "131" : "155"}
                 objectFit="cover"
                 borderRadius="3px"
-              />
+              /> */}
+              {isFrom === "new-arival" ? (
+                <Stack position="relative" width={horizontalcard ? 131 : 155}>
+                  {/* Product Image */}
+                  <NextImage
+                    src={getProductImageUrl()}
+                    alt={item?.name || "Product Image"}
+                    height={180}
+                    width={horizontalcard ? "131" : "155"}
+                    objectFit="cover"
+                    borderRadius="3px"
+                  />
+
+                  {/* Out of Stock Overlay */}
+                  {item?.stock === 0 && (
+                    <Box
+                      position="absolute"
+                      top={0}
+                      left={0}
+                      width="100%"
+                      height="100%"
+                      bgcolor="rgba(0,0,0,0.5)"
+                      display="flex"
+                      justifyContent="center"
+                      alignItems="center"
+                      borderRadius="3px"
+                    >
+                      <Typography
+                        color="white"
+                        fontWeight="bold"
+                        fontSize="14px"
+                      >
+                        Out of Stock
+                      </Typography>
+                    </Box>
+                  )}
+                </Stack>
+              ) : (
+                <NextImage
+                  src={getProductImageUrl()}
+                  alt={item?.name || "Product Image"}
+                  height={180}
+                  width={horizontalcard ? "131" : "155"}
+                  objectFit="cover"
+                  borderRadius="3px"
+                />
+              )}
               {item?.module?.module_type === "pharmacy" && (
                 <Stack
                   width="100%"

@@ -13,7 +13,7 @@ const firebaseConfig = {
   storageBucket: "ozi-technologies-99593.firebasestorage.app",
   messagingSenderId: "436594923301",
   appId: "1:436594923301:web:c816aaa8f66366df962ccc",
-  measurementId: "G-4NSPLT0604"
+  measurementId: "G-4NSPLT0604",
 };
 const firebaseApp = !getApps().length
   ? initializeApp(firebaseConfig)
@@ -32,8 +32,7 @@ const messaging = (async () => {
 
 export const fetchToken = async (setTokenFound, setFcmToken) => {
   return getToken(await messaging, {
-    vapidKey:
-      "",
+    vapidKey: "",
   })
     .then((currentToken) => {
       if (currentToken) {

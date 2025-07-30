@@ -717,20 +717,39 @@ export const getTitleButton = ({ title, onCLickNext, onClickPrev }) => {
   );
 };
 
+// export const CustomFilledButton = ({ btnName, onCLick }) => {
+//   return (
+//     <Button
+//       variant="contained"
+//       color="#101828"
+//       onClick={onCLick}
+//       width="30px"
+//       height="20px"
+//     >
+//       {btnName}
+//     </Button>
+//   );
+// };
 export const CustomFilledButton = ({ btnName, onCLick }) => {
   return (
     <Button
       variant="contained"
-      color="#101828"
       onClick={onCLick}
-      width="30px"
-      height="20px"
+      sx={{
+        backgroundColor: "#101828",
+        width: "100%",
+        height: "40px",
+        color: "#fff",
+        borderRadius: "32px",
+        "&:hover": {
+          backgroundColor: "#1a1a1a",
+        },
+      }}
     >
       {btnName}
     </Button>
   );
 };
-
 export const ShopNowButton = styled(Button)(({ theme }) => ({
   width: "80%",
   backgroundColor: "#101828",
