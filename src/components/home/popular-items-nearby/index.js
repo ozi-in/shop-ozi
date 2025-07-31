@@ -240,6 +240,7 @@ const PopularItemsNearby = ({ title, subTitle }) => {
                               // cardheight="160px"
                               horizontalcard="false"
                               cardFor="popular items"
+                              isFrom="top-rated"
                             />
                           );
                         })}

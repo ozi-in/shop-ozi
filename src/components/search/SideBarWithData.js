@@ -71,6 +71,7 @@ const SideBarWithData = forwardRef((props, ref) => {
                           cardheight="318px"
                           cardFor="vertical"
                           cardType="vertical-type"
+                          isFrom="plp"
                           // cardFor="popular items"
                         />
                       </Grid>

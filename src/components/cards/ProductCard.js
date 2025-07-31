@@ -2490,7 +2490,7 @@ import { CustomButtonPrimary } from "styled-components/CustomButtons.style";
 import {
   CustomBoxFullWidth,
   CustomSpan,
-  CustomFilledButton,
+  ShopNowButton,
   CustomStackFullWidth,
 } from "styled-components/CustomStyles.style";
 import { textWithEllipsis } from "styled-components/TextWithEllipsis";
@@ -2651,6 +2651,7 @@ const ProductCard = (props) => {
   const {
     loveItem,
     item,
+    dealTitle,
     cardheight,
     horizontalcard,
     changed_bg,
@@ -3090,7 +3091,9 @@ const ProductCard = (props) => {
               isLoading={isLoading}
               updateLoading={updateLoading}
             /> */}
-            {isFrom === "new-arival" ? (
+            {isFrom === "new-arival" ||
+            isFrom === "top-rated" ||
+            isFrom === dealTitle ? (
               (item?.stock ?? 0) > 0 ? (
                 <AddWithIncrementDecrement
                   onHover={state.isTransformed}
@@ -3103,14 +3106,22 @@ const ProductCard = (props) => {
                   updateLoading={updateLoading}
                 />
               ) : (
-                <>
-                  <CustomFilledButton
-                    btnName="Out Of Stock"
-                    onClick={() => {
-                      toast.warning("Item is out of stock");
-                    }}
-                  />
-                </>
+                <ShopNowButton
+                  onClick={() => {
+                    toast.error(t("Out of stock"));
+                  }}
+                  sx={{
+                    width: "100%",
+                    height: "38px",
+                    minHeight: "38px",
+                    mt: "5%",
+
+                    // mt: "20px",
+                    "&:hover": { backgroundColor: "#fcde65ff" },
+                  }}
+                >
+                  <Typography color="white">Out Of Stock</Typography>
+                </ShopNowButton>
               )
             ) : (
               <AddWithIncrementDecrement
@@ -3355,6 +3366,48 @@ const ProductCard = (props) => {
           )}
 
           <AmountWithDiscountedAmount item={item} />
+          {isFrom === "plp" ? (
+            (item?.stock ?? 0) > 0 ? (
+              <AddWithIncrementDecrement
+                onHover={state.isTransformed}
+                addToCartHandler={addToCart}
+                isProductExist={isProductExist}
+                handleIncrement={handleIncrement}
+                handleDecrement={handleDecrement}
+                count={count}
+                isLoading={isLoading}
+                updateLoading={updateLoading}
+              />
+            ) : (
+              <ShopNowButton
+                onClick={() => {
+                  toast.error(t("Out of stock"));
+                }}
+                sx={{
+                  width: "100%",
+                  height: "38px",
+                  minHeight: "38px",
+                  mt: "5%",
+
+                  // mt: "20px",
+                  "&:hover": { backgroundColor: "#fcde65ff" },
+                }}
+              >
+                <Typography color="white">Out Of Stock</Typography>
+              </ShopNowButton>
+            )
+          ) : (
+            <AddWithIncrementDecrement
+              onHover={state.isTransformed}
+              addToCartHandler={addToCart}
+              isProductExist={isProductExist}
+              handleIncrement={handleIncrement}
+              handleDecrement={handleDecrement}
+              count={count}
+              isLoading={isLoading}
+              updateLoading={updateLoading}
+            />
+          )}
         </CustomStackFullWidth>
       </CustomStackFullWidth>
     );
@@ -3618,12 +3671,21 @@ const ProductCard = (props) => {
                 objectFit="cover"
                 borderRadius="3px"
               /> */}
-              {isFrom === "new-arival" ? (
+              {isFrom === "new-arival" ||
+              isFrom === "top-rated" ||
+              isFrom === dealTitle ||
+              isFrom === "plp" ? (
                 <Stack position="relative" width={horizontalcard ? 131 : 155}>
                   {/* Product Image */}
                   <NextImage
                     src={getProductImageUrl()}
-                    alt={item?.name || "Product Image"}
+                    alt={
+                      item?.name ||
+                      "Product Image" ||
+                      isFrom === "top-rated" ||
+                      isFrom === dealTitle ||
+                      isFrom === "plp"
+                    }
                     height={180}
                     width={horizontalcard ? "131" : "155"}
                     objectFit="cover"

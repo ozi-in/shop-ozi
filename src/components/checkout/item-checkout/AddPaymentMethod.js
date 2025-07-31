@@ -362,7 +362,7 @@ const AddPaymentMethod = (props) => {
                 textTransform="capitalize"
               >
                 {paymentMethod === "cash_on_delivery"
-                  ? t("Cash on delivery")
+                  ? t("Pay on delivery")
                   : paymentMethod === "wallet"
                   ? t("Wallet")
                   : paymentMethod?.match("offline_payment")

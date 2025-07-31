@@ -180,6 +180,8 @@ const SpecialFoodOffers = ({ title }) => {
                           cardheight="350px"
                           cardFor="popular items"
                           noMargin
+                          isFrom={`${title ? title : t("Deal of The Day ")}`}
+                          dealTitle={`${title ? title : t("Deal of The Day ")}`}
                         />
                       </Grid>
                     ))}
