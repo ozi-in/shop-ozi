@@ -435,7 +435,7 @@ const SecondNavBar = ({ configData }) => {
           {/* Left: Logo + Divider + Location */}
           <Stack
             direction="row"
-            alignItems="flex-start"
+            alignItems="center"
             spacing={1}
             sx={{ minWidth: 0 }}
           >
@@ -458,28 +458,22 @@ const SecondNavBar = ({ configData }) => {
               sx={{ mx: 1, borderColor: "#E0E0E0", alignSelf: "stretch" }}
             />
             {location && (
-              <Stack
-                direction="column"
-                alignItems="flex-start"
-                justifyContent="center"
-                spacing={0.2}
-                // sx={{ minWidth: 0}}
-              >
-                <Stack direction="row" alignItems="center" spacing={0.5}>
-                  <RoomIcon
-                    sx={{
-                      fontSize: { xs: "16px", sm: "20px" },
-                      color: "#1E2939",
-                    }}
-                    color="primary"
-                  />
-                  <Typography
+              <Stack direction="row" alignItems="center" spacing={0.5}>
+                {/* <Stack direction="row" alignItems="center" spacing={0.5}> */}
+                <RoomIcon
+                  sx={{
+                    fontSize: { xs: "16px", sm: "20px" },
+                    color: "#1E2939",
+                  }}
+                  color="primary"
+                />
+                {/* <Typography
                     variant="caption"
                     sx={{ color: "#888", fontWeight: 500, lineHeight: 1 }}
                   >
                     Location:
-                  </Typography>
-                </Stack>
+                  </Typography> */}
+                {/* </Stack> */}
                 <AddressReselect
                   location={currentLocation || location}
                   setOpenDrawer={setOpenDrawer}

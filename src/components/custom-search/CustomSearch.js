@@ -146,7 +146,7 @@ const CustomSearch = ({
                   opacity: fade ? 1 : 0,
                   transition: "opacity 0.5s",
                   pointerEvents: "none",
-                  paddingLeft: 25,
+                  paddingLeft: 42,
                   lineHeight: "40px",
                   fontSize: "1rem",
                 }}
