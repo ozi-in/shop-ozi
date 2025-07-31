@@ -230,10 +230,7 @@ const OrderCalculation = (props) => {
           >
             <Typography>{"-"}</Typography>
             <Typography>
-              {/* {storeData ? getAmountWithSign(discountedPrice) : null} */}
-              {storeData
-                ? getDiscountPercentage(cartList, discountedPrice)
-                : null}
+              {storeData ? getAmountWithSign(discountedPrice) : null}
             </Typography>
           </Stack>
         </Grid>
