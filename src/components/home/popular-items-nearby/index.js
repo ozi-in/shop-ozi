@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import useGetPopularItemsNearby from "../../../api-manage/hooks/react-query/useGetPopularItemsNearby";
 
@@ -28,6 +28,7 @@ import ItemsCampaign from "./items-campaign-slide";
 import { getTitleButton } from "styled-components/CustomStyles.style";
 
 const PopularItemsNearby = ({ title, subTitle }) => {
+  const [width, setWidth] = useState(0);
   const { popularItemsNearby } = useSelector((state) => state.storedData);
   const { t } = useTranslation();
   const limit = 2;
@@ -53,6 +54,16 @@ const PopularItemsNearby = ({ title, subTitle }) => {
     flashSalesRefetch();
   }, []);
 
+  useLayoutEffect(() => {
+    const handleResize = () => {
+      setWidth(window.innerWidth);
+    };
+
+    handleResize(); // Set initial width
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
   useEffect(() => {
     if (data) {
       dispatch(setPopularItemsNearby(data));
@@ -215,7 +226,12 @@ const PopularItemsNearby = ({ title, subTitle }) => {
                         },
                       }}
                     >
-                      <Slider currentSlide={0} {...settings} ref={slider}>
+                      <Slider
+                        currentSlide={0}
+                        key={width}
+                        {...settings}
+                        ref={slider}
+                      >
                         {popularItemsNearby?.products?.map((item, index) => {
                           return (
                             <ProductCard

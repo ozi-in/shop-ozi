@@ -184,6 +184,12 @@ const SecondNavBar = ({ configData }) => {
   const currentModuleType = getCurrentModuleType();
   const [openDrawer, setOpenDrawer] = useState(false);
   const [currentLocation, setCurrentLocation] = useState("");
+  const [searchValue, setSearchValue] = useState("");
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const inputRef = useRef(null);
+  const suggestionBoxRef = useRef(null);
+
+  // Close suggestion box on outside click
 
   const [currentTab, setCurrentTab] = useState(0);
   const zoneid =
@@ -257,7 +263,26 @@ const SecondNavBar = ({ configData }) => {
       }
     }
   }, [moduleType]);
-
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (
+        suggestionBoxRef.current &&
+        !suggestionBoxRef.current.contains(event.target) &&
+        inputRef.current &&
+        !inputRef.current.contains(event.target)
+      ) {
+        setShowSuggestions(false);
+      }
+    }
+    if (showSuggestions) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [showSuggestions]);
   const setItemIntoCart = () => {
     return data?.map((item) => ({
       ...item?.item,
@@ -377,33 +402,6 @@ const SecondNavBar = ({ configData }) => {
     />
   );
   const getDesktopScreenComponents = () => {
-    const [searchValue, setSearchValue] = useState("");
-    const [showSuggestions, setShowSuggestions] = useState(false);
-    const inputRef = useRef(null);
-    const suggestionBoxRef = useRef(null);
-
-    // Close suggestion box on outside click
-    useEffect(() => {
-      function handleClickOutside(event) {
-        if (
-          suggestionBoxRef.current &&
-          !suggestionBoxRef.current.contains(event.target) &&
-          inputRef.current &&
-          !inputRef.current.contains(event.target)
-        ) {
-          setShowSuggestions(false);
-        }
-      }
-      if (showSuggestions) {
-        document.addEventListener("mousedown", handleClickOutside);
-      } else {
-        document.removeEventListener("mousedown", handleClickOutside);
-      }
-      return () => {
-        document.removeEventListener("mousedown", handleClickOutside);
-      };
-    }, [showSuggestions]);
-
     const handleSearchSubmit = () => {
       if (searchValue.trim() !== "") {
         router.push({
@@ -581,12 +579,19 @@ const SecondNavBar = ({ configData }) => {
                   },
                 }}
               >
-                <CustomStackFullWidth direction="row" alignItems="center" spacing={1}>
+                <CustomStackFullWidth
+                  direction="row"
+                  alignItems="center"
+                  spacing={1}
+                >
                   <LockOutlinedIcon
                     fontSize="small"
                     style={{ color: "#fff" }}
                   />
-                  <Typography color="#fff" sx={{ fontSize: "14px", fontWeight: 500 }}>
+                  <Typography
+                    color="#fff"
+                    sx={{ fontSize: "14px", fontWeight: 500 }}
+                  >
                     {t("Sign In")}
                   </Typography>
                 </CustomStackFullWidth>
