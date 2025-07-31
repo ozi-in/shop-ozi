@@ -19,7 +19,7 @@ const TopNavBar = ({ configData }) => (
       sx={{ color: "#fff", fontWeight: 500, letterSpacing: 0.2 }}
     >
       {configData?.topBarText ||
-        "Fast delivery in 10-30 minutes | Free shipping on orders above ₹499"}
+        "Delivered in Minutes | Enjoy Free Shipping Today → Order Now"}
     </Typography>
   </Box>
 );
