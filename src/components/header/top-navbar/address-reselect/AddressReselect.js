@@ -264,7 +264,7 @@ const AddressReselect = ({ location, setOpenDrawer }) => {
               }}
             >
               {currentLocation && currentLocation.length > 20
-                ? `${currentLocation.slice(0, 20)}.....`
+                ? `${currentLocation.slice(0, 30)}.....`
                 : currentLocation || location}
             </Typography>
           </CustomStackFullWidth>

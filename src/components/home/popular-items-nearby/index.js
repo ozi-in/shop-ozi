@@ -238,7 +238,8 @@ const PopularItemsNearby = ({ title, subTitle }) => {
                               key={index}
                               item={item}
                               // cardheight="160px"
-                              horizontalcard="false"
+                              // horizontalcard="false"
+                              noMargin
                               cardFor="popular items"
                               isFrom="top-rated"
                             />

@@ -487,7 +487,7 @@ const CampaignBanners = () => {
         .marquee-content {
           display: inline-block;
           white-space: nowrap;
-          animation: scroll-left 120s linear infinite;
+          animation: scroll-left 220s linear infinite;
         }
 
         .marquee-wrapper:hover .marquee-content {

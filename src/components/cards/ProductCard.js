@@ -2544,6 +2544,101 @@ import SpecialCard, { FoodHalalHaram, FoodVegNonVegFlag } from "./SpecialCard";
 import NextImage from "components/NextImage";
 import CartProductPriceDisplay from "./CartProductPriceDisplay";
 
+// export const CardWrapper = styled(Card)(
+//   ({
+//     theme,
+//     cardheight,
+//     cardWidth,
+//     horizontalcard,
+//     wishlistcard,
+//     nomargin,
+//     cardType,
+//     cardFor,
+//   }) => ({
+//     cursor: "pointer",
+//     backgroundColor: theme.palette.background.custom6,
+//     padding: horizontalcard !== "true" ? "10px" : "0px",
+//     borderRadius: "8px",
+//     boxShadow: "none",
+//     overflow: "hidden",
+
+//     // Fixed height/width with fallbacks
+//     height: cardheight || "350px",
+//     width:
+//       cardWidth ||
+//       (horizontalcard === "true"
+//         ? "440px"
+//         : cardFor === "list-view"
+//         ? "100%"
+//         : "220px"),
+
+//     // Margin Logic
+//     margin:
+//       wishlistcard === "true" || nomargin === "true"
+//         ? "0rem"
+//         : cardType === "vertical-type"
+//         ? "0rem"
+//         : ".7rem",
+
+//     // Border for FOOD module
+//     border:
+//       getCurrentModuleType() === ModuleTypes.FOOD
+//         ? `1px solid ${alpha(theme.palette.moduleTheme.food, 0.1)}`
+//         : "none",
+
+//     // Responsive overrides
+//     [theme.breakpoints.down("sm")]: {
+//       height: cardheight || "320px",
+//       width:
+//         horizontalcard === "true" ? cardWidth || "100%" : cardWidth || "100%",
+//       margin: wishlistcard === "true" || nomargin === "true" ? "0rem" : ".4rem",
+//     },
+
+//     [theme.breakpoints.up("sm")]: {
+//       height: cardheight || "350px",
+//     },
+//     [theme.breakpoints.up("md")]: {
+//       height: cardheight || "350px",
+//     },
+//   })
+// );
+
+// const CustomCardMedia = styled(CardMedia)(
+//   ({ theme, horizontalcard, loveItem }) => ({
+//     position: "relative",
+//     padding:
+//       loveItem === "true"
+//         ? "2px"
+//         : horizontalcard === "true"
+//         ? ".5rem"
+//         : "0rem",
+//     margin: "2px",
+//     height: horizontalcard === "true" ? "100%" : "212px",
+//     maxHeight: horizontalcard === "true" ? "140px" : "180px",
+//     width: horizontalcard === "true" ? "215px" : "100%",
+//     display: "flex",
+//     alignItems: "center",
+//     justifyContent: "center",
+//     overflow: "hidden",
+//     borderRadius: "20px",
+//     // boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
+//     backgroundColor:
+//       horizontalcard === "true" ? theme.palette.neutral[100] : "none",
+
+//     ".MuiBox-root": {
+//       overflow: "hidden",
+//       borderRadius: "20px",
+//     },
+
+//     [theme.breakpoints.down("sm")]: {
+//       width: horizontalcard === "true" ? "160px" : "100%",
+//       height: horizontalcard === "true" ? "135px" : "175px",
+//       minWidth: "160px", // ✅ Still enforce minimums on mobile
+//       minHeight: "175px",
+//     },
+//   })
+// );
+
 export const CardWrapper = styled(Card)(
   ({
     theme,
@@ -2564,13 +2659,7 @@ export const CardWrapper = styled(Card)(
 
     // Fixed height/width with fallbacks
     height: cardheight || "350px",
-    width:
-      cardWidth ||
-      (horizontalcard === "true"
-        ? "440px"
-        : cardFor === "list-view"
-        ? "100%"
-        : "220px"),
+    width: cardWidth || (cardFor === "list-view" ? "100%" : "220px"),
 
     // Margin Logic
     margin:
@@ -2590,8 +2679,7 @@ export const CardWrapper = styled(Card)(
     [theme.breakpoints.down("sm")]: {
       height: cardheight || "320px",
       width:
-        horizontalcard === "true" ? cardWidth || "100%" : cardWidth || "100%",
-      margin: wishlistcard === "true" || nomargin === "true" ? "0rem" : ".4rem",
+        horizontalcard === "true" ? cardWidth || "100%" : cardWidth || "170px",
     },
 
     [theme.breakpoints.up("sm")]: {
@@ -2603,41 +2691,24 @@ export const CardWrapper = styled(Card)(
   })
 );
 
-const CustomCardMedia = styled(CardMedia)(
-  ({ theme, horizontalcard, loveItem }) => ({
-    position: "relative",
-    padding:
-      loveItem === "true"
-        ? "2px"
-        : horizontalcard === "true"
-        ? ".5rem"
-        : "0rem",
-    margin: "2px",
-    height: horizontalcard === "true" ? "100%" : "212px",
-    maxHeight: horizontalcard === "true" ? "140px" : "180px",
-    width: horizontalcard === "true" ? "215px" : "100%",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
+const CustomCardMedia = styled(CardMedia)(({ theme, loveItem }) => ({
+  position: "relative",
+  padding: loveItem === "true" ? "2px" : "0rem",
+  // margin: "2px",
+  width: "100%",
+  aspectRatio: "1 / 1", // force square shape
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  overflow: "hidden",
+  borderRadius: "20px",
+  backgroundColor: theme.palette.neutral[100],
+
+  ".MuiBox-root": {
     overflow: "hidden",
     borderRadius: "20px",
-    // boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
-    backgroundColor:
-      horizontalcard === "true" ? theme.palette.neutral[100] : "none",
-
-    ".MuiBox-root": {
-      overflow: "hidden",
-      borderRadius: "20px",
-    },
-
-    [theme.breakpoints.down("sm")]: {
-      width: horizontalcard === "true" ? "160px" : "100%",
-      height: horizontalcard === "true" ? "135px" : "175px",
-      minWidth: "160px", // ✅ Still enforce minimums on mobile
-      minHeight: "175px",
-    },
-  })
-);
+  },
+}));
 
 export const CustomCardButton = styled(CustomButtonPrimary)(
   ({ theme, disabled }) => ({
@@ -3675,7 +3746,7 @@ const ProductCard = (props) => {
               isFrom === "top-rated" ||
               isFrom === dealTitle ||
               isFrom === "plp" ? (
-                <Stack position="relative" width={horizontalcard ? 131 : 155}>
+                <Stack>
                   {/* Product Image */}
                   <NextImage
                     src={getProductImageUrl()}
@@ -3686,8 +3757,8 @@ const ProductCard = (props) => {
                       isFrom === dealTitle ||
                       isFrom === "plp"
                     }
-                    height={180}
-                    width={horizontalcard ? "131" : "155"}
+                    height={160}
+                    width={160}
                     objectFit="cover"
                     borderRadius="3px"
                   />
@@ -3720,8 +3791,8 @@ const ProductCard = (props) => {
                 <NextImage
                   src={getProductImageUrl()}
                   alt={item?.name || "Product Image"}
-                  height={180}
-                  width={horizontalcard ? "131" : "155"}
+                  height={160}
+                  width={160}
                   objectFit="cover"
                   borderRadius="3px"
                 />

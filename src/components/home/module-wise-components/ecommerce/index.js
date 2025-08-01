@@ -97,9 +97,9 @@ const Shop = ({ configData }) => {
       )}
 
       <MobileFeaturedCategoriesSlider />
-      {!isMobile && <HeroBanner />}
-
-      {isMobile && (
+      {/* {!isMobile && <HeroBanner />} */}
+      <HeroBanner />
+      {/* {isMobile && (
         <CustomStackFullWidth sx={{ padding: 2, pt: 5 }}>
           <CustomBoxFullWidth
             sx={{
@@ -156,7 +156,7 @@ const Shop = ({ configData }) => {
               <Typography sx={{ color: "#fff" }}>Shop now</Typography>
             </Box>
 
-            {/* <Box>
+            <Box>
               <Box
                 component="img"
                 src={bannerImg.src}
@@ -169,10 +169,10 @@ const Shop = ({ configData }) => {
                   right: "20px",
                 }}
               />
-            </Box> */}
+            </Box>
           </CustomBoxFullWidth>
         </CustomStackFullWidth>
-      )}
+      )} */}
       <Grid item xs={12} sx={{ marginTop: { xs: "-10px", sm: "10px" } }}>
         <CustomContainer>
           <SingleRowFacilityHighLight
