@@ -117,7 +117,7 @@ const RegularOrders = (props) => {
                     fontWeight: "bold",
                   }}
                 >
-                  {getAmountWithSign(handleProductValueWithOutDiscount(item))}
+                  {getAmountWithSign(handleProductValueWithDiscount(item)) === getAmountWithSign(handleProductValueWithOutDiscount(item))  ? "" : getAmountWithSign(handleProductValueWithOutDiscount(item))}
                 </Typography>
                 <Typography>
                   {getAmountWithSign(handleProductValueWithDiscount(item))}

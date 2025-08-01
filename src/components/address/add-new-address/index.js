@@ -56,7 +56,7 @@ const AddNewAddress = (props) => {
   const token = localStorage.getItem("token");
   const reduxDispatch = useDispatch();
   const [addressType, setAddressType] = useState(
-    guestUserInfo ? guestUserInfo?.address_type : ""
+    guestUserInfo ? guestUserInfo?.address_type : "home"
   );
   const personName = `${profileInfo?.f_name} ${profileInfo?.l_name}`;
 
@@ -193,7 +193,7 @@ const AddNewAddress = (props) => {
             </CustomStackFullWidth>
             <Stack position="relative">
               <GoogleMapComponent
-                height="236px"
+                height="800px"
                 key={state.rerenderMap}
                 setLocation={(values) => {
                   dispatch({
@@ -224,7 +224,7 @@ const AddNewAddress = (props) => {
                 onClick={getCurrentLocation}
                 sx={{
                   position: "absolute",
-                  bottom: "10%",
+                  bottom: "20%",
                   right: "10px",
                   borderRadius: "50%",
                   color: (theme) => theme.palette.primary.main,

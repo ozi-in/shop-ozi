@@ -87,10 +87,11 @@ const SaveAddressModal = (props) => {
 						paddingLeft={{ xs: "1rem", sm: "1rem", md: "1.5rem" }}
 						pb={{ xs: "1rem", sm: "1rem", md: "1.9rem" }}
 					>
-						<AddNewAddressButton
+						{/* address field removed from view saved addresses */}
+						{/* <AddNewAddressButton
 							align="flex-start"
 							handleAddressModal={handleAddressModal}
-						/>
+						/> */}
 						{/*<AddNewAddress*/}
 						{/*  refetch={refetch}*/}
 						{/*  t={t}*/}
