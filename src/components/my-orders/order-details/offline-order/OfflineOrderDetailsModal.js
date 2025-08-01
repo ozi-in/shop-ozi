@@ -41,7 +41,7 @@ const OfflineOrderDetailsModal = ({
         }}
       />
       <Typography fontSize="16px" fontWeight="700" textAlign="center">
-        {`${t("Order Placed Successfully")} !`}
+        {page === "my-orders?flag=cancel" ? "Order canceled Successfully" : page === "my-orders?flag=fail" ? "Order failed Successfully" : "Order placed Successfully"}
       </Typography>
       <CustomStackFullWidth
         padding={{ xs: "0px 20px", md: "0px 145px" }}
@@ -79,8 +79,7 @@ const OfflineOrderDetailsModal = ({
               {" "}
               #{trackData?.id}{" "}
             </Typography>
-            <Typography component="span" fontWeight="400">{`${t(
-              "has been placed."
+            <Typography component="span" fontWeight="400">{`${t(`has been${page === "my-orders?flag=cancel" ? " canceled Successfully" : page === "my-orders?flag=fail" ? " canceled Successfully" : " placed Successfully"}.`
             )} !`}</Typography>
           </Typography>
         )}

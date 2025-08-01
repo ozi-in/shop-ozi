@@ -78,22 +78,22 @@ const featureData = [
     icon: (
       <img src="/parent_img_1.png" alt="Safe icon" width={32} height={32} />
     ),
-    title: "Lightning Fast Delivery",
+    title: "Delivered in Mins",
     description:
-      "Get your baby essentials delivered in 10–30 minutes, because little ones can't wait!",
+      "Get Your Baby Essentials Delivered In Minutes, Because Little Ones Can't Wait!",
   },
   {
     icon: (
       <img
-        src="/parent_img_2.png"
+        src="../ic_pbc_3.svg"
         alt="Certified icon"
         width={32}
         height={32}
       />
     ),
-    title: "100% Safe & Certified",
+    title: "Shop 24/7",
     description:
-      "All products are safety tested, certified, and approved by pediatricians.",
+      "Shop Round The Clock For Baby Essentials, Always Within Reach And Ready When You Are.",
   },
   {
     icon: (
@@ -106,15 +106,15 @@ const featureData = [
     ),
     title: "Premium Quality",
     description:
-      "Only the best brands and highest quality products for your precious little one.",
+      "Only The Best Brands And Highest Quality Products For Your Precious Little One.",
   },
   {
     icon: (
-      <img src="/parent_img_4.png" alt="Support icon" width={32} height={32} />
+      <img src="/parent_img_2.png" alt="Support icon" width={32} height={32} />
     ),
-    title: "24/7 Parent Support",
+    title: "Certified & Trusted Brands",
     description:
-      "Expert parent support team available round the clock for any queries or concerns.",
+      "Carefully Selected Brands That Test, Certify, And Meet Baby-Safe Standards.",
   },
 ];
 
@@ -132,7 +132,7 @@ const WhyParentsChoose = () => {
         Why Parents Choose <span style={{ color: "#FF5757" }}>OZi</span>
       </Typography>
 
-      <Grid container spacing={2}>
+      <Grid container spacing={2}  alignItems="stretch">
         {featureData.map((item, index) => (
           <Grid item xs={6} sm={3} key={index}>
             <Box
@@ -140,8 +140,10 @@ const WhyParentsChoose = () => {
                 backgroundColor: "#F3F4F6", // light grey
                 borderRadius: "16px",
                 padding: "16px",
-                minHeight: { xs: "300px", sm: "140px", md: "200px" },
+                // minHeight: { xs: "100px", sm: "140px", md: "200px" },
                 display: "flex",
+                height: "100%",
+                
                 flexDirection: "column",
                 justifyContent: "start",
                 gap: 2,
@@ -169,6 +171,8 @@ const WhyParentsChoose = () => {
                 fontSize="20px"
                 fontWeight="bold"
                 color="#1E2939"
+                
+                sx={{ flexGrow: 1}} 
               >
                 {item.title}
               </Typography>

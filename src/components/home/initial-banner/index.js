@@ -247,8 +247,7 @@ export default function HeroBanner() {
               maxWidth: "100%",
             }}
           >
-            From newborn essentials to growing kid’s needs — all delivered in
-            just 10–30 minutes!
+            From newborn essentials to growing kid's needs - delivered in minutes!
           </Typography>
         </Grid>
 

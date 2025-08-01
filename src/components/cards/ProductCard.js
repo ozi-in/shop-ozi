@@ -3416,6 +3416,7 @@ const ProductCard = (props) => {
         )}
 
         <PrimaryToolTip text={item?.name} placement="bottom" arrow="false">
+          <CustomStackFullWidth>
           <Typography
             className={classes.singleLineEllipsis}
             fontSize={{ xs: "12px", md: "14px" }}
@@ -3424,14 +3425,14 @@ const ProductCard = (props) => {
           >
             {item?.name}
           </Typography>
+          </CustomStackFullWidth>
         </PrimaryToolTip>
         <CustomStackFullWidth
-          justifyContent="center"
-          alignItems="center"
           spacing={0.5}
         >
           {cardType === "vertical-type" ? (
-            <Typography>{item?.unit_type}</Typography>
+            // <Typography>{item?.unit_type}</Typography>
+            <></>
           ) : (
             <CustomMultipleRatings rating={item?.avg_rating} withCount />
           )}

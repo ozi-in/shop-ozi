@@ -489,6 +489,8 @@ const SecondNavBar = ({ configData }) => {
               maxWidth: 600,
               minWidth: 400,
               position: "relative",
+              height: 50,
+              alignItems: "center",
             }}
           >
             <ManageSearch
@@ -534,7 +536,7 @@ const SecondNavBar = ({ configData }) => {
                   alignItems: "center",
                   justifyContent: "center",
                   "&:hover": {
-                    backgroundColor: "rgba(255, 122, 89, 0.1)",
+                    backgroundColor: "rgba(248, 245, 245, 0.1)",
                   },
                 }}
               >

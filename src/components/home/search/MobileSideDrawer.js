@@ -152,13 +152,13 @@ const MobileSideDrawer = (props) => {
             alignItems="center"
             justifyContent="center"
           >
-            <Typography fontWeight="bold">{t("Ratings")}</Typography>
+            {/* <Typography fontWeight="bold">{t("Ratings")}</Typography>
             <CustomRatings
               ratingValue={ratingValue}
               fontSize="20px"
               handleChangeRatings={handleChangeRatings}
               // readOnly
-            />
+            /> */}
           </CustomStackFullWidth>
         </Grid>
         <Grid item xs={12}>
