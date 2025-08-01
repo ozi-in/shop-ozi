@@ -761,9 +761,9 @@ export const ShopNowButton = styled(Button)(({ theme }) => ({
 }));
 
 export const itemsData = [
-  { icon: "../fast-delivery.svg", title: "100% Genuine Products" },
-  { icon: "../geniune.svg", title: "30-Min Delivery" },
-  { icon: "../parent-aproved.svg", title: "Parent Approved" },
+  { icon: "../fast-delivery.svg", title: "Delivery in minutes" },
+  { icon: "../ic_24essentials.svg", title: "24/7 Essentials" },
+  { icon: "../geniune.svg", title: "100% Genuine Products" },
 ];
 
 // *****************   show fast-delivery icon and text  ***************** //

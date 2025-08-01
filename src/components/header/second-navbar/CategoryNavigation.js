@@ -140,7 +140,6 @@ const CategoryNavigation = () => {
                   minWidth: 100,
                 }}
               >
-                Loading...
               </Typography>
             ))
           ) : categories?.length > 0 ? (
