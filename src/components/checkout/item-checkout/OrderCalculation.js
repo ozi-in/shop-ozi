@@ -86,7 +86,25 @@ const OrderCalculation = (props) => {
 
     setDeliveryFee(orderType === "delivery" ? 0 : price);
     if (price === 0) {
-      return <Typography>{t("Free")}</Typography>;
+      return <Grid item xs={12} align="right"
+              direction="row"
+              alignItems="end"
+              flex="Wrap"
+              width="100%"
+              gap={1}
+              display="flex"
+            >
+              <Typography
+                sx={{
+                  textDecoration: "line-through",
+                  color: "grey.600", // MUI grey palette
+                  fontWeight: "bold",
+                }}
+              >
+                19
+              </Typography>
+              <Typography>{t("Free")}</Typography>
+            </Grid>;
     } else {
       return (
         <Stack

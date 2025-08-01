@@ -188,6 +188,9 @@ const ScrollableContainer = styled(Box)(({ theme }) => ({
   scrollBehavior: "smooth",
   paddingBottom: theme.spacing(0),
   "&::-webkit-scrollbar": { display: "none" },
+  [theme.breakpoints.down("sm")]: {
+    paddingLeft: theme.spacing(2), // 👈 adds ~16px left space on mobile only
+  },
 }));
 
 export default NewArrivals;

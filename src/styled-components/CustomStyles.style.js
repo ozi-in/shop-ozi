@@ -442,6 +442,9 @@ export const SliderCustom = styled(Stack)(
 
           //paddingBottom: paddingBottom && "1rem !important",
         },
+        [theme.breakpoints.down("sm")]: {
+          paddingLeft: theme.spacing(2), // 👈 adds ~16px left space on mobile only
+        },
       },
     },
   })

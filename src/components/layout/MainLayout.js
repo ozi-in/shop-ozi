@@ -55,7 +55,7 @@ const MainLayout = ({ children, configData }) => {
 			<header>
 				<HeaderComponent />
 			</header>
-			<CustomStackFullWidth mt={isSmall ? "3.5rem" : "5.9rem"}>
+			<CustomStackFullWidth mt={isSmall ? "3.5rem" : "7.5rem"}>
 				<CustomStackFullWidth sx={{ minHeight: "70vh" }}>
 					{children}
 				</CustomStackFullWidth>
