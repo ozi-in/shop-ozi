@@ -50,13 +50,13 @@ const parseDescription = (description) => {
     const match = line.match(/^([^:]+):\s*(.*)$/); 
     if (match) {
       parsed.push({
-        label: match[1].trim(),
-        value: match[2].trim(),
+        label: match[1].trim().replace(/^-/, ''), // Remove leading dash if present
+        value: match[2].trim().replace(/^-/, ''), // Remove leading dash if present
       });
     } else if (line.trim()) {
       parsed.push({
         label: "Other Information",
-        value: line.trim(),
+        value: line.trim().replace(/^-/, ''), // Remove leading dash if present
       });
     }
   });
@@ -73,7 +73,7 @@ const Details = ({ description }) => {
       {parsedSections.map((section, index) => (
         <Box key={index} sx={{ mb: 1 }}>
           <Typography component="span" sx={{ fontWeight: 600 }}>
-            {section.label}:{" "}
+            {section.label}:{section.label === "Product Description" ? <br /> : " "}
           </Typography>
           <Typography component="span">{section.value}</Typography>
         </Box>

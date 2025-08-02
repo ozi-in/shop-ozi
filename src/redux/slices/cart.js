@@ -163,6 +163,19 @@ export const cartSlice = createSlice({
       state.cartList = newData;
     },
     setDecrementToCartItem: (state = initialState, action) => {
+      // If quantity becomes 0, remove the item from cart
+      if (action.payload.quantity === 0) {
+        state.cartList = state.cartList.filter((cartItem) =>
+          cartItem.module_type === action.payload.module_type
+            ? cartItem?.id === action.payload.id
+              ? JSON.stringify(cartItem?.selectedOption) !==
+                JSON.stringify(action.payload?.selectedOption)
+              : cartItem
+            : cartItem
+        );
+        return;
+      }
+      
       // without food module
       let newData;
       if (getCurrentModuleType() === "food") {

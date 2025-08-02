@@ -27,6 +27,7 @@ import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import TabMenu from "../best-reviewed-items/TabMenu";
 import SpecialOfferCardShimmer from "../../Shimmer/SpecialOfferCardSimmer";
+import ProductCardSimmer from "components/Shimmer/ProductCardSimmer";
 
 const SpecialFoodOffers = ({ title }) => {
   const { t } = useTranslation();
@@ -162,7 +163,7 @@ const SpecialFoodOffers = ({ title }) => {
                           width: { xs: "48%", sm: "30%", md: "20%" },
                         }}
                       >
-                        <SpecialOfferCardShimmer />
+                        <ProductCardSimmer />
                       </Grid>
                     ))
                   : filteredData.length > 0 &&
