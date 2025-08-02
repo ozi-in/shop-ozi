@@ -81,17 +81,23 @@ const CartContent = (props) => {
     if (res) {
       res?.forEach((item) => {
         if (cartItem?.cartItemId === item?.id) {
-          const product = {
-            ...item?.item,
-            cartItemId: item?.id,
-            totalPrice: item?.price,
-            quantity: item?.quantity,
-            food_variations: item?.item?.food_variations,
-            selectedAddons: item?.item?.addons,
-            itemBasePrice: item?.item?.price,
-            selectedOption: item?.variation,
-          };
-          dispatch(setDecrementToCartItem(product));
+          // If quantity becomes 0, remove the item from cart
+          if (item?.quantity === 0) {
+            dispatch(setRemoveItemFromCart(cartItem));
+            toast.success(t(cart_item_remove));
+          } else {
+            const product = {
+              ...item?.item,
+              cartItemId: item?.id,
+              totalPrice: item?.price,
+              quantity: item?.quantity,
+              food_variations: item?.item?.food_variations,
+              selectedAddons: item?.item?.addons,
+              itemBasePrice: item?.item?.price,
+              selectedOption: item?.variation,
+            };
+            dispatch(setDecrementToCartItem(product));
+          }
         }
       });
     }
@@ -152,6 +158,23 @@ const CartContent = (props) => {
 
   const handleDecrement = () => {
     const updateQuantity = cartItem?.quantity - 1;
+    
+    // If quantity becomes 0, remove the item from cart
+    if (updateQuantity === 0) {
+      const cartIdAndGuestId = {
+        cart_id: cartItem?.cartItemId,
+        guestId: guestId,
+      };
+      mutate(cartIdAndGuestId, {
+        onSuccess: () => {
+          dispatch(setRemoveItemFromCart(cartItem));
+          toast.success(t(cart_item_remove));
+        },
+        onError: onErrorResponse,
+      });
+      return;
+    }
+    
     const price =
       cartItem?.price + getTotalVariationsPrice(cartItem?.food_variations);
     //here quantity is decremented with number 1

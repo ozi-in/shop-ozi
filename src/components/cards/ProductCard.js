@@ -2983,17 +2983,23 @@ const ProductCard = (props) => {
   const cartUpdateHandleSuccessDecrement = (res) => {
     if (res) {
       res?.forEach((item) => {
-        const product = {
-          ...item?.item,
-          cartItemId: item?.id,
-          totalPrice: item?.price,
-          quantity: item?.quantity,
-          food_variations: item?.item?.food_variations,
-          selectedAddons: item?.item?.addons,
-          itemBasePrice: item?.item?.price,
-          selectedOption: item?.variation,
-        };
-        reduxDispatch(setDecrementToCartItem(product));
+        // If quantity becomes 0, remove the item from cart
+        if (item?.quantity === 0) {
+          reduxDispatch(setRemoveItemFromCart(isInCart));
+          toast.success(t("Removed from cart."));
+        } else {
+          const product = {
+            ...item?.item,
+            cartItemId: item?.id,
+            totalPrice: item?.price,
+            quantity: item?.quantity,
+            food_variations: item?.item?.food_variations,
+            selectedAddons: item?.item?.addons,
+            itemBasePrice: item?.item?.price,
+            selectedOption: item?.variation,
+          };
+          reduxDispatch(setDecrementToCartItem(product));
+        }
       });
     }
   };
@@ -3059,7 +3065,7 @@ const ProductCard = (props) => {
     const updateQuantity = isInCart?.quantity - 1;
 
     const isExisted = getItemFromCartlist();
-    if (isExisted?.quantity === 1) {
+    if (isExisted?.quantity === 1 || updateQuantity === 0) {
       const cartIdAndGuestId = {
         cart_id: isInCart?.cartItemId,
         guestId: getGuestId(),
