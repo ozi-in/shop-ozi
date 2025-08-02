@@ -367,7 +367,12 @@ const ProductInformationBottomSection = ({
             },
           }}
         >
-          {productDetailsData?.isCampaignItem ? t("Order Now") : t("Buy Now")}
+          {productDetailsData?.isCampaignItem 
+            ? t("Order Now") 
+            : isInCart(productDetailsData?.id) 
+              ? t("Go to Cart") 
+              : t("Buy Now")
+          }
         </PrimaryButton>
       ) : (
         <PrimaryButton
