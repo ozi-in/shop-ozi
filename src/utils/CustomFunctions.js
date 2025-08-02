@@ -185,7 +185,7 @@ export const handlePurchasedAmount = (cartList) => {
         (product.food_variations.length > 0
           ? handleProductValueWithOutDiscount(product)
           : product.price) *
-          product.quantity +
+        product.quantity +
         selectedAddonsTotal(product.selectedAddons) +
         total,
       0
@@ -196,7 +196,7 @@ export const handlePurchasedAmount = (cartList) => {
         (product?.selectedOption?.length > 0
           ? handleValueWithOutDiscount(product)
           : product.price) *
-          product.quantity +
+        product.quantity +
         total,
       0
     );
@@ -266,7 +266,7 @@ export const getCouponDiscount = (couponDiscount, storeData, cartList) => {
           break;
         case "free_delivery":
           return 0;
-        case "default":
+        default:
           if (couponDiscount && couponDiscount.discount_type === "amount") {
             if (couponDiscount.max_discount === 0) {
               return couponDiscount.discount;
@@ -324,21 +324,21 @@ const handleTotalDiscountBasedOnModules = (
       (total, product) =>
         (product.food_variations.length > 0
           ? handleProductValueWithOutDiscount(product) -
-            getConvertDiscount(
-              restaurentDiscount,
-              resDisType,
-              handleProductValueWithOutDiscount(product),
-              product.store_discount
-            )
+          getConvertDiscount(
+            restaurentDiscount,
+            resDisType,
+            handleProductValueWithOutDiscount(product),
+            product.store_discount
+          )
           : product.price -
-            getConvertDiscount(
-              restaurentDiscount,
-              resDisType,
-              product.price,
-              product.store_discount,
-              product.flash_sale
-            )) *
-          product.quantity +
+          getConvertDiscount(
+            restaurentDiscount,
+            resDisType,
+            product.price,
+            product.store_discount,
+            product.flash_sale
+          )) *
+        product.quantity +
         total,
       0
     );
@@ -347,20 +347,20 @@ const handleTotalDiscountBasedOnModules = (
       (total, product) =>
         (product?.selectedOption?.length > 0
           ? handleValueWithOutDiscount(product) -
-            getConvertDiscount(
-              restaurentDiscount,
-              resDisType,
-              handleValueWithOutDiscount(product),
-              product.store_discount
-            )
+          getConvertDiscount(
+            restaurentDiscount,
+            resDisType,
+            handleValueWithOutDiscount(product),
+            product.store_discount
+          )
           : product.price -
-            getConvertDiscount(
-              restaurentDiscount,
-              resDisType,
-              product.price,
-              product.store_discount
-            )) *
-          product.quantity +
+          getConvertDiscount(
+            restaurentDiscount,
+            resDisType,
+            product.price,
+            product.store_discount
+          )) *
+        product.quantity +
         total,
       0
     );
@@ -391,7 +391,7 @@ const handleProductWiseDiscount = (items) => {
   return totalDiscount;
 };
 
-export const getProductDiscount = (items, storeData,diffDiscount) => {
+export const getProductDiscount = (items, storeData, diffDiscount) => {
   const productWiseDiscount = handleProductWiseDiscount(items);
   if (storeData?.discount) {
     const endDate = storeData?.discount?.end_date;
@@ -404,7 +404,7 @@ export const getProductDiscount = (items, storeData,diffDiscount) => {
 
     // Check if the store discount is still valid
     if (combinedEndDateTime.isAfter(currentDateTime)) {
-     // console.log("Store discount is available");
+      // console.log("Store discount is available");
       const {
         discount: restaurentDiscount,
         discount_type: resDisType,
@@ -423,7 +423,7 @@ export const getProductDiscount = (items, storeData,diffDiscount) => {
       const purchasedAmount = items.reduce((total, product) => {
         const basePrice = product?.food_variations?.length > 0
           ? handleProductValueWithOutDiscount(product)
-          : product?.selectedOption?.length>0?product?.price + (product?.selectedOption?.reduce?.((sum, opt) => sum + (opt?.price || 0), 0) || 0):product?.price;
+          : product?.selectedOption?.length > 0 ? product?.price + (product?.selectedOption?.reduce?.((sum, opt) => sum + (opt?.price || 0), 0) || 0) : product?.price;
 
 
         const addonPrice = product?.selectedAddons?.length > 0
@@ -604,8 +604,8 @@ function distanceInKmBetweenEarthCoordinates(lat1, lon1, lat2, lon2) {
   const a =
     Math.pow(Math.sin(dLat / 2), 2) +
     Math.pow(Math.sin(dLon / 2), 2) *
-      Math.cos(toRadians(startLatitude)) *
-      Math.cos(toRadians(endLatitude));
+    Math.cos(toRadians(startLatitude)) *
+    Math.cos(toRadians(endLatitude));
   const c = 2 * Math.asin(Math.sqrt(a));
 
   return earthRadius * c;
@@ -799,7 +799,7 @@ export const getSubTotalPrice = (cartList) => {
         (product?.food_variations.length > 0
           ? getItemTotalWithoutDiscount(product)
           : product.price) *
-          product.quantity +
+        product.quantity +
         selectedAddonsTotal(product.selectedAddons) +
         total,
       0
@@ -810,7 +810,7 @@ export const getSubTotalPrice = (cartList) => {
         (product?.selectedOption?.length > 0
           ? product?.selectedOption?.[0]?.price
           : product.price) *
-          product.quantity +
+        product.quantity +
         total,
       0
     );
@@ -850,13 +850,13 @@ export const getCalculatedTotal = (
   zoneData,
   origin,
   destination,
-  extraCharge=0,
+  extraCharge = 0,
   additionalCharge,
   packagingCharge,
   referDiscount,
   vatAmount
 ) => {
-  const taxAmount=vatAmount|| 0
+  const taxAmount = vatAmount || 0
   if (couponDiscount) {
     if (couponDiscount?.coupon_type === "free_delivery") {
       return (
@@ -1179,8 +1179,15 @@ export const handleProductValueWithDiscount = (product) => {
         return productPrice;
       }
     } else {
-      productPrice = product.price - product.discount;
+      productPrice = (product.price - getDiscountAmount(product.price, product.discount));
       return productPrice;
-    }
-  }
+    }
+  }
+};
+
+// get the discount amount from percentage 
+
+const getDiscountAmount = (originalPrice, discountPercentage) => {
+  if (!originalPrice || !discountPercentage) return 0;
+  return (originalPrice * discountPercentage) / 100;
 };

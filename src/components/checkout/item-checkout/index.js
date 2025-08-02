@@ -2610,6 +2610,8 @@ import { useFormik } from "formik";
 
 import * as Yup from "yup";
 import { useGetTax } from "api-manage/hooks/react-query/order-place/useGetTax";
+import Coupons from "../../coupons";
+
 export const deepEqual = (obj1, obj2) => {
   if (obj1 === obj2) return true;
 
@@ -2774,7 +2776,7 @@ const ItemCheckout = (props) => {
     "order-place",
     OrderApi.placeOrder
   );
-  const userOnSuccessHandler = (res) => {};
+  const userOnSuccessHandler = (res) => { };
   const { isLoading: customerLoading, data: customerData } = useQuery(
     ["profile-info"],
     ProfileApi.profileInfo,
@@ -2845,8 +2847,8 @@ const ItemCheckout = (props) => {
         add_on_ids:
           cart?.selectedAddons?.length > 0
             ? cart?.selectedAddons?.map((add) => {
-                return add.id;
-              })
+              return add.id;
+            })
             : [],
         add_on_qtys:
           cart?.selectedAddons?.length > 0
@@ -2855,12 +2857,12 @@ const ItemCheckout = (props) => {
         add_ons:
           cart?.selectedAddons?.length > 0
             ? cart?.selectedAddons?.map((add) => {
-                return {
-                  id: add.id,
-                  name: add.name,
-                  price: add.price,
-                };
-              })
+              return {
+                id: add.id,
+                name: add.name,
+                price: add.price,
+              };
+            })
             : [],
         item_id: cart?.id,
         item_campaign_id: cart?.available_date_starts ? cart?.id : null,
@@ -2876,17 +2878,17 @@ const ItemCheckout = (props) => {
           cart?.module_type === "food"
             ? cart?.food_variations?.length > 0
               ? cart?.food_variations?.map((variation) => {
-                  return {
-                    name: variation.name,
-                    values: {
-                      label: handleValuesFromCartItems(variation.values),
-                    },
-                  };
-                })
+                return {
+                  name: variation.name,
+                  values: {
+                    label: handleValuesFromCartItems(variation.values),
+                  },
+                };
+              })
               : []
             : cart?.selectedOption?.length > 0
-            ? cart?.selectedOption
-            : [],
+              ? cart?.selectedOption
+              : [],
       };
     });
   };
@@ -2895,9 +2897,9 @@ const ItemCheckout = (props) => {
     const guestId = getToken() ? "" : guest_id;
     const isDigital =
       paymentMethod !== "cash_on_delivery" &&
-      paymentMethod !== "wallet" &&
-      paymentMethod !== "offline_payment" &&
-      paymentMethod !== ""
+        paymentMethod !== "wallet" &&
+        paymentMethod !== "offline_payment" &&
+        paymentMethod !== ""
         ? "digital_payment"
         : paymentMethod;
 
@@ -3074,11 +3076,9 @@ const ItemCheckout = (props) => {
                 const callBackUrl = token
                   ? `${window.location.origin}/profile?page=${page}`
                   : `${window.location.origin}/order?order_id=${response?.data?.order_id}&total=${response?.data?.total_ammount}`;
-                const url = `${newBaseUrl}/payment-mobile?order_id=${
-                  response?.data?.order_id
-                }&customer_id=${
-                  customerData?.data?.id ?? guest_id
-                }&callback=${callBackUrl},`;
+                const url = `${newBaseUrl}/payment-mobile?order_id=${response?.data?.order_id
+                  }&customer_id=${customerData?.data?.id ?? guest_id
+                  }&callback=${callBackUrl},`;
                 localStorage.setItem("totalAmount", totalAmount);
                 dispatch(setClearCart());
                 Router.push(url);
@@ -3139,13 +3139,11 @@ const ItemCheckout = (props) => {
               const callBackUrl = token
                 ? `${window.location.origin}/profile?page=${page}`
                 : `${window.location.origin}/home`;
-              const url = `${baseUrl}/payment-mobile?order_id=${
-                response?.data?.order_id
-              }&customer_id=${
-                customerData?.data?.id ?? response?.data?.user_id
+              const url = `${baseUrl}/payment-mobile?order_id=${response?.data?.order_id
+                }&customer_id=${customerData?.data?.id ?? response?.data?.user_id
                   ? response?.data?.user_id
                   : guest_id
-              }&payment_platform=${payment_platform}&callback=${callBackUrl}&payment_method=${paymentMethod}`;
+                }&payment_platform=${payment_platform}&callback=${callBackUrl}&payment_method=${paymentMethod}`;
               localStorage.setItem("totalAmount", totalAmount);
               dispatch(setGuestUserInfo(null));
               //dispatch(setClearCart());
@@ -3251,7 +3249,7 @@ const ItemCheckout = (props) => {
     }
   };
 
-  const couponRemove = () => {};
+  const couponRemove = () => { };
   useEffect(() => {
     if (orderSuccess) {
       handleOrderSuccess();
@@ -3460,7 +3458,7 @@ const ItemCheckout = (props) => {
     zoneData?.data
   );
 
-  const isZoneCod = () => {};
+  const isZoneCod = () => { };
   const hasOnlyPaymentMethod = () => {
     if (
       !configData?.cash_on_delivery &&
@@ -3625,6 +3623,7 @@ const ItemCheckout = (props) => {
                       isSmall={isSmall}
                     />
                   </SimpleBar>
+                  <Coupons></Coupons>
                   {storeData && token && (
                     <HaveCoupon
                       store_id={storeData?.id}
@@ -3724,7 +3723,7 @@ const ItemCheckout = (props) => {
           {openModal && (
             <CustomModal
               openModal={openModal}
-              //handleClose={() => setOpenModal(false)}
+            //handleClose={() => setOpenModal(false)}
             >
               <PartialPaymentModal
                 payableAmount={payableAmount}
@@ -3741,7 +3740,7 @@ const ItemCheckout = (props) => {
           {openPartialModel && (
             <CustomModal
               openModal={openPartialModel}
-              //handleClose={() => setOpenPartialModel(false)}
+            //handleClose={() => setOpenPartialModel(false)}
             >
               <PartialPaymentModal
                 payableAmount={payableAmount}
