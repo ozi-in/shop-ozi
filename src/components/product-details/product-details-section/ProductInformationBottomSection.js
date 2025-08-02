@@ -412,7 +412,7 @@ const ProductInformationBottomSection = ({
               sx={{
                 width: 200,
                 borderRadius: "8px",
-                height: "36px",
+                height: "40px",
                 overflow: "hidden",
                 boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
               }}
