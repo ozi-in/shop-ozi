@@ -174,7 +174,7 @@
 //   );
 // }
 
-import { Box, Typography, Grid, useMediaQuery } from "@mui/material";
+import { Box, Button, Typography, Grid, useMediaQuery } from "@mui/material";
 import Image from "next/image";
 import { useTheme } from "@mui/material/styles";
 
@@ -186,143 +186,143 @@ export default function HeroBanner() {
     <Box
       sx={{
         width: "100%",
-        height: { xs: "180px", md: "auto" },
-        px: { xs: 2, md: 8 },
-        py: { xs: 3, md: 0 },
-        borderRadius: "16px",
+        // background: "linear-gradient(90deg, #7F74FF 0%, #65C8FF 100%)",
         background:
           "linear-gradient(94.75deg, #FF6D66 43.28%, #EF76AA 120.69%)",
+        borderBottomLeftRadius: "24px",
+        borderBottomRightRadius: "24px",
+        py: { xs: 6, md: 0 },
+        px: { xs: 2, md: 8 },
         color: "white",
-        mx: { xs: 2, md: "auto" },
-        overflow: "hidden",
-        position: "relative",
       }}
     >
       <Grid
         container
-        spacing={2}
-        direction="row"
-        wrap="nowrap"
+        spacing={4}
+        pl={5}
         alignItems="center"
         justifyContent="space-between"
-        sx={{
-          flexDirection: { xs: "row", md: "row" },
-          flexWrap: { xs: "nowrap", md: "nowrap" },
-        }}
       >
         {/* Left Content */}
-        <Grid
-          item
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: { xs: "flex-start", md: "flex-start" },
-            textAlign: { xs: "left", md: "left" },
-            minWidth: { xs: "60%", md: "50%" },
-            pr: { xs: 2, md: 0 },
-          }}
-        >
-          <Typography
-            fontWeight="bold"
+        <Grid item xs={12} md={6}>
+          {/* <Typography
+            variant="caption"
             sx={{
+              background: "rgba(255, 255, 255, 0.2)",
+              borderRadius: "20px",
+              px: 2,
+              py: 0.5,
+              fontSize: "12px",
+              display: "inline-block",
               mb: 2,
-              lineHeight: 1.2,
-              fontSize: {
-                xs: "18px",
-                sm: "2rem",
-                md: "3rem",
-              },
-              maxWidth: { xs: "100%", md: "90%" },
             }}
           >
-            Baby Essentials {!isSmall && <br />}
-            Delivered in Minutes
-          </Typography>
+            Trusted by 100+ Parents
+          </Typography> */}
 
           <Typography
+            variant="h3"
+            fontWeight="bold"
+            sx={{ mb: 2, lineHeight: 1.2 }}
+          >
+            Baby Essentials <br />
+            Delivered in 30 Minutes
+          </Typography>
+
+          <Typography variant="body1" sx={{ mb: 4, maxWidth: "90%" }}>
+            From newborn essentials to growing kid’s needs — all delivered in
+            just 10–30 minutes!
+          </Typography>
+
+          {/* <Button
+            variant="contained"
             sx={{
-              fontSize: { xs: "0.7rem", sm: "1rem", md: "1.2rem" },
-              mb: 4,
-              maxWidth: "100%",
+              backgroundColor: "#101828",
+              borderRadius: "30px",
+              px: 4,
+              py: 1.5,
+              fontWeight: "bold",
+              fontSize: "1rem",
+              textTransform: "none",
+              "&:hover": {
+                backgroundColor: "#1E293B",
+              },
             }}
           >
-            From newborn essentials to growing kid's needs - delivered in minutes!
-          </Typography>
+            Shop Now
+          </Button> */}
         </Grid>
 
         {/* Right Image */}
         <Grid
           item
+          xs={12}
+          md={6}
           sx={{
-            textAlign: "right",
+            textAlign: isSmall ? "center" : "right",
             alignSelf: "flex-start",
-            minWidth: { xs: "40%", md: "50%" },
+            // ensures image is top-aligned
+
+            pr: isSmall ? 4 : 15, // Add padding-top for small screens
+            display: "flex", // ✅ NEW
+            justifyContent: isSmall ? "center" : "flex-end", // ✅ NEW
+            alignItems: "flex-end", // ✅ Align to bottom like screenshot 2
+            mt: isSmall ? 4 : 0, //
           }}
         >
-          <Box
-            sx={{
-              position: { xs: "absolute", md: "relative" }, // ⬅️ Absolute only on mobile
-              bottom: { xs: 8, md: "auto" }, // ⬅️ Stick to bottom on mobile
-              right: { xs: -60, md: "auto" }, // ⬅️ Stick to right on mobile
-              mt: { xs: 0, md: 6 }, // ⬅️ Only apply top margin on desktop
-              width: "fit-content",
-              height: "100%",
-            }}
-          >
+          <Box sx={{
+            position: "relative", display: "flex", // ✅ Arrange images in a row
+            alignItems: "flex-end", mt: 6, width: "fit-content"
+          }}>
+            {/* Main Image */}
             <Image
               src="/mother-babyPreview.png"
               alt="Baby Essentials"
-              width={isSmall ? 300 : 600}
-              height={isSmall ? 300 : 600}
-              style={{
-                height: "auto",
-                verticalAlign: "top",
-                maxWidth: "100%",
-              }}
+              width={380}
+              height={420}
+              style={{ height: "auto", verticalAlign: "top", zIndex: 2 }}
               priority
             />
 
-            {/* Overlay Images (desktop only) */}
-            {!isSmall && (
-              <>
-                <Box
-                  sx={{
-                    position: "absolute",
-                    bottom: 0,
-                    right: 0,
-                    transform: "translateX(20%)",
-                  }}
-                >
-                  <Image
-                    src="/banner-detergent.png"
-                    alt="Detergent"
-                    width={200}
-                    height={200}
-                    style={{ height: "auto", display: "block" }}
-                    priority
-                  />
-                </Box>
+            {/* Overlay Images in bottom-right */}
+            <Box
+              sx={{
+                position: "absolute",
+                bottom: 0,
+                right: 0,
+                transform: "translateX(20%)",
+              }}
+            >
+              <Image
+                src="/banner-detergent.png"
+                alt="Detergent"
+                width={100}
+                height={140}
+                style={{
+                  height: "auto", display: "block", marginLeft: -30, // ✅ Slight overlap
+                  marginRight: -10,
+                }}
+                priority
+              />
+            </Box>
 
-                <Box
-                  sx={{
-                    position: "absolute",
-                    bottom: 0,
-                    right: 0,
-                    transform: "translateX(80%)",
-                  }}
-                >
-                  <Image
-                    src="/banner-Pampers.png"
-                    alt="Pampers"
-                    width={200}
-                    height={200}
-                    style={{ height: "auto", display: "block" }}
-                    priority
-                  />
-                </Box>
-              </>
-            )}
+            <Box
+              sx={{
+                position: "absolute",
+                bottom: 0,
+                right: 0,
+                transform: "translateX(80%)", // pushes second image just below the first
+              }}
+            >
+              <Image
+                src="/banner-Pampers.png"
+                alt="Pampers"
+                width={120}
+                height={140}
+                style={{ height: "auto", display: "block", marginLeft: -10, }}
+                priority
+              />
+            </Box>
           </Box>
         </Grid>
       </Grid>
