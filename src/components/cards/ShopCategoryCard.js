@@ -29,38 +29,45 @@ const encodeBase64 = (str) => {
 };
 
 // const Wrapper = styled(Box)(({ theme }) => ({
-//   // backgroundColor: theme.palette.background.paper,
+//   backgroundColor: "#F9FAFB",
 //   padding: "5px",
-//   // border: "1px solid #EAEEF2",
-//   // borderRadius: "10px",
+//   border: "2px solid transparent", // Added default transparent border
+//   borderRadius: "10px",
 //   cursor: "pointer",
 
 //   width: "160px",
 //   height: "250px",
-//   transition: "all ease 0.5s",
+//   transition: "all 0.3s ease",
+//   position: "relative",
+//   overflow: "hidden",
 //   ".MuiTypography-h7": {
 //     transition: "all ease 0.5s",
 //   },
 //   "&:hover": {
-//     // boxShadow: "0px 10px 20px rgba(88, 110, 125, 0.1)",
-//     // ".MuiTypography-h7": {
-//     //   color: theme.palette.primary.main,
-//     //   letterSpacing: "0.02em",
-//     // },
-//     img: {
-//       transform: "scale(1.1)",
+//     border: "1px solid  #E5E7EB", // Add border on hover
+//     //boxShadow: "0 4px 20px rgba(0, 0, 0, 0.1)",         // Add shadow
+//     transform: "translateY(-5px)", // Pop-up effect
+
+//     ".MuiTypography-h7": {
+//       color: theme.palette.primary.main,
+//       letterSpacing: "0.02em",
 //     },
 //   },
 // }));
+// const ImageWrapper = styled(CustomBoxFullWidth)(({ theme }) => ({
+//   position: "relative",
+//   borderRadius: "10px",
+//   height: "115px",
+// }));
 const Wrapper = styled(Box)(({ theme }) => ({
-  backgroundColor: "#F9FAFB",
+  backgroundColor: "#ffff",
   padding: "5px",
-  border: "2px solid transparent", // Added default transparent border
-  borderRadius: "10px",
+  border: "2px solid transparent",
+  borderRadius: "20px",
   cursor: "pointer",
-
-  width: "160px",
-  height: "250px",
+  // border: "1px solid black",
+  width: "220px",
+  height: "350px",
   transition: "all 0.3s ease",
   position: "relative",
   overflow: "hidden",
@@ -68,9 +75,8 @@ const Wrapper = styled(Box)(({ theme }) => ({
     transition: "all ease 0.5s",
   },
   "&:hover": {
-    border: "1px solid  #E5E7EB", // Add border on hover
-    //boxShadow: "0 4px 20px rgba(0, 0, 0, 0.1)",         // Add shadow
-    transform: "translateY(-5px)", // Pop-up effect
+    border: "1px solid  #E5E7EB",
+    transform: "translateY(-5px)",
 
     ".MuiTypography-h7": {
       color: theme.palette.primary.main,
@@ -81,7 +87,11 @@ const Wrapper = styled(Box)(({ theme }) => ({
 const ImageWrapper = styled(CustomBoxFullWidth)(({ theme }) => ({
   position: "relative",
   borderRadius: "10px",
-  height: "115px",
+  // height: "160px",
+  // width: "100%",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
 }));
 
 const ShopCategoryCard = (props) => {
@@ -218,103 +228,49 @@ const ShopCategoryCard = (props) => {
   ) : isMobile ? (
     renderMobileLayout()
   ) : (
-    <Wrapper sx={{ width: "180px" }}>
+    <Wrapper
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+        py: 2,
+      }}
+    >
       <Link
         href={{
           pathname: "/home",
           query: {
             search: "category",
-            /* id: `${item?.slug ? item?.slug : item?.id}`,*/
             id: `${item?.id}`,
             module_id: `${getModuleId()}`,
             name: btoa(item?.name),
             data_type: "category",
           },
         }}
+        style={{ flexGrow: 1, display: "flex", flexDirection: "column" }}
       >
-        <CustomBoxFullWidth
-          alignItems="center"
-          justifyContent="space-between"
-          alignContent="center"
-        >
-          <ImageWrapper>
-            <CustomImageContainer
-              height="100%"
-              width="100%"
-              src={imageUrl}
-              borderRadius="5px"
-              objectFit="cover"
-              loading="loading"
-            />
-          </ImageWrapper>
-          <Grid container>
-            <Grid
-              item
-              xs={6}
-              container
-              sx={{ p: "8px" }}
-              alignItems="center"
-              justifyContent="center"
-            >
-              <Grid item xs={12}>
-                {/* <Tooltip
-                  title={item?.name}
-                  placement="bottom"
-                  arrow
-                  componentsProps={{
-                    tooltip: {
-                      sx: {
-                        bgcolor: (theme) => theme.palette.toolTipColor,
-                        "& .MuiTooltip-arrow": {
-                          // color: (theme) => theme.palette.toolTipColor,
-                        },
-                      },
-                    },
-                  }}
-                >
-                  <Typography
-                    variant="h7"
-                    fontWeight="400"
-                    className={classes.multiLineEllipsis}
-                    component="h4"
-                  >
-                    {item?.name}
-                  </Typography>
-                </Tooltip> */}
+        <ImageWrapper>
+          <CustomImageContainer
+            height="200px"
+            width="200px"
+            src={imageUrl}
+            borderRadius="5px"
+            objectFit="cover"
+            loading="lazy"
+          />
+        </ImageWrapper>
 
-                <Box
-                  sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    height: "60px",
-                  }}
-                >
-                  <CustomText fontSize="12px">{item?.name}</CustomText>
-                  <CustomText fontSize="10px">
-                    {item?.products_count - 1}+ Products
-                  </CustomText>
-                </Box>
-              </Grid>
-              {/* <Grid item xs={12}>
-                <Typography
-                  variant="body2"
-                  color="customColor.textGray"
-                  component="span"
-                >
-                  {t("Explore Items")}
-                </Typography>
-              </Grid> */}
-            </Grid>
-
-            <ShopNowButton variant="contained" onClick={() => {}}>
-              {" "}
-              <Typography color={theme.palette.whiteContainer.main}>
-                {t("Shop Now")}
-              </Typography>
-            </ShopNowButton>
-          </Grid>
-        </CustomBoxFullWidth>
+        <Box sx={{ p: "8px", flexGrow: 1 }}>
+          <CustomText fontWeight="500" fontSize="15px">
+            {item?.name}
+          </CustomText>
+        </Box>
       </Link>
+
+      {/* Shop Now Button always sticks to bottom */}
+      <ShopNowButton variant="contained">
+        <Typography color="#ffffff">{t("Shop Now")}</Typography>
+      </ShopNowButton>
     </Wrapper>
   );
 };

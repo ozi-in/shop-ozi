@@ -65,13 +65,30 @@ const FooterMiddle = (props) => {
         </Grid>
 
         {/* Route Links Centered Horizontally */}
-        <Grid item xs={12} md={3.5}>
+        {/* <Grid item xs={12} md={3.5}>
           <Stack
             direction="row"
             spacing={4}
             justifyContent="center"
             alignItems="center"
             width="300px"
+          >
+            <RouteLinks token={token} configData={configData} />
+          </Stack>
+        </Grid> */}
+        <Grid
+          item
+          xs={12}
+          md={3.5}
+          display="flex"
+          justifyContent={{ xs: "center", md: "flex-start" }}
+        >
+          <Stack
+            direction="row"
+            spacing={4}
+            justifyContent="center"
+            alignItems="center"
+            width="fit-content"
           >
             <RouteLinks token={token} configData={configData} />
           </Stack>
@@ -93,14 +110,14 @@ const FooterMiddle = (props) => {
         Number.parseInt(
           landingPageData?.download_user_app_links?.apple_store_url_status
         ) === 1) && (
-        <Box mt={3}>
-          <AppLinks
-            configData={configData}
-            changeSingle
-            landingPageData={landingPageData}
-          />
-        </Box>
-      )}
+          <Box mt={3}>
+            <AppLinks
+              configData={configData}
+              changeSingle
+              landingPageData={landingPageData}
+            />
+          </Box>
+        )}
 
       {/* Optional Map View */}
       {open && (

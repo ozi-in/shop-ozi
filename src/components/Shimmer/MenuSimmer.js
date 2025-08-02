@@ -10,8 +10,8 @@ const MenuSimmer = ({ count }) => {
                         key={index}
                         variant="text"
                         animation="wave"
-                        height={20}
-                        width="50px"
+                        height={350}
+                        width="220px"
                     />
                 );
             })}
