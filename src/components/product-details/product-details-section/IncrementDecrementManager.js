@@ -51,7 +51,8 @@ const IncrementDecrementManager = (props) => {
           >
                          <Stack alignItems="center" justifyContent="center">
                <Typography variant="body1" fontWeight="500" textAlign="center">
-                 -
+                 {modalData?.quantity < 10 && "0"}
+                 {modalData?.quantity}
                </Typography>
              </Stack>
           </Stack>
