@@ -27,9 +27,6 @@ const IncrementDecrementManager = (props) => {
   return (
     <CustomStackFullWidth spacing={2}>
       <Stack direction="row" spacing={1} alignItems="center">
-        {/* <Typography fontWeight="400" color="customColor.textGray">
-          {t("Unit")} :
-        </Typography> */}
         <Typography fontWeight="500">{modalData?.unit_type}</Typography>
       </Stack>
       <CustomStackFullWidth
@@ -40,9 +37,6 @@ const IncrementDecrementManager = (props) => {
         justifyContent="flex-start"
       >
         <Stack direction="row" spacing={4} alignItems="center">
-          {/*<Typography fontWeight="400" color="customColor.textGray">*/}
-          {/*  {t("Quantity")} :*/}
-          {/*</Typography>*/}
           <Stack
             direction="row"
             alignIems="center"
@@ -55,12 +49,11 @@ const IncrementDecrementManager = (props) => {
                   : (theme) => alpha(theme.palette.neutral[200], 0.2),
             }}
           >
-            <Stack alignItems="center" justifyContent="center">
-              <Typography variant="body1" fontWeight="500" textAlign="center">
-                {modalData?.quantity < 10 && "0"}
-                {modalData?.quantity}
-              </Typography>
-            </Stack>
+                         <Stack alignItems="center" justifyContent="center">
+               <Typography variant="body1" fontWeight="500" textAlign="center">
+                 -
+               </Typography>
+             </Stack>
           </Stack>
         </Stack>
         <Stack
