@@ -86,25 +86,25 @@ const OrderCalculation = (props) => {
 
     setDeliveryFee(orderType === "delivery" ? 0 : price);
     if (price === 0) {
-      return <Grid item xs={12} align="right"
-              direction="row"
-              alignItems="end"
-              flex="Wrap"
-              width="100%"
-              gap={1}
-              display="flex"
-            >
-              <Typography
-                sx={{
-                  textDecoration: "line-through",
-                  color: "grey.600", // MUI grey palette
-                  fontWeight: "bold",
-                }}
-              >
-                19
-              </Typography>
-              <Typography>{t("Free")}</Typography>
-            </Grid>;
+      return <Grid
+        direction="row"
+        alignItems="end"
+        flex="Wrap"
+        width="100%"
+        gap={1}
+        display="flex"
+      >
+        <Typography
+          sx={{
+            textDecoration: "line-through",
+            color: "grey.600", // MUI grey palette
+            fontWeight: "bold",
+          }}
+        >
+          19
+        </Typography>
+        <Typography>{t("Free")}</Typography>
+      </Grid>;
     } else {
       return (
         <Stack
@@ -138,8 +138,8 @@ const OrderCalculation = (props) => {
 
   const totalAmountForRefer = couponDiscount
     ? handlePurchasedAmount(cartList) -
-      getProductDiscount(cartList, storeData) -
-      getCouponDiscount(couponDiscount, storeData, cartList)
+    getProductDiscount(cartList, storeData) -
+    getCouponDiscount(couponDiscount, storeData, cartList)
     : handlePurchasedAmount(cartList) - getProductDiscount(cartList, storeData);
   const dispatch = useDispatch();
   const referDiscount = getReferDiscount(
@@ -189,11 +189,10 @@ const OrderCalculation = (props) => {
   const badText = t("and bad weather charge");
   const deliveryToolTipsText = `${extraText} ${getAmountWithSign(
     tempExtraCharge
-  )}${
-    bad_weather_fees !== 0
+  )}${bad_weather_fees !== 0
       ? ` ${badText} ${getAmountWithSign(bad_weather_fees)}`
       : ""
-  }`;
+    }`;
   return (
     <>
       <CalculationGrid container item xs={12} spacing={1} mt="1rem">
@@ -269,7 +268,7 @@ const OrderCalculation = (props) => {
                   justifyContent="flex-end"
                   spacing={0.5}
                 >
-                  <Typography>{"(-)"}</Typography>
+                  <Typography>{"-"}</Typography>
                   <Typography>
                     {storeData && cartList && handleCouponDiscount()}
                   </Typography>
@@ -397,16 +396,16 @@ const OrderCalculation = (props) => {
                         {t("Delivery fee")}
                         {Number.parseInt(storeData?.self_delivery_system) !==
                           1 && (
-                          <Typography component="span">
-                            <Tooltip
-                              title={deliveryToolTipsText}
-                              placement="top"
-                              arrow={true}
-                            >
-                              <InfoIcon sx={{ fontSize: "11px" }} />
-                            </Tooltip>
-                          </Typography>
-                        )}
+                            <Typography component="span">
+                              <Tooltip
+                                title={deliveryToolTipsText}
+                                placement="top"
+                                arrow={true}
+                              >
+                                <InfoIcon sx={{ fontSize: "11px" }} />
+                              </Tooltip>
+                            </Typography>
+                          )}
                       </Typography>
                     </Grid>
                     <Grid item xs={4} align="right">
@@ -518,20 +517,18 @@ const OrderCalculation = (props) => {
               fontSize={{ xs: "0.7rem" }}
             >
               {cashbackAmount?.cashback_amount > 0
-                ? `${text1} ${
-                    cashbackAmount?.cashback_type === "percentage"
-                      ? cashbackAmount?.cashback_amount + "%"
-                      : getAmountWithSign(cashbackAmount?.cashback_amount)
-                  } ${text2} ${getAmountWithSign(
-                    cashbackAmount?.min_purchase
-                  )}. ${
-                    cashbackAmount?.cashback_type === "percentage"
-                      ? text3 +
-                        " " +
-                        getAmountWithSign(cashbackAmount?.max_discount) +
-                        "."
-                      : ""
-                  }
+                ? `${text1} ${cashbackAmount?.cashback_type === "percentage"
+                  ? cashbackAmount?.cashback_amount + "%"
+                  : getAmountWithSign(cashbackAmount?.cashback_amount)
+                } ${text2} ${getAmountWithSign(
+                  cashbackAmount?.min_purchase
+                )}. ${cashbackAmount?.cashback_type === "percentage"
+                  ? text3 +
+                  " " +
+                  getAmountWithSign(cashbackAmount?.max_discount) +
+                  "."
+                  : ""
+                }
 `
                 : ""}
             </Box>
