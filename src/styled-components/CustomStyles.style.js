@@ -122,8 +122,8 @@ export const CustomPaperBigCard = styled(Paper)(
       noboxshadow === "true"
         ? "none"
         : theme.palette.mode === "light"
-        ? `0px 0px 2px rgba(145, 158, 171, 0.2), 0px 5px 20px ${theme.palette.paperBoxShadow}`
-        : "none",
+          ? `0px 0px 2px rgba(145, 158, 171, 0.2), 0px 5px 20px ${theme.palette.paperBoxShadow}`
+          : "none",
     // marginBottom: '30px',
   })
 );
@@ -424,6 +424,7 @@ export const SliderCustom = styled(Stack)(
     nopadding,
     paddingBottom,
     padding,
+    isShopByCat,
   }) => ({
     position: "relative",
     width: "100%",
@@ -442,11 +443,15 @@ export const SliderCustom = styled(Stack)(
 
           //paddingBottom: paddingBottom && "1rem !important",
         },
-        [theme.breakpoints.down("sm")]: {
-          paddingLeft: theme.spacing(2), // 👈 adds ~16px left space on mobile only
-        },
       },
     },
+    ...(!isShopByCat && {
+      [theme.breakpoints.down("sm")]: {
+        "& .slick-slider .slick-list": {
+          paddingLeft: theme.spacing(2),
+        },
+      },
+    }),
   })
 );
 

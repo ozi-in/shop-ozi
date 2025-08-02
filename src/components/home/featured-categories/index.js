@@ -528,6 +528,7 @@ const FeaturedCategories = ({ configData }) => {
                     },
                   },
                 }}
+                isShopByCat={true}
               >
                 {isSmallScreen && (
                   <h2 style={{ marginTop: 0, marginBottom: "8px" }}>
