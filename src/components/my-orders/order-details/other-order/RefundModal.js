@@ -174,7 +174,14 @@ const RefundModal = (props) => {
                         <LoadingButton
                           type="submit"
                           variant="contained"
-                          sx={{ width: "100%" }}
+                          sx={{ width: "100%",
+                           backgroundColor: theme.palette.buttonColors.main,
+                           color: "white",
+                           "&:hover": {
+                             backgroundColor: theme.palette.buttonColors.hover,
+                             color: "white",
+                           }
+                           }}
                           loading={refundIsLoading}
                         >
                           {t("Submit Refund Request")}

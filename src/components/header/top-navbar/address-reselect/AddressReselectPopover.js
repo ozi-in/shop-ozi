@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {Button, Popover, Stack, Typography, useTheme} from "@mui/material";
+import { Button, Popover, Stack, Typography, useTheme } from "@mui/material";
 
 import SimpleBar from "simplebar-react";
 import "simplebar-react/dist/simplebar.min.css";
@@ -13,8 +13,17 @@ import useGetZoneId from "../../../../api-manage/hooks/react-query/google-api/us
 import dynamic from "next/dynamic";
 const MapModal = dynamic(() => import("../../../Map/MapModal"));
 const AddressReselectPopover = (props) => {
-  const { anchorEl, onClose, open, t, address, setAddress, token, currentLatLngForMar, ...other } =
-    props;
+  const {
+    anchorEl,
+    onClose,
+    open,
+    t,
+    address,
+    setAddress,
+    token,
+    currentLatLngForMar,
+    ...other
+  } = props;
   const theme = useTheme();
   const [openMapModal, setOpenMapModal] = useState(false);
   const [location, setLocation] = useState(undefined);
@@ -57,7 +66,7 @@ const AddressReselectPopover = (props) => {
 
   useEffect(() => {
     handleSetLocation();
-  }, [currentLocation, location,address?.address]);
+  }, [currentLocation, location, address?.address]);
   useEffect(() => {
     if (geoCodeResults?.results && showCurrentLocation) {
       setCurrentLocation(geoCodeResults?.results[0]?.formatted_address);
@@ -143,7 +152,7 @@ const AddressReselectPopover = (props) => {
               )}
             </Stack>
           </SimpleBar>
-         {/* <Button
+          {/* <Button
            fullWidth
               onClick={handleAgreeLocation}
               startIcon={
@@ -161,20 +170,32 @@ const AddressReselectPopover = (props) => {
               {t("Use Current Location")}
             </Button> */}
           <Stack width="100%" justifyContent="center" alignItems="center">
-            <CustomButtonPrimary onClick={() => setOpenMapModal(true)}>
+            <CustomButtonPrimary
+              onClick={() => setOpenMapModal(true)}
+              sx={{
+                backgroundColor: theme.palette.buttonColors.main,
+                color: "white",
+                borderColor: theme.palette.buttonColors.main,
+                "&:hover": {
+                  backgroundColor: theme.palette.buttonColors.hover,
+                  color: "white",
+                  borderColor: theme.palette.buttonColors.hover,
+                },
+              }}
+            >
               {t("Pick from map")}
             </CustomButtonPrimary>
           </Stack>
         </Stack>
       </Popover>
-                  {openMapModal && (
-              <MapModal 
-                open={openMapModal} 
-                handleClose={handleCloseMapModal}  
-                selectedLocation={currentLatLngForMar}
-                fromStore={true}
-              />
-            )}
+      {openMapModal && (
+        <MapModal
+          open={openMapModal}
+          handleClose={handleCloseMapModal}
+          selectedLocation={currentLatLngForMar}
+          fromStore={true}
+        />
+      )}
     </>
   );
 };

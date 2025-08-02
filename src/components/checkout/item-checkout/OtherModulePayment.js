@@ -501,9 +501,15 @@ const OtherModulePayment = (props) => {
           variant="contained"
           onClick={() => handleSubmit()}
           disabled={paymentMethod || isCheckedOffline ? false : true}
-          style={{
+          sx={{
             borderRadius: "5px",
             padding: "8px 22px",
+            backgroundColor: theme.palette.buttonColors.main,
+            color: "white",
+            "&:hover": {
+              backgroundColor: theme.palette.buttonColors.hover,
+              color: "white",
+            },
           }}
         >
           {t("Proceed")}

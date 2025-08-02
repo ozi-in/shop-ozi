@@ -94,6 +94,12 @@ const OtpLogin = ({
               fontWeight: "500",
 
               height: "45px",
+              backgroundColor: theme.palette.buttonColors.main,
+              color: "white",
+              "&:hover": {
+                backgroundColor: theme.palette.buttonColors.hover,
+                color: "white",
+              },
             }}
             loading={isLoading}
             id={fireBaseId}

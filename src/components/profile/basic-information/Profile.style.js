@@ -5,6 +5,12 @@ import LoadingButton from "@mui/lab/LoadingButton";
 export const SaveButton = styled(LoadingButton)(({ theme }) => ({
   color: "#ffffff",
   borderRadius: "5px",
+  backgroundColor: theme.palette.buttonColors.main,
+  color: "white",
+  "&:hover": {
+    backgroundColor: theme.palette.buttonColors.hover,
+    color: "white",
+  },
 
   [theme.breakpoints.up("xs")]: {
     height: "42.04px",

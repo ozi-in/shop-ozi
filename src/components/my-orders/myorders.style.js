@@ -68,7 +68,7 @@ export const TrackOrderButton = styled(Button)(({ theme }) => ({
   padding: "6px 12px",
 
   "&:hover": {
-    backgroundColor: theme.palette.primary.dark,
+    backgroundColor: theme.palette.buttonColors.hover,
     color: theme.palette.whiteContainer.main,
   },
   [theme.breakpoints.down("md")]: {

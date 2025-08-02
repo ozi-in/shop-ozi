@@ -236,7 +236,18 @@ const BasicInformation = (props) => {
                     <Button
                       onClick={handleClick}
                       variant="contained"
-                      sx={{ fontSize: "12px", borderRadius: "5px" }}
+                      sx={{
+                        fontSize: "12px",
+                        borderRadius: "5px",
+                        backgroundColor: (theme) =>
+                          theme.palette.buttonColors.main,
+                        color: "white",
+                        "&:hover": {
+                          backgroundColor: (theme) =>
+                            theme.palette.buttonColors.hover,
+                          color: "white",
+                        },
+                      }}
                       startIcon={
                         <BorderColorIcon
                           style={{ width: "13px", height: "13px" }}

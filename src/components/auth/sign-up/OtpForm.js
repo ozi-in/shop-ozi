@@ -23,7 +23,7 @@ import CustomImageContainer from "components/CustomImageContainer";
 import { maskSensitiveInfo } from "utils/CustomFunctions";
 import CloseIcon from "@mui/icons-material/Close";
 import otpImage from "../asset/SMS.png";
-import {useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 
 const OtpForm = ({
   data,
@@ -36,7 +36,7 @@ const OtpForm = ({
   const theme = useTheme();
   const { t } = useTranslation();
   const { configData } = useSelector((state) => state.configData);
-  const isDemo= configData?.demo
+  const isDemo = configData?.demo;
 
   const [otp, setOtp] = useState("");
   const otpFormik = useFormik({
@@ -150,7 +150,6 @@ const OtpForm = ({
               {t("For demo purpose use otp 123456")}
             </Typography>
           )}
-
         </Stack>
 
         {/* <Typography>{data?.phone}</Typography> */}
@@ -217,7 +216,16 @@ const OtpForm = ({
                 type="submit"
                 fullWidth
                 variant="contained"
-                sx={{ mt: 3, mb: 2 }}
+                sx={{
+                  mt: 3,
+                  mb: 2,
+                  backgroundColor: theme.palette.buttonColors.main,
+                  color: "white",
+                  "&:hover": {
+                    backgroundColor: theme.palette.buttonColors.hover,
+                    color: "white",
+                  },
+                }}
                 loading={isLoading}
                 disabled={
                   !otpFormik.values.reset_token ||
