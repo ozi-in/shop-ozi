@@ -36,7 +36,7 @@ const primary = {
 	deep: "#026034",
 	light: "#EBFDF2",
 	dark: "#1c6641",
-	semiLight: "#E4FFF3",
+	semiLight: "#ff6159bb",
 	contrastText: "#FFFFFF",
 	customType1: "#0DCB72",
 	customType2: "#3BB77E",

@@ -32,14 +32,18 @@ const NavBarIcon = ({ icon, label, user, handleClick, badgeCount }) => {
           },
         }}
       >
-        <Badge 
-          color="primary" 
-          badgeContent={badgeCount} 
+        <Badge
+          color="primary"
+          badgeContent={badgeCount}
           showZero
           sx={{
             "& .MuiBadge-badge": {
               backgroundColor: "#FF7A59",
-              color: "black",
+              color: "white",
+            },
+            "&:hover .MuiBadge-badge": {
+              backgroundColor: "#FF7A59",
+              color: "white",
             }
           }}
         >

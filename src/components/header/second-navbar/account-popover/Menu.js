@@ -26,7 +26,7 @@ const Menu = ({ onClose, cartListRefetch }) => {
   const router = useRouter();
   const [openModal, setOpenModal] = useState(false);
   const [isLogoutLoading, setIsLogoutLoading] = useState(false);
-  const { configData ,modules} = useSelector((state) => state.configData);
+  const { configData, modules } = useSelector((state) => state.configData);
 
   const handleLogout = async () => {
     setIsLogoutLoading(true);
@@ -42,14 +42,14 @@ const Menu = ({ onClose, cartListRefetch }) => {
         router.push("/home");
         setOpenModal(false);
 
-      
+
       }, 500);
     } catch (err) {
       //   toast.error('Unable to logout.');
     }
   };
 
-  
+
   const handleClick = (item) => {
     if (item?.id === 10) {
       router.push({
@@ -72,7 +72,7 @@ const Menu = ({ onClose, cartListRefetch }) => {
             (configData?.customer_wallet_status === 0 && item.id === 4) ||
             (configData?.loyalty_point_status === 0 && item.id === 5) ||
             (configData?.ref_earning_status === 0 && item.id === 6) || (
-            (!modules?.find((item) => item?.module_type === 'rental') && item.id === 3) || (modules?.find((item) => item?.module_type === 'rental')?.status === 0 && item.id === 3)
+              (!modules?.find((item) => item?.module_type === 'rental') && item.id === 3) || (modules?.find((item) => item?.module_type === 'rental')?.status === 0 && item.id === 3)
             )
           ) {
             return null;
@@ -84,16 +84,19 @@ const Menu = ({ onClose, cartListRefetch }) => {
                   onClick={() => handleClick(item)}
                   sx={{
                     "&:hover": {
-                      backgroundColor: (theme) =>
-                        theme.palette.primary.semiLight,
-                      color: (theme) =>
-                        theme.palette.mode === "dark"
-                          ? theme.palette.neutral[100]
-                          : theme.palette.neutral[1000],
+                      backgroundColor: (theme) => theme.palette.primary.semiLight,
+                      color: (theme) => theme.palette.neutral[100],
+
+                      // Target the icon specifically when MenuItem is hovered
+                      "& .MuiListItemIcon-root": {
+                        color: (theme) => theme.palette.neutral[100],
+                      },
                     },
                   }}
                 >
-                  <ListItemIcon>{item?.icon}</ListItemIcon>
+                  <ListItemIcon>
+                    {item?.icon}
+                  </ListItemIcon>
                   <ListItemText
                     sx={{
                       textTransform: "capitalize",
@@ -102,6 +105,7 @@ const Menu = ({ onClose, cartListRefetch }) => {
                     {t(item?.name?.replace("-", " "))}
                   </ListItemText>
                 </MenuItem>
+
               );
             }
           }
@@ -115,6 +119,10 @@ const Menu = ({ onClose, cartListRefetch }) => {
           sx={{
             "&:hover": {
               backgroundColor: (theme) => theme.palette.primary.semiLight,
+
+              "& .MuiListItemIcon-root": {
+                color: (theme) => theme.palette.neutral[100],
+              },
             },
           }}
         >
@@ -128,9 +136,9 @@ const Menu = ({ onClose, cartListRefetch }) => {
                 sx={{
                   "&:hover": {
                     color: (theme) =>
-                      theme.palette.mode === "dark"
-                        ? theme.palette.neutral[100]
-                        : theme.palette.neutral[1000],
+                      // theme.palette.mode === "dark"
+                      theme.palette.neutral[100]
+                    // : theme.palette.neutral[1000],
                   },
                 }}
               >
