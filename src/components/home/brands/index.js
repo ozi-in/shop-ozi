@@ -185,7 +185,7 @@
 //             />
 //             {tabScreen && (
 //               <Link href="/all-brands" passHref>
-              
+
 //               </Link>
 //             )}
 //           </>
@@ -278,84 +278,84 @@ const CampaignBanners = () => {
       image: "https://i.ibb.co/kgP2fSQC/5a01cdf605e15ea40a80ede06c88047e2c82a8cb.png",
       link: "/product/6",
     },
-// new add kiya hai 
-  {
+    // new add kiya hai 
+    {
       id: 7,
       title: "Aptamil",
       image: "https://i.ibb.co/WSB1JCN/Aptamilll.png",
       link: "/product/6",
     },
-      {
+    {
       id: 8,
       title: "Bambo nature",
       image: "https://i.ibb.co/Lhq7nNQW/banm.png",
       link: "/product/6",
     },
-  {
+    {
       id: 9,
       title: "House and kinder",
       image: "https://i.ibb.co/QF6m076Y/kinder-haus-logo-png-transparent.png",
       link: "/product/6",
-    },  {
+    }, {
       id: 10,
       title: "Huggies",
       image: "https://i.ibb.co/jPr9T4nF/hugiesfinal.png",
       link: "/product/6",
     },
-      {
+    {
       id: 11,
       title: "Dr Brown",
       image: "https://i.ibb.co/k6Vycwyv/Dr-Browns-Company-Logo.png",
       link: "/product/6",
     },
-      {
+    {
       id: 12,
       title: "Rabbit",
       image: "https://i.ibb.co/W4ZWXnfm/rabit1.png",
       link: "/product/6",
     },
- {
+    {
       id: 13,
       title: "Mother spra",
       image: "https://i.ibb.co/fVZKYv4V/new-logo-e3f4d18e-a9c0-43d9-b91a-5a1c154b1b93.webp",
       link: "/product/6",
     },
-     {
+    {
       id: 14,
       title: "Mammy poko",
       image: "https://i.ibb.co/4G0rVkF/de9b84a4-b8c1-4a85-b57f-5081ca2cdb78.png",
       link: "/product/6",
     },
 
-  {
+    {
       id: 15,
       title: "Musteler",
       image: "https://i.ibb.co/S4WYYVTK/mustlee.png",
       link: "/product/6",
     },
 
-      {
+    {
       id: 16,
       title: "Nestly",
       image: "https://i.ibb.co/6pQM3Mk/Nestle-Logo-Transparent-Free-PNG.png",
       link: "/product/6",
     },
 
-      {
+    {
       id: 17,
       title: "Similac",
       image: "https://i.ibb.co/fs6m54T/similac-logo.png",
       link: "/product/6",
     },
 
-  {
+    {
       id: 19,
       title: "Pegion ",
       image: "https://i.ibb.co/qMT5KV2t/pigennnnnnnn.png",
       link: "/product/6",
     },
 
-      {
+    {
       id: 20,
       title: "Sebamed",
       image: "https://i.ibb.co/WpGzMfVb/sebaaa.png",
@@ -363,7 +363,7 @@ const CampaignBanners = () => {
     },
 
 
-{
+    {
       id: 21,
       title: "philips",
       image: "https://i.ibb.co/6RJFG2DL/R.jpg",
@@ -417,18 +417,18 @@ const CampaignBanners = () => {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    cursor: "pointer",
+    // cursor: "pointer",
     transition: "transform 0.3s ease",
-      backgroundColor: "transparent",
+    backgroundColor: "transparent",
   };
 
- const imageStyle = {
-  maxWidth: isDesktop ? "140px" : "120px",
-  maxHeight: isDesktop ? "70px" : "50px",
-  objectFit: "contain",
-  mixBlendMode: "multiply", // corrected
-  backgroundColor: "transparent",
-};
+  const imageStyle = {
+    maxWidth: isDesktop ? "140px" : "120px",
+    maxHeight: isDesktop ? "70px" : "50px",
+    objectFit: "contain",
+    mixBlendMode: "multiply", // corrected
+    backgroundColor: "transparent",
+  };
 
 
   return (
