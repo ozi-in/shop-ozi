@@ -19,6 +19,7 @@ import ProductCard from "../../../cards/ProductCard";
 import H2 from "../../../typographies/H2";
 import { HomeComponentsWrapper } from "../../HomePageComponents";
 import TabMenu from "../../best-reviewed-items/TabMenu";
+import ProductCardSimmer from "components/Shimmer/ProductCardSimmer";
 
 const NewArrivals = ({ bannerData, title }) => {
   const [menu, setMenu] = useState([]);
@@ -103,7 +104,22 @@ const NewArrivals = ({ bannerData, title }) => {
       >
         <ScrollBox>
           {isLoading ? (
-            <MenuSimmer count={12} />
+            // <MenuSimmer count={12} />
+            <Grid container spacing={2} wrap="nowrap">
+              {Array.from({ length: 5 }).map((_, idx) => (
+                <Grid
+                  item
+                  key={idx}
+                  sx={{
+                    flex: "0 0 auto",
+                    width: { xs: "48%", sm: "30%", md: "20%" },
+                  }}
+                >
+                  <ProductCardSimmer />
+                </Grid>
+              ))}
+                       
+            </Grid>
           ) : (
             menu.length > 0 &&
             data?.categories?.length > 0 && (
