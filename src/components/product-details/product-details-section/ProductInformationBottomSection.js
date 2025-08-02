@@ -9,13 +9,16 @@ import {
   useTheme,
 } from "@mui/material";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import { useRouter } from "next/router";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import {
   setBuyNowItemList,
   setCampaignItemList,
+  setIncrementToCartItem,
+  setDecrementToCartItem,
+  setRemoveItemFromCart,
 } from "../../../redux/slices/cart";
 import toast from "react-hot-toast";
 import { useWishListDelete } from "../../../api-manage/hooks/react-query/wish-list/useWishListDelete";
@@ -24,6 +27,13 @@ import NotAvailableCard from "./NotAvailableCard";
 import { getCurrentModuleType } from "../../../helper-functions/getCurrentModuleType";
 import Loading from "../../custom-loading/Loading";
 import { isVariationAvailable } from "components/product-details/product-details-section/helperFunction";
+import useCartItemUpdate from "../../../api-manage/hooks/react-query/add-cart/useCartItemUpdate";
+import useDeleteCartItem from "../../../api-manage/hooks/react-query/add-cart/useDeleteCartItem";
+import { onErrorResponse } from "../../../api-manage/api-error-response/ErrorResponses";
+import { getItemDataForAddToCart } from "./helperFunction";
+import { getTotalVariationsPrice } from "../../../utils/CustomFunctions";
+import { getGuestId } from "../../../helper-functions/getToken";
+import { out_of_stock, out_of_limits, cart_item_remove } from "../../../utils/toasterMessages";
 
 export const BottomStack = styled(Stack)(({ theme }) => ({
   [theme.breakpoints.down("sm")]: {
@@ -53,6 +63,10 @@ const ProductInformationBottomSection = ({
   const { cartList } = useSelector((state) => state.cart);
   const { wishLists } = useSelector((state) => state.wishList);
   const isXSmall = useMediaQuery(theme.breakpoints.down("sm"));
+  const dispatch = useDispatch();
+  const { mutate: updateMutate, isLoading: cartUpdateLoading } = useCartItemUpdate();
+  const { mutate: deleteMutate, isLoading: removeIsLoading } = useDeleteCartItem();
+  const guestId = getGuestId();
 
   const variationErrorToast = () =>
     toast.error(
@@ -70,7 +84,7 @@ const ProductInformationBottomSection = ({
             JSON.stringify(productDetailsData?.selectedOption)
       );
       if (isInCart) {
-        return true;
+        return isInCart;
       } else {
         return false;
       }
@@ -78,6 +92,163 @@ const ProductInformationBottomSection = ({
       return false;
     }
   };
+
+  const getQuantity = () => {
+    const cartItem = isInCart(productDetailsData?.id);
+    return cartItem ? cartItem.quantity : 1;
+  };
+
+  const cartUpdateHandleSuccess = (res) => {
+    if (res) {
+      res?.forEach((item) => {
+        const cartItem = isInCart(productDetailsData?.id);
+        if (cartItem?.cartItemId === item?.id) {
+          const product = {
+            ...item?.item,
+            cartItemId: item?.id,
+            totalPrice: item?.price,
+            quantity: item?.quantity,
+            food_variations: item?.item?.food_variations,
+            selectedAddons: item?.item?.addons,
+            itemBasePrice: item?.item?.price,
+            selectedOption: item?.variation,
+          };
+          dispatch(setIncrementToCartItem(product));
+        }
+      });
+    }
+  };
+
+  const cartUpdateHandleSuccessDecrement = (res) => {
+    if (res) {
+      res?.forEach((item) => {
+        const cartItem = isInCart(productDetailsData?.id);
+        if (cartItem?.cartItemId === item?.id) {
+          const product = {
+            ...item?.item,
+            cartItemId: item?.id,
+            totalPrice: item?.price,
+            quantity: item?.quantity,
+            food_variations: item?.item?.food_variations,
+            selectedAddons: item?.item?.addons,
+            itemBasePrice: item?.item?.price,
+            selectedOption: item?.variation,
+          };
+          dispatch(setDecrementToCartItem(product));
+        }
+      });
+    }
+  };
+
+  const handleIncrement = (e) => {
+    e.stopPropagation();
+    const cartItem = isInCart(productDetailsData?.id);
+    
+    if (cartItem) {
+      const updateQuantity = cartItem?.quantity + 1;
+      const price =
+        cartItem?.price + getTotalVariationsPrice(cartItem?.food_variations);
+      const productPrice = price * updateQuantity;
+      const mainPrice =
+        getCurrentModuleType() === "food"
+          ? productPrice
+          : (cartItem?.selectedOption?.length > 0
+              ? cartItem?.selectedOption?.[0]?.price
+              : cartItem?.price) * updateQuantity;
+
+      const itemObject = getItemDataForAddToCart(
+        cartItem,
+        updateQuantity,
+        mainPrice,
+        guestId
+      );
+
+      if (getCurrentModuleType() !== "food") {
+        if (cartItem?.stock <= cartItem?.quantity) {
+          toast.error(t(out_of_stock));
+        } else {
+          if (cartItem?.maximum_cart_quantity) {
+            if (cartItem?.maximum_cart_quantity <= cartItem?.quantity) {
+              toast.error(t(out_of_limits));
+            } else {
+              updateMutate(itemObject, {
+                onSuccess: cartUpdateHandleSuccess,
+                onError: onErrorResponse,
+              });
+            }
+          } else {
+            updateMutate(itemObject, {
+              onSuccess: cartUpdateHandleSuccess,
+              onError: onErrorResponse,
+            });
+          }
+        }
+      } else {
+        if (cartItem?.maximum_cart_quantity) {
+          if (cartItem?.maximum_cart_quantity <= cartItem?.quantity) {
+            toast.error(t(out_of_limits));
+          } else {
+            updateMutate(itemObject, {
+              onSuccess: cartUpdateHandleSuccess,
+              onError: onErrorResponse,
+            });
+          }
+        } else {
+          updateMutate(itemObject, {
+            onSuccess: cartUpdateHandleSuccess,
+            onError: onErrorResponse,
+          });
+        }
+      }
+    }
+  };
+
+  const handleDecrement = (e) => {
+    e.stopPropagation();
+    const cartItem = isInCart(productDetailsData?.id);
+    
+    if (cartItem) {
+      const updateQuantity = cartItem?.quantity - 1;
+      const price =
+        cartItem?.price + getTotalVariationsPrice(cartItem?.food_variations);
+      const productPrice = price * updateQuantity;
+      const mainPrice =
+        getCurrentModuleType() === "food"
+          ? productPrice
+          : (cartItem?.selectedOption?.length > 0
+              ? cartItem?.selectedOption?.[0]?.price
+              : cartItem?.price) * updateQuantity;
+      const itemObject = getItemDataForAddToCart(
+        cartItem,
+        updateQuantity,
+        mainPrice,
+        guestId
+      );
+      updateMutate(itemObject, {
+        onSuccess: cartUpdateHandleSuccessDecrement,
+        onError: onErrorResponse,
+      });
+    }
+  };
+
+  const handleRemove = (e) => {
+    e.stopPropagation();
+    const cartItem = isInCart(productDetailsData?.id);
+    if (cartItem) {
+      const cartIdAndGuestId = {
+        cart_id: cartItem?.cartItemId,
+        guestId: guestId,
+      };
+      deleteMutate(cartIdAndGuestId, {
+        onSuccess: () => {
+          dispatch(setRemoveItemFromCart(cartItem));
+          toast.success(t(cart_item_remove));
+        },
+        onError: onErrorResponse,
+      });
+    }
+  };
+
   const router = useRouter();
 
   const handleRedirect = () => {
@@ -230,17 +401,103 @@ const ProductInformationBottomSection = ({
               </PrimaryButton>
             )}
           {isInCart(productDetailsData?.id) && (
-            <PrimaryButton
-              onClick={() =>
-                handleVariationAvailability(
-                  "update",
-                  isInCart(productDetailsData?.id)
-                )
-              }
-              sx={{ width: 200, fontSize: { xs: "12px", md: "14px" } }}
+            <Stack
+              direction="row"
+              alignItems="center"
+              sx={{
+                width: 200,
+                borderRadius: "8px",
+                height: "36px",
+                overflow: "hidden",
+                boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
+              }}
             >
-              {updateIsLoading ? <Loading /> : t("Update To Cart")}
-            </PrimaryButton>
+              {/* Left Section - Decrement Button */}
+              <Stack
+                alignItems="center"
+                justifyContent="center"
+                onClick={getQuantity() === 1 ? handleRemove : handleDecrement}
+                sx={{
+                  flex: 1,
+                  backgroundColor: (theme) => alpha(theme.palette.primary.main, 0.08),
+                  cursor: "pointer",
+                  height: "100%",
+                  "&:hover": {
+                    backgroundColor: (theme) => alpha(theme.palette.primary.main, 0.12),
+                  },
+                }}
+              >
+                <Typography
+                  variant="body1"
+                  fontWeight="600"
+                  color="primary"
+                  sx={{
+                    fontSize: "16px",
+                    lineHeight: 1,
+                    userSelect: "none",
+                  }}
+                >
+                  -
+                </Typography>
+              </Stack>
+
+              {/* Middle Section - Quantity Display */}
+              <Stack
+                alignItems="center"
+                justifyContent="center"
+                sx={{
+                  flex: 1,
+                  backgroundColor: (theme) => alpha(theme.palette.grey[300], 0.3),
+                  height: "100%",
+                  borderTop: `1px solid ${alpha(theme.palette.grey[400], 0.2)}`,
+                  borderBottom: `1px solid ${alpha(theme.palette.grey[400], 0.2)}`,
+                }}
+              >
+                <Typography
+                  variant="body1"
+                  fontWeight="600"
+                  textAlign="center"
+                  sx={{
+                    fontSize: "14px",
+                    color: theme.palette.text.primary,
+                    fontFamily: "inherit",
+                    userSelect: "none",
+                  }}
+                >
+                  {getQuantity() < 10 && "0"}
+                  {getQuantity()}
+                </Typography>
+              </Stack>
+
+              {/* Right Section - Increment Button */}
+              <Stack
+                alignItems="center"
+                justifyContent="center"
+                onClick={handleIncrement}
+                sx={{
+                  flex: 1,
+                  backgroundColor: theme.palette.primary.main,
+                  cursor: "pointer",
+                  height: "100%",
+                  "&:hover": {
+                    backgroundColor: (theme) => alpha(theme.palette.primary.main, 0.8),
+                  },
+                }}
+              >
+                <Typography
+                  variant="body1"
+                  fontWeight="600"
+                  color="white"
+                  sx={{
+                    fontSize: "16px",
+                    lineHeight: 1,
+                    userSelect: "none",
+                  }}
+                >
+                  +
+                </Typography>
+              </Stack>
+            </Stack>
           )}
         </>
       )}
