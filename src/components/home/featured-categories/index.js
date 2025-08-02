@@ -98,7 +98,7 @@ const FeaturedCategories = ({ configData }) => {
       {
         breakpoint: 1450,
         settings: {
-          slidesToShow: 6.5,
+          slidesToShow: 5,
           slidesToScroll: 3,
           infinite: false,
         },
@@ -106,7 +106,7 @@ const FeaturedCategories = ({ configData }) => {
       {
         breakpoint: 1210,
         settings: {
-          slidesToShow: 6.5,
+          slidesToShow: 5,
           slidesToScroll: 3,
           infinite: false,
         },

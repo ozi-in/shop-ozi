@@ -121,7 +121,7 @@ const SocialLinks = (props) => {
       </Typography> */}
       <CustomStackFullWidth
         direction="row"
-        spacing={3}
+        spacing={1}
         alignItems="center"
         justifyContent={{ xs: "center", sm: "flex-start" }}
         flexWrap="wrap"

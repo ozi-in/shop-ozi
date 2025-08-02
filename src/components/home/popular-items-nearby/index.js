@@ -136,7 +136,7 @@ const PopularItemsNearby = ({ title, subTitle }) => {
       {
         breakpoint: 830,
         settings: {
-          slidesToShow: 2,
+          slidesToShow: 5,
 
           rows: 1,
           slidesToScroll: 1,
@@ -145,7 +145,7 @@ const PopularItemsNearby = ({ title, subTitle }) => {
       {
         breakpoint: 900,
         settings: {
-          slidesToShow: 2,
+          slidesToShow: 5,
 
           rows: 1,
           slidesToScroll: 1,
@@ -154,7 +154,7 @@ const PopularItemsNearby = ({ title, subTitle }) => {
       {
         breakpoint: 1150,
         settings: {
-          slidesToShow: 2,
+          slidesToShow: 5,
           rows: 1,
           slidesToScroll: 1,
         },
@@ -162,7 +162,7 @@ const PopularItemsNearby = ({ title, subTitle }) => {
       {
         breakpoint: 1300,
         settings: {
-          slidesToShow: 2,
+          slidesToShow: 5,
           rows: 1,
           slidesToScroll: 1,
         },
