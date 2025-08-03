@@ -130,6 +130,7 @@ const CategoryNavigation = () => {
               <Typography
                 key={index}
                 variant="body2"
+                height={"20px"}
                 sx={{
                   fontWeight: 500,
                   color: "#ccc",

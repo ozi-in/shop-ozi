@@ -39,7 +39,7 @@ export const CustomButtonCancel = styled(Button)(({ theme, width }) => ({
 
 export const CustomButtonSuccess = styled(LoadingButton)(
   ({ theme, width }) => ({
-    backgroundColor: theme.palette.primary.main,
+    backgroundColor: theme.palette.buttonColors.main,
     color: theme.palette.neutral[100],
     width: "100%",
     [theme.breakpoints.up("xs")]: {
@@ -49,7 +49,7 @@ export const CustomButtonSuccess = styled(LoadingButton)(
       padding: "0.313rem",
     },
     "&:hover": {
-      backgroundColor: theme.palette.primary.dark,
+      backgroundColor: theme.palette.buttonColors.hover,
     },
   })
 );

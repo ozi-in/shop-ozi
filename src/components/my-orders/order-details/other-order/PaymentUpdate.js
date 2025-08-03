@@ -43,9 +43,14 @@ const PaymentUpdate = ({
   return (
     <>
       <OrderStatusButton
-        background={theme.palette.primary.main}
+        background={theme.palette.buttonColors.main}
         onClick={() => setOpenModal(true)}
         back
+        sx={{
+          "&:hover": {
+            backgroundColor: theme.palette.buttonColors.hover,
+          },
+        }}
       >
         {isSmall ? t("Switch to COD") : t("Switch to cash on delivery")}
       </OrderStatusButton>

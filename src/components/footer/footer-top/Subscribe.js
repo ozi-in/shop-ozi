@@ -169,7 +169,12 @@ const Subscribe = () => {
         sx={{
           // width: "100px",
           borderRadius: "90px",
-          background: theme.palette.primary.main,
+          backgroundColor: theme.palette.buttonColors.main,
+          color: "white",
+          "&:hover": {
+            backgroundColor: theme.palette.buttonColors.hover,
+            color: "white",
+          },
           // backgroundColor: (theme) =>
           // 	getCurrentModuleType() === ModuleTypes.FOOD
           // 		? theme.palette.moduleTheme.food
