@@ -102,7 +102,6 @@ const SpecialFoodOffers = ({ title }) => {
       <HomeComponentsWrapper
         onMouseEnter={() => setIsHover(true)}
         onMouseLeave={() => setIsHover(false)}
-        sx={{ cursor: "pointer" }}
       >
         <CustomStackFullWidth
           direction="row"
@@ -155,37 +154,37 @@ const SpecialFoodOffers = ({ title }) => {
               <Grid container spacing={2} wrap="nowrap">
                 {isLoading
                   ? Array.from({ length: 8 }).map((_, idx) => (
-                      <Grid
-                        item
-                        key={idx}
-                        sx={{
-                          flex: "0 0 auto",
-                          width: { xs: "48%", sm: "30%", md: "20%" },
-                        }}
-                      >
-                        <ProductCardSimmer />
-                      </Grid>
-                    ))
+                    <Grid
+                      item
+                      key={idx}
+                      sx={{
+                        flex: "0 0 auto",
+                        width: { xs: "48%", sm: "30%", md: "20%" },
+                      }}
+                    >
+                      <ProductCardSimmer />
+                    </Grid>
+                  ))
                   : filteredData.length > 0 &&
-                    itemArrayManage(filteredData).map((product) => (
-                      <Grid
-                        item
-                        key={product.id}
-                        sx={{
-                          flex: "0 0 auto",
-                          width: { xs: "48%", sm: "30%", md: "20%" },
-                        }}
-                      >
-                        <ProductCard
-                          item={product}
-                          cardheight="350px"
-                          cardFor="popular items"
-                          noMargin
-                          isFrom={`${title ? title : t("Deal of The Day ")}`}
-                          dealTitle={`${title ? title : t("Deal of The Day ")}`}
-                        />
-                      </Grid>
-                    ))}
+                  itemArrayManage(filteredData).map((product) => (
+                    <Grid
+                      item
+                      key={product.id}
+                      sx={{
+                        flex: "0 0 auto",
+                        width: { xs: "48%", sm: "30%", md: "20%" },
+                      }}
+                    >
+                      <ProductCard
+                        item={product}
+                        cardheight="350px"
+                        cardFor="popular items"
+                        noMargin
+                        isFrom={`${title ? title : t("Deal of The Day ")}`}
+                        dealTitle={`${title ? title : t("Deal of The Day ")}`}
+                      />
+                    </Grid>
+                  ))}
               </Grid>
             </ScrollableContainer>
           </SlideWrapper>
