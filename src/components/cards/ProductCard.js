@@ -2543,7 +2543,6 @@ import QuickView, { PrimaryToolTip } from "./QuickView";
 import SpecialCard, { FoodHalalHaram, FoodVegNonVegFlag } from "./SpecialCard";
 import NextImage from "components/NextImage";
 import CartProductPriceDisplay from "./CartProductPriceDisplay";
-import { minHeight } from "@mui/system";
 
 // export const CardWrapper = styled(Card)(
 //   ({
@@ -2658,9 +2657,9 @@ export const CardWrapper = styled(Card)(
     boxShadow: "none",
     overflow: "hidden",
 
-    // Fixed height/width with fallbacks
+    // Fixed height/width with fallbacks - increased width to accommodate buttons
     height: cardheight || "350px",
-    width: cardWidth || (cardFor === "list-view" ? "100%" : "220px"),
+    width: cardWidth || (cardFor === "list-view" ? "100%" : "280px"),
 
     // Margin Logic
     margin:
@@ -2676,11 +2675,11 @@ export const CardWrapper = styled(Card)(
         ? `1px solid ${alpha(theme.palette.moduleTheme.food, 0.1)}`
         : "none",
 
-    // Responsive overrides
+    // Responsive overrides - increased mobile width
     [theme.breakpoints.down("sm")]: {
       height: cardheight || "320px",
       width:
-        horizontalcard === "true" ? cardWidth || "100%" : cardWidth || "170px",
+        horizontalcard === "true" ? cardWidth || "100%" : cardWidth || "220px",
     },
 
     [theme.breakpoints.up("sm")]: {
@@ -2704,7 +2703,6 @@ const CustomCardMedia = styled(CardMedia)(({ theme, loveItem }) => ({
   overflow: "hidden",
   borderRadius: "20px",
   backgroundColor: theme.palette.neutral[100],
-  minHeight: "200px",
 
   ".MuiBox-root": {
     overflow: "hidden",
@@ -3144,7 +3142,7 @@ const ProductCard = (props) => {
         </Box>
 
         {/* Push this to bottom */}
-        <Box sx={{ mt: "auto", width: "100%" }}>
+        <Box sx={{ mt: "auto", width: "100%", padding: "0 8px" }}>
           <CustomStackFullWidth
             direction="row"
             alignItems="flex-start"
@@ -3397,7 +3395,7 @@ const ProductCard = (props) => {
         justifyContent="center"
         alignItems="center"
         spacing={0.6}
-        p={item?.module_type === "pharmacy" ? "5px 16px 16px 16px" : "0.3rem"}
+        p={item?.module_type === "pharmacy" ? "5px 16px 16px 16px" : "1rem"}
       >
         {item?.module_type === "pharmacy" ? (
           <Typography
@@ -3409,7 +3407,7 @@ const ProductCard = (props) => {
               WebkitBoxOrient: "vertical",
               width: "100%",
               paddingTop: "3px",
-              maxWidth: "200px",
+              maxWidth: "100%",
               wordWrap: "break-word",
             }}
             variant="body2"
@@ -3435,7 +3433,10 @@ const ProductCard = (props) => {
             </Typography>
           </CustomStackFullWidth>
         </PrimaryToolTip>
-        <CustomStackFullWidth spacing={0.5}>
+        <CustomStackFullWidth
+          spacing={0.5}
+          sx={{ width: "100%", padding: "0 8px" }}
+        >
           {cardType === "vertical-type" ? (
             // <Typography>{item?.unit_type}</Typography>
             <></>
@@ -3443,9 +3444,7 @@ const ProductCard = (props) => {
             <CustomMultipleRatings rating={item?.avg_rating} withCount />
           )}
 
-          <Box sx={{ py: 1 }}>
-            <AmountWithDiscountedAmount item={item} />
-          </Box>
+          <AmountWithDiscountedAmount item={item} />
           {isFrom === "plp" ? (
             (item?.stock ?? 0) > 0 ? (
               <AddWithIncrementDecrement

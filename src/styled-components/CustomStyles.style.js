@@ -759,9 +759,8 @@ export const CustomFilledButton = ({ btnName, onCLick }) => {
   );
 };
 export const ShopNowButton = styled(Button)(({ theme }) => ({
-  width: "80%",
+  width: "100%",
   backgroundColor: "#101828",
-
   borderRadius: "32px",
   "&:hover": {
     backgroundColor: "#ff6259", // light hover background
