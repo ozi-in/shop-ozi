@@ -607,7 +607,7 @@ const AddWithIncrementDecrement = (props) => {
                       width: "100%",
                       height: "38px",
                       minHeight: "38px",
-                      padding: "8px 16px",
+                      padding: "1px 0",
                       margin: 0,
                       // mt: "20px",
                       "&:hover": { backgroundColor: "#FF6159" },

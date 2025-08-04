@@ -122,8 +122,8 @@ export const CustomPaperBigCard = styled(Paper)(
       noboxshadow === "true"
         ? "none"
         : theme.palette.mode === "light"
-          ? `0px 0px 2px rgba(145, 158, 171, 0.2), 0px 5px 20px ${theme.palette.paperBoxShadow}`
-          : "none",
+        ? `0px 0px 2px rgba(145, 158, 171, 0.2), 0px 5px 20px ${theme.palette.paperBoxShadow}`
+        : "none",
     // marginBottom: '30px',
   })
 );
@@ -759,7 +759,7 @@ export const CustomFilledButton = ({ btnName, onCLick }) => {
   );
 };
 export const ShopNowButton = styled(Button)(({ theme }) => ({
-  width: "100%",
+  width: "80%",
   backgroundColor: "#101828",
   borderRadius: "32px",
   "&:hover": {
