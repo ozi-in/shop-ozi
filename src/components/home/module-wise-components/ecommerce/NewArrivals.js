@@ -188,11 +188,22 @@ const ArrowButton = styled(IconButton)({
   },
 });
 
-export const ScrollBox = styled(Box)({
+// export const ScrollBox = styled(Box)({
+//   ".MuiTypography-root": { whiteSpace: "pre" },
+//   position: "relative",
+//   zIndex: 3,
+// });
+export const ScrollBox = styled(Box)(({ theme }) => ({
   ".MuiTypography-root": { whiteSpace: "pre" },
   position: "relative",
   zIndex: 3,
-});
+  width: "100%",
+  overflow: "hidden", // prevent overflow here
+  [theme.breakpoints.down("sm")]: {
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
+  },
+}));
 
 const SlideWrapper = styled(Box)({
   position: "relative",
