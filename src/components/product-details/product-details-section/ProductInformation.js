@@ -301,6 +301,12 @@ const ProductInformation = ({
           md: "0px",
         }}
       >
+        {/* Category Information - Rendered above product name */}
+        <CategoryInformation
+          tags={state?.modalData?.[0]?.tags}
+          categories={state?.modalData?.[0]?.category_ids}
+        />
+        
         {/* {state.modalData[0]?.store_name ? (
 					router.pathname !== `/store/[id]` ? (
 						<Link
@@ -488,14 +494,7 @@ const ProductInformation = ({
                     productUpdate={productUpdate}
                   />
                 )}
-                {isSmall && (
-                  <CustomStackFullWidth sx={{ mt: ".5rem" }}>
-                    <CategoryInformation
-                      tags={state?.modalData?.[0]?.tags}
-                      categories={state?.modalData?.[0]?.category_ids}
-                    />
-                  </CustomStackFullWidth>
-                )}
+
               </Stack>
             </>
           </SimpleBar>
@@ -516,14 +515,7 @@ const ProductInformation = ({
             addToCartMutate={mutate}
             updateIsLoading={updateIsLoading}
           />
-          {!isSmall && (
-            <CustomStackFullWidth sx={{ mt: ".5rem" }}>
-              <CategoryInformation
-                tags={state?.modalData?.[0]?.tags}
-                categories={state?.modalData?.[0]?.category_ids}
-              />
-            </CustomStackFullWidth>
-          )}
+
 
           <CustomModal openModal={clearCartModal} handleClose={handleClose}>
             <CartClearModal

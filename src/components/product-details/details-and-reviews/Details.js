@@ -45,21 +45,39 @@ const parseDescription = (description) => {
   if (!description) return [];
   const lines = description.replace(/\r?\n/g, "\\n").split("\\n");
   const parsed = [];
+  let productDescription = "";
 
   lines.forEach((line) => {
     const match = line.match(/^([^:]+):\s*(.*)$/); 
     if (match) {
-      parsed.push({
-        label: match[1].trim().replace(/^-/, ''), // Remove leading dash if present
-        value: match[2].trim().replace(/^-/, ''), // Remove leading dash if present
-      });
+      const label = match[1].trim().replace(/^-/, ''); // Remove leading dash if present
+      const value = match[2].trim().replace(/^-/, ''); // Remove leading dash if present
+      
+      if (label === "Product Description") {
+        productDescription = value;
+      } else {
+        parsed.push({
+          label: label,
+          value: value,
+        });
+      }
     } else if (line.trim()) {
-      parsed.push({
-        label: "Other Information",
-        value: line.trim().replace(/^-/, ''), // Remove leading dash if present
-      });
+      // Merge "Other Information" content into Product Description
+      if (productDescription) {
+        productDescription += " " + line.trim().replace(/^-/, '');
+      } else {
+        productDescription = line.trim().replace(/^-/, '');
+      }
     }
   });
+
+  // Add Product Description at the beginning if it exists
+  if (productDescription) {
+    parsed.unshift({
+      label: "Product Description",
+      value: productDescription,
+    });
+  }
 
   return parsed;
 };
