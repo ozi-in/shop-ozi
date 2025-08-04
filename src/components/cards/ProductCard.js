@@ -2543,6 +2543,7 @@ import QuickView, { PrimaryToolTip } from "./QuickView";
 import SpecialCard, { FoodHalalHaram, FoodVegNonVegFlag } from "./SpecialCard";
 import NextImage from "components/NextImage";
 import CartProductPriceDisplay from "./CartProductPriceDisplay";
+import { minHeight } from "@mui/system";
 
 // export const CardWrapper = styled(Card)(
 //   ({
@@ -2703,6 +2704,7 @@ const CustomCardMedia = styled(CardMedia)(({ theme, loveItem }) => ({
   overflow: "hidden",
   borderRadius: "20px",
   backgroundColor: theme.palette.neutral[100],
+  minHeight: "200px",
 
   ".MuiBox-root": {
     overflow: "hidden",
@@ -3395,7 +3397,7 @@ const ProductCard = (props) => {
         justifyContent="center"
         alignItems="center"
         spacing={0.6}
-        p={item?.module_type === "pharmacy" ? "5px 16px 16px 16px" : "1rem"}
+        p={item?.module_type === "pharmacy" ? "5px 16px 16px 16px" : "0.3rem"}
       >
         {item?.module_type === "pharmacy" ? (
           <Typography
@@ -3423,19 +3425,17 @@ const ProductCard = (props) => {
 
         <PrimaryToolTip text={item?.name} placement="bottom" arrow="false">
           <CustomStackFullWidth>
-          <Typography
-            className={classes.singleLineEllipsis}
-            fontSize={{ xs: "12px", md: "14px" }}
-            fontWeight="500"
-            component="h3"
-          >
-            {item?.name}
-          </Typography>
+            <Typography
+              className={classes.singleLineEllipsis}
+              fontSize={{ xs: "12px", md: "14px" }}
+              fontWeight="500"
+              component="h3"
+            >
+              {item?.name}
+            </Typography>
           </CustomStackFullWidth>
         </PrimaryToolTip>
-        <CustomStackFullWidth
-          spacing={0.5}
-        >
+        <CustomStackFullWidth spacing={0.5}>
           {cardType === "vertical-type" ? (
             // <Typography>{item?.unit_type}</Typography>
             <></>
@@ -3443,7 +3443,9 @@ const ProductCard = (props) => {
             <CustomMultipleRatings rating={item?.avg_rating} withCount />
           )}
 
-          <AmountWithDiscountedAmount item={item} />
+          <Box sx={{ py: 1 }}>
+            <AmountWithDiscountedAmount item={item} />
+          </Box>
           {isFrom === "plp" ? (
             (item?.stock ?? 0) > 0 ? (
               <AddWithIncrementDecrement

@@ -67,7 +67,7 @@ const Wrapper = styled(Box)(({ theme }) => ({
   cursor: "pointer",
   // border: "1px solid black",
   width: "220px",
-  height: "350px",
+  height: "310px",
   transition: "all 0.3s ease",
   position: "relative",
   overflow: "hidden",
@@ -265,12 +265,12 @@ const ShopCategoryCard = (props) => {
             {item?.name}
           </CustomText>
         </Box>
+        <ShopNowButton variant="contained">
+          <Typography color="#ffffff">{t("Shop Now")}</Typography>
+        </ShopNowButton>
       </Link>
 
       {/* Shop Now Button always sticks to bottom */}
-      <ShopNowButton variant="contained">
-        <Typography color="#ffffff">{t("Shop Now")}</Typography>
-      </ShopNowButton>
     </Wrapper>
   );
 };
