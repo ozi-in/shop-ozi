@@ -93,7 +93,7 @@ const PopularItemsNearby = ({ title, subTitle }) => {
     slidesPerRow: 1,
     rows: 1,
     slidesToShow: 5,
-    slidesToScroll: 1,
+    slidesToScroll: 3,
     cssEase: "linear",
     rtl: getLanguage() === "rtl",
     responsive: [
@@ -103,7 +103,7 @@ const PopularItemsNearby = ({ title, subTitle }) => {
           slidesToShow: 2,
 
           rows: 1,
-          slidesToScroll: 1,
+          slidesToScroll: 3,
         },
       },
       {
@@ -112,7 +112,7 @@ const PopularItemsNearby = ({ title, subTitle }) => {
           slidesToShow: 2,
 
           rows: 1,
-          slidesToScroll: 1,
+          slidesToScroll: 3,
         },
       },
       {
@@ -121,7 +121,7 @@ const PopularItemsNearby = ({ title, subTitle }) => {
           slidesToShow: 2,
 
           rows: 1,
-          slidesToScroll: 1,
+          slidesToScroll: 3,
         },
       },
       {
@@ -130,7 +130,7 @@ const PopularItemsNearby = ({ title, subTitle }) => {
           slidesToShow: 4,
 
           rows: 1,
-          slidesToScroll: 1,
+          slidesToScroll: 3,
         },
       },
       {
@@ -139,7 +139,7 @@ const PopularItemsNearby = ({ title, subTitle }) => {
           slidesToShow: 5,
 
           rows: 1,
-          slidesToScroll: 1,
+          slidesToScroll: 3,
         },
       },
       {
@@ -148,7 +148,7 @@ const PopularItemsNearby = ({ title, subTitle }) => {
           slidesToShow: 5,
 
           rows: 1,
-          slidesToScroll: 1,
+          slidesToScroll: 3,
         },
       },
       {
@@ -156,7 +156,7 @@ const PopularItemsNearby = ({ title, subTitle }) => {
         settings: {
           slidesToShow: 5,
           rows: 1,
-          slidesToScroll: 1,
+          slidesToScroll: 3,
         },
       },
       {
@@ -164,7 +164,7 @@ const PopularItemsNearby = ({ title, subTitle }) => {
         settings: {
           slidesToShow: 5,
           rows: 1,
-          slidesToScroll: 1,
+          slidesToScroll: 3,
         },
       },
     ],

@@ -46,7 +46,7 @@ const Tab = ({ item, selected, showBackground, handleClick }) => {
 					showBackground
 						? selected === "true" && theme.palette.neutral[100]
 						: selected === "true" && theme.palette.primary.main,
-				cursor: "pointer",
+				// cursor: "pointer",
 			}}
 			onClick={handleClick}
 		>

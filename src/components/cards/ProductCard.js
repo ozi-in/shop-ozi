@@ -1190,7 +1190,7 @@ const ProductCard = (props) => {
                     }
                     height={160}
                     width={160}
-                    objectFit="cover"
+                    objectFit="contain"
                     borderRadius="3px"
                   />
 
@@ -1224,7 +1224,7 @@ const ProductCard = (props) => {
                   alt={item?.name || "Product Image"}
                   height={160}
                   width={160}
-                  objectFit="cover"
+                  objectFit="contain"
                   borderRadius="3px"
                 />
               )}
