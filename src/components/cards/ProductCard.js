@@ -3194,7 +3194,7 @@ const ProductCard = (props) => {
                     mt: "5%",
 
                     // mt: "20px",
-                    "&:hover": { backgroundColor: "#fcde65ff" },
+                    "&:hover": { backgroundColor: "#FF6259" },
                   }}
                 >
                   <Typography color="white">Out Of Stock</Typography>
