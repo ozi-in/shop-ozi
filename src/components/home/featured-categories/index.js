@@ -70,7 +70,7 @@ const FeaturedCategories = ({ configData }) => {
     speed: 500,
     swipeToSlide: true,
     slidesToShow: 1,
-    slidesToScroll: 1,
+    slidesToScroll: 3,
     rows: 2,
     slidesPerRow: 3, // 2 per row looks more balanced on mobile
     responsive: [
@@ -90,7 +90,7 @@ const FeaturedCategories = ({ configData }) => {
     arrows: false,
     speed: 500,
     slidesToShow: 5,
-    slidesToScroll: 1,
+    slidesToScroll: 3,
     nextArrow: moduleWiseNext(),
     prevArrow: moduleWisePrev(),
 
@@ -155,7 +155,7 @@ const FeaturedCategories = ({ configData }) => {
         breakpoint: 730,
         settings: {
           slidesToShow: 2.5,
-          slidesToScroll: 1,
+          slidesToScroll: 3,
           infinite: false,
         },
       },
@@ -163,7 +163,7 @@ const FeaturedCategories = ({ configData }) => {
         breakpoint: 630,
         settings: {
           slidesToShow: 2.3,
-          slidesToScroll: 1,
+          slidesToScroll: 3,
           infinite: false,
         },
       },
@@ -171,7 +171,7 @@ const FeaturedCategories = ({ configData }) => {
         breakpoint: 570,
         settings: {
           slidesToShow: 2.1,
-          slidesToScroll: 1,
+          slidesToScroll: 3,
           infinite: false,
         },
       },
@@ -179,7 +179,7 @@ const FeaturedCategories = ({ configData }) => {
         breakpoint: 520,
         settings: {
           slidesToShow: 3,
-          slidesToScroll: 1,
+          slidesToScroll: 3,
           infinite: false,
         },
       },
@@ -187,7 +187,7 @@ const FeaturedCategories = ({ configData }) => {
         breakpoint: 500,
         settings: {
           slidesToShow: 3,
-          slidesToScroll: 1,
+          slidesToScroll: 3,
           infinite: false,
         },
       },
@@ -195,7 +195,7 @@ const FeaturedCategories = ({ configData }) => {
         breakpoint: 460,
         settings: {
           slidesToShow: 3,
-          slidesToScroll: 1,
+          slidesToScroll: 3,
           infinite: false,
         },
       },
@@ -203,21 +203,21 @@ const FeaturedCategories = ({ configData }) => {
         breakpoint: 400,
         settings: {
           slidesToShow: 3,
-          slidesToScroll: 1,
+          slidesToScroll: 3,
         },
       },
       {
         breakpoint: 374,
         settings: {
           slidesToShow: 1.2,
-          slidesToScroll: 1,
+          slidesToScroll: 3,
         },
       },
       {
         breakpoint: 280,
         settings: {
           slidesToShow: 1,
-          slidesToScroll: 1,
+          slidesToScroll: 3,
         },
       },
     ],
@@ -295,28 +295,28 @@ const FeaturedCategories = ({ configData }) => {
         breakpoint: 475,
         settings: {
           slidesToShow: 3.9,
-          //slidesToScroll: 1,
+          //slidesToScroll: 3,
         },
       },
       {
         breakpoint: 450,
         settings: {
           slidesToShow: 3.7,
-          //slidesToScroll: 1,
+          //slidesToScroll: 3,
         },
       },
       {
         breakpoint: 420,
         settings: {
           slidesToShow: 3.3,
-          //slidesToScroll: 1,
+          //slidesToScroll: 3,
         },
       },
       {
         breakpoint: 375,
         settings: {
           slidesToShow: 2.7,
-          //slidesToScroll: 1,
+          //slidesToScroll: 3,
         },
       },
     ],
