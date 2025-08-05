@@ -542,7 +542,6 @@ const ProductCard = (props) => {
           display: "flex",
           flexDirection: "column",
 
-
           paddingLeft: horizontalcard === "true" ? "10px" : "0px",
         }}
       >
@@ -601,6 +600,7 @@ const ProductCard = (props) => {
               variant={isSmall ? "body2" : "body1"}
             ></Typography>
             {isFrom === "new-arival" ||
+            isFrom === "plp-list-view" ||
             isFrom === "top-rated" ||
             isFrom === dealTitle ? (
               (item?.stock ?? 0) > 0 ? (
@@ -824,7 +824,7 @@ const ProductCard = (props) => {
         >
           <AmountWithDiscountedAmount item={item} />
         </CustomStackFullWidth>
-        <AddWithIncrementDecrement
+        {/* <AddWithIncrementDecrement
           onHover={state.isTransformed}
           addToCartHandler={addToCart}
           isProductExist={isProductExist}
@@ -833,7 +833,53 @@ const ProductCard = (props) => {
           count={count}
           isLoading={isLoading}
           updateLoading={updateLoading}
-        />
+        /> */}
+        {isFrom === "plp-list-view" ? (
+          (item?.stock ?? 0) > 0 ? (
+            <AddWithIncrementDecrement
+              onHover={state.isTransformed}
+              addToCartHandler={addToCart}
+              isProductExist={isProductExist}
+              handleIncrement={handleIncrement}
+              handleDecrement={handleDecrement}
+              count={count}
+              isLoading={isLoading}
+              updateLoading={updateLoading}
+            />
+          ) : (
+            <ShopNowButton
+              onClick={() => {
+                toast.error(t("Out of stock"));
+              }}
+              sx={{
+                width: "100%",
+                height: "38px",
+                minHeight: "38px",
+                mt: { xs: 0, sm: "0", md: "5%" },
+
+                // mt: "20px",
+                cursor: "default",
+                backgroundColor: "#E5E7EB",
+                "&:hover": {
+                  backgroundColor: "#E5E7EB",
+                },
+              }}
+            >
+              <Typography color="white">Out Of Stock</Typography>
+            </ShopNowButton>
+          )
+        ) : (
+          <AddWithIncrementDecrement
+            onHover={state.isTransformed}
+            addToCartHandler={addToCart}
+            isProductExist={isProductExist}
+            handleIncrement={handleIncrement}
+            handleDecrement={handleDecrement}
+            count={count}
+            isLoading={isLoading}
+            updateLoading={updateLoading}
+          />
+        )}
       </CustomStackFullWidth>
     );
   };
@@ -1289,7 +1335,8 @@ const ProductCard = (props) => {
               {isFrom === "new-arival" ||
               isFrom === "top-rated" ||
               isFrom === dealTitle ||
-              isFrom === "plp" ? (
+              isFrom === "plp" ||
+              isFrom === "plp-list-view" ? (
                 <Stack>
                   {/* Product Image */}
                   <NextImage
