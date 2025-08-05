@@ -448,6 +448,8 @@ const ModuleWiseNav = (props) => {
     location,
     setOpenSignIn,
     setModalFor,
+    deliveryTat,
+    isLoading,
     isSmall,
     zoneid,
     searchQuery,
@@ -664,7 +666,7 @@ const ModuleWiseNav = (props) => {
                 >
                   {getIcon()}
 
-                  <Typography
+                  {/* <Typography
                     variant="caption"
                     color="text.secondary"
                     sx={{
@@ -674,7 +676,26 @@ const ModuleWiseNav = (props) => {
                     }}
                   >
                     Location
-                  </Typography>
+                  </Typography> */}
+                  {isLoading ? (
+                    <Typography
+                      variant="body2"
+                      height={"20px"}
+                      sx={{
+                        fontWeight: 500,
+                        color: "#ccc",
+                        px: 1.5,
+                        py: 0.5,
+                        borderRadius: 2,
+                        background: "#f5f5f5",
+                        minWidth: 100,
+                      }}
+                    ></Typography>
+                  ) : (
+                    <Typography color="#000000" fontWeight={500} fontSize={14}>
+                      Delivered in {deliveryTat}
+                    </Typography>
+                  )}
                 </Box>
 
                 {location && (

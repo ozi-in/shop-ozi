@@ -59,6 +59,8 @@ import ManageSearch from "./ManageSearch";
 import Divider from "@mui/material/Divider";
 import CategoryNavigation from "./CategoryNavigation";
 import Logo from "./assets/logo.svg";
+import { getTatFromLocation } from "api-manage/hooks/react-query/expected-tat/useGetTatForHome";
+
 const AuthModal = dynamic(() => import("components/auth/AuthModal"));
 
 const Cart = ({ isLoading }) => {
@@ -161,6 +163,8 @@ const getOtherModuleVariation = (itemVariations, selectedVariation) => {
 
 const SecondNavBar = ({ configData }) => {
   const theme = useTheme();
+  const [tatData, setTatData] = useState(null);
+  const [currentLocation, setCurrentLocation] = useState("");
   const dispatch = useDispatch();
   const router = useRouter();
   const { cartList } = useSelector((state) => state.cart);
@@ -177,13 +181,69 @@ const SecondNavBar = ({ configData }) => {
   const anchorRef = useRef(null);
   const [modalFor, setModalFor] = useState("sign-in");
   const { openForgotPasswordModal } = useSelector((state) => state.utilsData);
+  const getLatLngFromAddress = async (address) => {
+    const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAP_KEY;
+    const encodedAddress = encodeURIComponent(address);
+    const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodedAddress}&key=${apiKey}`;
+
+    const response = await fetch(url);
+    const data = await response.json();
+
+    if (data.status === "OK") {
+      const location = data.results[0].geometry.location;
+      console.log("address_lat_lng", location.lat, location.lng);
+      return {
+        lat: location.lat,
+        lng: location.lng,
+      };
+    } else {
+      throw new Error("Geocoding failed: " + data.status);
+    }
+  };
+
+  const fetchTatWithGeocode = async () => {
+    try {
+      // Step 1: Get the destination address from localStorage
+      const destinationAddress = localStorage.getItem("location");
+
+      if (!destinationAddress) {
+        console.warn("No destination address found in localStorage.");
+        return;
+      }
+
+      // Step 2: Convert destination address to coordinates
+      const { lat: destLat, lng: destLng } = await getLatLngFromAddress(
+        destinationAddress
+      );
+
+      // Step 3: Use hardcoded or actual origin coordinates
+      const originLat = "28.396377";
+      const originLng = "77.070912";
+
+      // Step 4: Call the TAT function
+      const result = await getTatFromLocation({
+        originLat,
+        originLng,
+        destLat,
+        destLng,
+      });
+
+      console.log("Delivery TAT:Data", result);
+      setTatData(result);
+    } catch (error) {
+      console.error("TAT fetch failed:Data", error);
+    }
+  };
+  useEffect(() => {
+    fetchTatWithGeocode();
+  }, [currentLocation]);
   let token = undefined;
   let location = undefined;
   let zoneId = undefined;
   let guestId = undefined;
   const currentModuleType = getCurrentModuleType();
   const [openDrawer, setOpenDrawer] = useState(false);
-  const [currentLocation, setCurrentLocation] = useState("");
+ // const [currentLocation, setCurrentLocation] = useState("");
   const [searchValue, setSearchValue] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(false);
   const inputRef = useRef(null);
@@ -390,13 +450,15 @@ const SecondNavBar = ({ configData }) => {
     setModalFor("sign-in");
     setOpenSignIn(false);
   };
-  const getMobileScreenComponents = () => (
+  const getMobileScreenComponents = (Tat, isLoading) => (
     <ModuleWiseNav
       router={router}
       configData={configData}
       token={token}
       setToggled={setToggled}
       location={location}
+      isLoading={isLoading}
+      deliveryTat={Tat}
       setOpenSignIn={setOpenSignIn}
       setModalFor={setModalFor}
     />
@@ -458,26 +520,68 @@ const SecondNavBar = ({ configData }) => {
               sx={{ mx: 1, borderColor: "#E0E0E0", alignSelf: "stretch" }}
             />
             {location && (
-              <Stack direction="row" alignItems="center" spacing={0.5}>
-                {/* <Stack direction="row" alignItems="center" spacing={0.5}> */}
-                <RoomIcon
-                  sx={{
-                    fontSize: { xs: "16px", sm: "20px" },
-                    color: "#1E2939",
-                  }}
-                  color="primary"
-                />
-                {/* <Typography
-                    variant="caption"
-                    sx={{ color: "#888", fontWeight: 500, lineHeight: 1 }}
+              // <Stack direction="row" alignItems="center" spacing={0.5}>
+              //   {/* <Stack direction="row" alignItems="center" spacing={0.5}> */}
+              //   <RoomIcon
+              //     sx={{
+              //       fontSize: { xs: "16px", sm: "20px" },
+              //       color: "#1E2939",
+              //     }}
+              //     color="primary"
+              //   />
+              //   {/* <Typography
+              //       variant="caption"
+              //       sx={{ color: "#888", fontWeight: 500, lineHeight: 1 }}
+              //     >
+              //       Location:
+              //     </Typography> */}
+              //   {/* </Stack> */}
+              //   <AddressReselect
+              //     location={currentLocation || location}
+              //     setOpenDrawer={setOpenDrawer}
+              //   />
+              // </Stack>
+              <Stack direction="column" alignItems="flex-start" spacing={0.5}>
+                {isLoading ? (
+                  <Typography
+                    variant="body2"
+                    height={"20px"}
+                    sx={{
+                      fontWeight: 500,
+                      color: "#ccc",
+                      px: 1.5,
+                      py: 0.5,
+                      borderRadius: 2,
+                      background: "#f5f5f5",
+                      minWidth: 100,
+                    }}
+                  ></Typography>
+                ) : (
+                  <Typography
+                    color="#000000"
+                    fontWeight={500}
+                    fontSize={14}
+                    pl={"5px"}
                   >
-                    Location:
-                  </Typography> */}
-                {/* </Stack> */}
-                <AddressReselect
-                  location={currentLocation || location}
-                  setOpenDrawer={setOpenDrawer}
-                />
+                    Delivered in {tatData?.duration}
+                  </Typography>
+                )}
+                <Stack direction="row" alignItems="flex-start" spacing={0.5}>
+                  {/* <Stack direction="row" alignItems="center" spacing={0.5}> */}
+                  <RoomIcon
+                    sx={{
+                      fontSize: { xs: "16px", sm: "20px" },
+                      color: "#1E2939",
+                    }}
+                    color="primary"
+                  />
+                  {/* </Stack> */}
+                  <AddressReselect
+                    location={currentLocation || location}
+                    setOpenDrawer={setOpenDrawer}
+                  />
+                </Stack>
+                        
               </Stack>
             )}
           </Stack>
@@ -614,7 +718,7 @@ const SecondNavBar = ({ configData }) => {
         <CustomContainer>
           <Toolbar disableGutters={true}>
             {isSmall
-              ? getMobileScreenComponents()
+              ? getMobileScreenComponents(tatData?.duration, isLoading)
               : getDesktopScreenComponents()}
             <AccountPopover
               anchorEl={anchorRef.current}
