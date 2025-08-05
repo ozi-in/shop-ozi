@@ -98,7 +98,7 @@ export const CardWrapper = styled(Card)(
     overflow: "hidden",
 
     // Fixed height/width with fallbacks
-    height: cardheight || "350px",
+    // height: cardheight || "350px",
     width: cardWidth || (cardFor === "list-view" ? "100%" : "220px"),
 
     // Margin Logic
@@ -117,16 +117,16 @@ export const CardWrapper = styled(Card)(
 
     // Responsive overrides
     [theme.breakpoints.down("sm")]: {
-      height: cardheight || "320px",
+      // height: cardheight || "320px",
       width:
         horizontalcard === "true" ? cardWidth || "100%" : cardWidth || "170px",
     },
 
     [theme.breakpoints.up("sm")]: {
-      height: cardheight || "350px",
+      // height: cardheight || "350px",
     },
     [theme.breakpoints.up("md")]: {
-      height: cardheight || "350px",
+      // height: cardheight || "350px",
     },
   })
 );
@@ -541,6 +541,9 @@ const ProductCard = (props) => {
           height: "100%",
           display: "flex",
           flexDirection: "column",
+
+
+          paddingLeft: horizontalcard === "true" ? "10px" : "0px",
         }}
       >
         {/* Heart icon */}
@@ -620,7 +623,7 @@ const ProductCard = (props) => {
                     width: "100%",
                     height: "38px",
                     minHeight: "38px",
-                    mt: "5%",
+                    mt: { xs: 0, sm: "0", md: "5%" },
 
                     // mt: "20px",
                     cursor: "default",
@@ -1061,7 +1064,7 @@ const ProductCard = (props) => {
               display="flex"
               alignItems="center"
               flexWrap="wrap"
-              gap="5px"
+              //   gap="5px"
               sx={{
                 fontSize: { xs: "13px", sm: "18px" },
                 color: alpha(theme.palette.error.deepLight, 0.7),

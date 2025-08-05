@@ -33,7 +33,11 @@ import { onErrorResponse } from "../../../api-manage/api-error-response/ErrorRes
 import { getItemDataForAddToCart } from "./helperFunction";
 import { getTotalVariationsPrice } from "../../../utils/CustomFunctions";
 import { getGuestId } from "../../../helper-functions/getToken";
-import { out_of_stock, out_of_limits, cart_item_remove } from "../../../utils/toasterMessages";
+import {
+  out_of_stock,
+  out_of_limits,
+  cart_item_remove,
+} from "../../../utils/toasterMessages";
 
 export const BottomStack = styled(Stack)(({ theme }) => ({
   [theme.breakpoints.down("sm")]: {
@@ -64,8 +68,10 @@ const ProductInformationBottomSection = ({
   const { wishLists } = useSelector((state) => state.wishList);
   const isXSmall = useMediaQuery(theme.breakpoints.down("sm"));
   const dispatch = useDispatch();
-  const { mutate: updateMutate, isLoading: cartUpdateLoading } = useCartItemUpdate();
-  const { mutate: deleteMutate, isLoading: removeIsLoading } = useDeleteCartItem();
+  const { mutate: updateMutate, isLoading: cartUpdateLoading } =
+    useCartItemUpdate();
+  const { mutate: deleteMutate, isLoading: removeIsLoading } =
+    useDeleteCartItem();
   const guestId = getGuestId();
 
   const variationErrorToast = () =>
@@ -149,7 +155,7 @@ const ProductInformationBottomSection = ({
   const handleIncrement = (e) => {
     e.stopPropagation();
     const cartItem = isInCart(productDetailsData?.id);
-    
+
     if (cartItem) {
       const updateQuantity = cartItem?.quantity + 1;
       const price =
@@ -212,10 +218,10 @@ const ProductInformationBottomSection = ({
   const handleDecrement = (e) => {
     e.stopPropagation();
     const cartItem = isInCart(productDetailsData?.id);
-    
+
     if (cartItem) {
       const updateQuantity = cartItem?.quantity - 1;
-      
+
       // If quantity becomes 0, remove the item from cart
       if (updateQuantity === 0) {
         const cartIdAndGuestId = {
@@ -231,7 +237,7 @@ const ProductInformationBottomSection = ({
         });
         return;
       }
-      
+
       const price =
         cartItem?.price + getTotalVariationsPrice(cartItem?.food_variations);
       const productPrice = price * updateQuantity;
@@ -381,7 +387,7 @@ const ProductInformationBottomSection = ({
             backgroundColor: theme.palette.customColor.buyButton,
             color: "black",
             width: {
-              xs: "100%",
+              xs: "50%",
               sm: productDetailsData?.isCampaignItem ? "100%" : 200,
             },
             "&:hover": {
@@ -390,12 +396,11 @@ const ProductInformationBottomSection = ({
             },
           }}
         >
-          {productDetailsData?.isCampaignItem 
-            ? t("Order Now") 
-            : isInCart(productDetailsData?.id) 
-              ? t("Go to Cart") 
-              : t("Buy Now")
-          }
+          {productDetailsData?.isCampaignItem
+            ? t("Order Now")
+            : isInCart(productDetailsData?.id)
+            ? t("Go to Cart")
+            : t("Buy Now")}
         </PrimaryButton>
       ) : (
         <PrimaryButton
@@ -422,7 +427,10 @@ const ProductInformationBottomSection = ({
             isVariationAvailable(productDetailsData) && (
               <PrimaryButton
                 onClick={() => handleVariationAvailability("add")}
-                sx={{ width: 200, fontSize: { xs: "12px", md: "14px" } }}
+                sx={{
+                  width: { xs: "50%", md: 200 },
+                  fontSize: { xs: "12px", md: "14px" },
+                }}
                 disabled={productDetailsData?.stock === 0}
               >
                 {isLoading ? <Loading /> : t("Add to Cart")}
@@ -447,11 +455,13 @@ const ProductInformationBottomSection = ({
                 onClick={getQuantity() === 1 ? handleRemove : handleDecrement}
                 sx={{
                   flex: 1,
-                  backgroundColor: (theme) => alpha(theme.palette.primary.main, 0.08),
+                  backgroundColor: (theme) =>
+                    alpha(theme.palette.primary.main, 0.08),
                   cursor: "pointer",
                   height: "100%",
                   "&:hover": {
-                    backgroundColor: (theme) => alpha(theme.palette.primary.main, 0.12),
+                    backgroundColor: (theme) =>
+                      alpha(theme.palette.primary.main, 0.12),
                   },
                 }}
               >
@@ -475,10 +485,14 @@ const ProductInformationBottomSection = ({
                 justifyContent="center"
                 sx={{
                   flex: 1,
-                  backgroundColor: (theme) => alpha(theme.palette.grey[300], 0.3),
+                  backgroundColor: (theme) =>
+                    alpha(theme.palette.grey[300], 0.3),
                   height: "100%",
                   borderTop: `1px solid ${alpha(theme.palette.grey[400], 0.2)}`,
-                  borderBottom: `1px solid ${alpha(theme.palette.grey[400], 0.2)}`,
+                  borderBottom: `1px solid ${alpha(
+                    theme.palette.grey[400],
+                    0.2
+                  )}`,
                 }}
               >
                 <Typography
@@ -508,7 +522,8 @@ const ProductInformationBottomSection = ({
                   cursor: "pointer",
                   height: "100%",
                   "&:hover": {
-                    backgroundColor: (theme) => alpha(theme.palette.primary.main, 0.8),
+                    backgroundColor: (theme) =>
+                      alpha(theme.palette.primary.main, 0.8),
                   },
                 }}
               >
