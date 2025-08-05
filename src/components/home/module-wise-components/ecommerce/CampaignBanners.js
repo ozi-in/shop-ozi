@@ -382,83 +382,78 @@ const CampaignBanners = () => {
     //   link: "/product/6",
     // },
 
-
-
-  {
-    id: 1,
-    title: "Breastfeeding Needs",
-    image: "https://i.ibb.co/0VJwmXbN/Web-Breastfeeding-Needs.png",
-    link: "/product/1",
-  },
-  {
-    id: 2,
-    title: "Formula - Authentic Wide Range",
-    image: "https://i.ibb.co/LzNK4b7g/Web-Formula-Authentic-Wide-Range.png",
-    link: "/product/2",
-  },
-  {
-    id: 3,
-    title: "Formula for Special Needs",
-    image: "https://i.ibb.co/ns4HXYbM/Web-Formula-for-Special-Needs.png",
-    link: "/product/3",
-  },
-  {
-    id: 4,
-    title: "Germ Protection",
-    image: "https://i.ibb.co/bx0vPv5/Web-Germ-Protection.png",
-    link: "/product/4",
-  },
-  {
-    id: 5,
-    title: "Haus Kinder",
-    image: "https://i.ibb.co/S4TxDm19/Web-Haus-Kinder.png",
-    link: "/product/5",
-  },
-  {
-    id: 6,
-    title: "Hospital Bag Essentials",
-    image: "https://i.ibb.co/B2bt4qy4/Web-Hospital-Bag-Essentials.png",
-    link: "/product/6",
-  },
-  {
-    id: 7,
-    title: "Mosquito Protection",
-    image: "https://i.ibb.co/bgNXQm1s/Web-Mosquito-Protection.png",
-    link: "/product/7",
-  },
-  {
-    id: 8,
-    title: "Mustela",
-    image: "https://i.ibb.co/4RJWZj2G/Web-Mustela.png",
-    link: "/product/8",
-  },
-  {
-    id: 9,
-    title: "Sebamed",
-    image: "https://i.ibb.co/1JZcLPRF/Web-Sebamed.png",
-    link: "/product/9",
-  },
-  {
-    id: 10,
-    title: "Sensitive Baby Skin",
-    image: "https://i.ibb.co/bjX4dq3R/Web-Sensitive-Baby-Skin.png",
-    link: "/product/10",
-  },
-  {
-    id: 11,
-    title: "Sophie La Girafe",
-    image: "https://i.ibb.co/YTZ42K8p/Web-Sophie-La-Girafe.png",
-    link: "/product/11",
-  },
-  {
-    id: 12,
-    title: "Windmil Baby",
-    image: "https://i.ibb.co/2YknyjhQ/Web-Windmil-baby.png",
-    link: "/product/12",
-  },
-
-
-
+    {
+      id: 1,
+      title: "Breastfeeding Needs",
+      image: "https://i.ibb.co/Vp0yHMcw/Web-Breastfeeding-Needs.png",
+      link: "/product/1",
+    },
+    {
+      id: 2,
+      title: "Formula - Authentic Wide Range",
+      image: "https://i.ibb.co/tpRxnLsz/Web-Formula-Authentic-Wide-Range.png",
+      link: "/product/2",
+    },
+    {
+      id: 3,
+      title: "Formula for Special Needs",
+      image: "https://i.ibb.co/hRdV1jbH/Web-Sebamed.png",
+      link: "/product/3",
+    },
+    {
+      id: 4,
+      title: "Germ Protection",
+      image: "https://i.ibb.co/M5j4tmkN/Web-Germ-Protection.png",
+      link: "/product/4",
+    },
+    {
+      id: 5,
+      title: "Haus Kinder",
+      image: "https://i.ibb.co/dwxCvSGq/Web-Haus-Kinder.png",
+      link: "/product/5",
+    },
+    {
+      id: 6,
+      title: "Hospital Bag Essentials",
+      image: "https://i.ibb.co/RTKBt1bM/Web-Hospital-Bag-Essentials.png",
+      link: "/product/6",
+    },
+    {
+      id: 7,
+      title: "Mosquito Protection",
+      image: "https://i.ibb.co/69CszzB/Web-Mosquito-Protection.png",
+      link: "/product/7",
+    },
+    {
+      id: 8,
+      title: "Mustela",
+      image: "https://i.ibb.co/VbJWJWr/Web-Mustela.png",
+      link: "/product/8",
+    },
+    {
+      id: 9,
+      title: "Sebamed",
+      image: "https://i.ibb.co/zhYYtvQ5/Web-Formula-for-Special-Needs.png",
+      link: "/product/9",
+    },
+    {
+      id: 10,
+      title: "Sensitive Baby Skin",
+      image: "https://i.ibb.co/KcVm49pm/Web-Sensitive-Baby-Skin.png",
+      link: "/product/10",
+    },
+    {
+      id: 11,
+      title: "Sophie La Girafe",
+      image: "https://i.ibb.co/zVM1ysxq/Web-Sophie-La-Girafe.png",
+      link: "/product/11",
+    },
+    {
+      id: 12,
+      title: "Windmil Baby",
+      image: "https://i.ibb.co/DHscRS2q/Web-Windmil-baby.png",
+      link: "/product/12",
+    },
   ];
 
   const repeatedData = Array(12).fill(bannersData).flat();

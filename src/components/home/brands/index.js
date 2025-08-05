@@ -237,7 +237,6 @@
 
 // export default Brands;
 
-
 import React, { useEffect, useRef, useState } from "react";
 
 const CampaignBanners = () => {
@@ -245,131 +244,131 @@ const CampaignBanners = () => {
     {
       id: 1,
       title: "Cetafill",
-      image: "https://i.ibb.co/TDYRKHQh/f7e8dc0c053a86dd9edf3638a7ae3247d0071545.png",
+      image:
+        "https://i.ibb.co/cKTtHtB1/f7e8dc0c053a86dd9edf3638a7ae3247d0071545.png",
       link: "/product/1",
     },
     {
       id: 2,
       title: "chicco",
-      image: "https://i.ibb.co/jvfcG3mN/e1941f4b5d1cabba2f21f9a0b420b9715833fba7.png",
+      image:
+        "https://i.ibb.co/GvVrP1qS/e1941f4b5d1cabba2f21f9a0b420b9715833fba7.png",
       link: "/product/2",
     },
     {
       id: 3,
       title: "pampers",
-      image: "https://i.ibb.co/9kM6XMY3/c245372bf7cd5e81465478e38cdc2341ec5c230a.png",
+      image:
+        "https://i.ibb.co/fVR42TxS/c245372bf7cd5e81465478e38cdc2341ec5c230a.png",
       link: "/product/3",
     },
     {
       id: 4,
       title: "Himalaya",
-      image: "https://i.ibb.co/hxq6zy2V/4610172c1133faa562b30d7ba9fef905e7d996c7.png",
+      image:
+        "https://i.ibb.co/35dHwgKY/4610172c1133faa562b30d7ba9fef905e7d996c7.png",
       link: "/product/4",
     },
     {
       id: 5,
       title: "mama earth",
-      image: "https://i.ibb.co/k2H2wjfs/05ad1ffd70a860d88c32f436e704db98a671786d.png",
+      image:
+        "https://i.ibb.co/9HNXPTG5/05ad1ffd70a860d88c32f436e704db98a671786d.png",
       link: "/product/5",
     },
     {
       id: 6,
       title: "jonhson's baby",
-      image: "https://i.ibb.co/kgP2fSQC/5a01cdf605e15ea40a80ede06c88047e2c82a8cb.png",
+      image:
+        "https://i.ibb.co/bRzxnTSx/5a01cdf605e15ea40a80ede06c88047e2c82a8cb.png",
       link: "/product/6",
     },
-    // new add kiya hai 
+    // new add kiya hai
     {
       id: 7,
       title: "Aptamil",
-      image: "https://i.ibb.co/WSB1JCN/Aptamilll.png",
+      image: "https://i.ibb.co/xS8VjgwG/Aptamilll.png",
       link: "/product/6",
     },
     {
       id: 8,
       title: "Bambo nature",
-      image: "https://i.ibb.co/Lhq7nNQW/banm.png",
+      image: "https://i.ibb.co/3mTZsg79/banm.png",
       link: "/product/6",
     },
     {
       id: 9,
       title: "House and kinder",
-      image: "https://i.ibb.co/QF6m076Y/kinder-haus-logo-png-transparent.png",
+      image: "https://i.ibb.co/gbhQbLpG/kinder-haus-logo-png-transparent.png",
       link: "/product/6",
-    }, {
+    },
+    {
       id: 10,
-      title: "Huggies",
-      image: "https://i.ibb.co/jPr9T4nF/hugiesfinal.png",
+      title: "philips",
+      image: "https://i.ibb.co/tM5HL4Gz/R.jpg",
       link: "/product/6",
     },
     {
       id: 11,
       title: "Dr Brown",
-      image: "https://i.ibb.co/k6Vycwyv/Dr-Browns-Company-Logo.png",
+      image: "https://i.ibb.co/jkPkJytR/Dr-Browns-Company-Logo.png",
       link: "/product/6",
     },
     {
       id: 12,
       title: "Rabbit",
-      image: "https://i.ibb.co/W4ZWXnfm/rabit1.png",
+      image: "https://i.ibb.co/gbg9Ht8s/rabit1.png",
       link: "/product/6",
     },
     {
       id: 13,
       title: "Mother spra",
-      image: "https://i.ibb.co/fVZKYv4V/new-logo-e3f4d18e-a9c0-43d9-b91a-5a1c154b1b93.webp",
+      image:
+        "https://i.ibb.co/TfbWM5n/new-logo-e3f4d18e-a9c0-43d9-b91a-5a1c154b1b93.webp",
       link: "/product/6",
     },
     {
       id: 14,
       title: "Mammy poko",
-      image: "https://i.ibb.co/4G0rVkF/de9b84a4-b8c1-4a85-b57f-5081ca2cdb78.png",
+      image:
+        "https://i.ibb.co/RG0YNdVL/de9b84a4-b8c1-4a85-b57f-5081ca2cdb78.png",
       link: "/product/6",
     },
 
     {
       id: 15,
       title: "Musteler",
-      image: "https://i.ibb.co/S4WYYVTK/mustlee.png",
+      image: "https://i.ibb.co/gZvfb7HQ/mustlee.png",
       link: "/product/6",
     },
 
     {
       id: 16,
       title: "Nestly",
-      image: "https://i.ibb.co/6pQM3Mk/Nestle-Logo-Transparent-Free-PNG.png",
+      image: "https://i.ibb.co/W42H5jGM/Nestle-Logo-Transparent-Free-PNG.png",
       link: "/product/6",
     },
 
     {
       id: 17,
       title: "Similac",
-      image: "https://i.ibb.co/fs6m54T/similac-logo.png",
+      image: "https://i.ibb.co/67GSmn9K/similac-logo.png",
       link: "/product/6",
     },
 
     {
       id: 19,
       title: "Pegion ",
-      image: "https://i.ibb.co/qMT5KV2t/pigennnnnnnn.png",
+      image: "https://i.ibb.co/ZR6gx158/pigennnnnnnn.png",
       link: "/product/6",
     },
 
     {
       id: 20,
       title: "Sebamed",
-      image: "https://i.ibb.co/WpGzMfVb/sebaaa.png",
+      image: "https://i.ibb.co/qYRq4jWN/sebaaa.png",
       link: "/product/6",
     },
-
-
-    {
-      id: 21,
-      title: "philips",
-      image: "https://i.ibb.co/6RJFG2DL/R.jpg",
-      link: "/product/6",
-    },
-
   ];
 
   const containerRef = useRef(null);
@@ -430,7 +429,6 @@ const CampaignBanners = () => {
     backgroundColor: "transparent",
   };
 
-
   return (
     <div
       style={{
@@ -477,15 +475,9 @@ const CampaignBanners = () => {
               onMouseOver={(e) =>
                 (e.currentTarget.style.transform = "scale(1.05)")
               }
-              onMouseOut={(e) =>
-                (e.currentTarget.style.transform = "scale(1)")
-              }
+              onMouseOut={(e) => (e.currentTarget.style.transform = "scale(1)")}
             >
-              <img
-                src={item.image}
-                alt={item.title}
-                style={imageStyle}
-              />
+              <img src={item.image} alt={item.title} style={imageStyle} />
             </div>
           ))}
         </div>
