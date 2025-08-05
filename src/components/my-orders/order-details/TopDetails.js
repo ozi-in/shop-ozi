@@ -415,7 +415,7 @@ const TopDetails = (props) => {
         </OrderStatusButton>
       ) : (
         <>
-          {trackData && trackData?.order_status === "failed" ? (
+         {/* {trackData && trackData?.order_status === "failed" ? (
             <PaymentUpdate
               id={id}
               refetchOrderDetails={refetch}
@@ -434,7 +434,7 @@ const TopDetails = (props) => {
                 {t("Cancel Order")}
               </OrderStatusButton>
             )
-          )}
+          )} */}
         </>
       )}
       <CustomModal

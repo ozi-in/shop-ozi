@@ -72,10 +72,10 @@ const Coupons = () => {
   // );
   return (
     <Box
-      mt={{ xs: "1rem", md: "2rem" }}
+      // mt={{ xs: "1rem", md: "2rem" }}
       minHeight="10%"
-      paddingLeft={{ xs: "10px", sm: "20px", md: "20px" }}
-      paddingRight={{ xs: "10px", sm: "20px", md: "20px" }}
+      paddingLeft={{ xs: "0px", sm: "20px", md: "20px" }}
+      paddingRight={{ xs: "0px", sm: "20px", md: "20px" }}
     >
       {isSmall && (
         <Stack direction="row" justifyContent="space-between" mb={2}>
@@ -98,7 +98,6 @@ const Coupons = () => {
           whiteSpace: "nowrap",
           gap: "16px",
           paddingBottom: "1rem",
-
         }}
         paddingLeft={{ xs: "10px", sm: "20px", md: "10px" }}
         paddingRight={{ xs: "10px", sm: "20px", md: "10px" }}
@@ -106,7 +105,7 @@ const Coupons = () => {
         {couponData &&
           couponData.length > 0 &&
           couponData.map((coupon, index) => (
-            <Box key={index} >
+            <Box key={index}>
               <Coupon
                 coupon={coupon}
                 isLoading={isLoading}
@@ -117,14 +116,14 @@ const Coupons = () => {
           ))}
       </Box>
 
-      {couponData && !isCouponFetching && couponData.length === 0 && (
-        <CustomEmptyResult
-          height="20%"
-          width="20%"
-          label="No Coupon Found"
-          image={nodataimage}
-        />
-      )}
+      {/* {couponData && !isCouponFetching && couponData.length === 0 && (
+          <CustomEmptyResult
+            height="20%"
+            width="20%"
+            label="No Coupon Found"
+            image={nodataimage}
+          />
+        )} */}
 
       {(isCouponLoading || isCouponFetching) && <CustomShimmerCard />}
     </Box>

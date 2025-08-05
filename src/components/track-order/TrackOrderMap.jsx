@@ -38,8 +38,8 @@ const TrackOrderMap = ({
         onClick={getCurrentLocation}
         sx={{
           position: "absolute",
-          bottom: "3%",
-          right: "3%",
+          bottom: "20%",
+          right: "2.5%",
           borderRadius: "50%",
           color: (theme) => theme.palette.primary.main,
           backgroundColor: "background.paper",

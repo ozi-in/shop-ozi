@@ -198,7 +198,7 @@ const AddAddressComponent = ({
             onClick={getCurrentLocation}
             sx={{
               position: "absolute",
-              bottom: "25%",
+              bottom: "35%",
               right: "10px",
               borderRadius: "50%",
               color: (theme) => theme.palette.primary.main,

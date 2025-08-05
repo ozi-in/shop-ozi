@@ -147,7 +147,7 @@ const TrackOrder = ({ configData, trackOrderData }) => {
       img: orderConfirmImage.src,
     },
     {
-      label: `Preparing ${
+      label: `Packing ${
         trackOrderData?.module?.module_type === "food" ? "foods" : "items"
       }`,
       time: trackOrderData?.processing,
