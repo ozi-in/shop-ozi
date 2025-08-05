@@ -651,6 +651,87 @@ const ProductCard = (props) => {
     );
   };
 
+  // const listViewCardUi = () => {
+  //   return (
+  //     <CustomStackFullWidth
+  //       justifyContent="space-between"
+  //       alignItems="flex-start"
+  //       spacing={1}
+  //       p="1rem"
+  //     >
+  //       {isWishlisted && (
+  //         <Box
+  //           sx={{
+  //             color: "primary.main",
+  //             position: "absolute",
+  //             top: 20,
+  //             right: 10,
+  //           }}
+  //         >
+  //           <FavoriteIcon sx={{ fontSize: "15px" }} />
+  //         </Box>
+  //       )}
+
+  //       <PrimaryToolTip text={item?.name} placement="bottom" arrow="false">
+  //         <H3 text={item?.name} component="h3" />
+  //       </PrimaryToolTip>
+  //       <CustomBoxFullWidth>
+  //         {item?.module_type === "pharmacy" ? (
+  //           <Typography
+  //             className={classes.singleLineEllipsis}
+  //             variant="body2"
+  //             color="text.secondary"
+  //             sx={{ wordBreak: "break-word" }}
+  //             component="h4"
+  //           >
+  //             {item?.generic_name[0]}
+  //           </Typography>
+  //         ) : (
+  //           // <Body2 text={item?.store_name} component="h4" />
+
+  //           <></>
+  //         )}
+  //       </CustomBoxFullWidth>
+  //       {item?.unit_type ? (
+  //         <Typography
+  //           sx={{
+  //             color: (theme) => theme.palette.customColor.textGray,
+  //           }}
+  //         >
+  //           {item?.unit_type}
+  //         </Typography>
+  //       ) : (
+  //         <Typography
+  //           sx={{
+  //             color: (theme) => theme.palette.customColor.textGray,
+  //           }}
+  //         >
+  //           {t("No unit type")}
+  //         </Typography>
+  //       )}
+
+  //       <CustomStackFullWidth
+  //         direction="row"
+  //         alignItems="flex-start"
+  //         justifyContent="space-between"
+  //         spacing={2}
+  //         sx={{ pb: "15px" }}
+  //       >
+  //         <AmountWithDiscountedAmount item={item} />
+  //         <AddWithIncrementDecrement
+  //           onHover={state.isTransformed}
+  //           addToCartHandler={addToCart}
+  //           isProductExist={isProductExist}
+  //           handleIncrement={handleIncrement}
+  //           handleDecrement={handleDecrement}
+  //           count={count}
+  //           isLoading={isLoading}
+  //           updateLoading={updateLoading}
+  //         />
+  //       </CustomStackFullWidth>
+  //     </CustomStackFullWidth>
+  //   );
+  // };
   const listViewCardUi = () => {
     return (
       <CustomStackFullWidth
@@ -672,8 +753,29 @@ const ProductCard = (props) => {
           </Box>
         )}
 
-        <PrimaryToolTip text={item?.name} placement="bottom" arrow="false">
+        {/* <PrimaryToolTip text={item?.name} placement="bottom" arrow="false">
           <H3 text={item?.name} component="h3" />
+        </PrimaryToolTip> */}
+        <PrimaryToolTip text={item?.name} placement="bottom" arrow="false">
+          <Typography
+            variant={horizontalcard === "true" ? "subtitle2" : "h6"}
+            component="h3"
+            className="name"
+            sx={{
+              lineHeight: "20px",
+              textAlign: lanDirection === "rtl" ? "end" : "start",
+              color: (theme) => theme.palette.text.custom,
+              fontSize: { xs: "13px", sm: "inherit" },
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              display: "-webkit-box",
+              WebkitLineClamp: 2,
+              WebkitBoxOrient: "vertical",
+              wordBreak: "break-word",
+            }}
+          >
+            {item?.name}
+          </Typography>
         </PrimaryToolTip>
         <CustomBoxFullWidth>
           {item?.module_type === "pharmacy" ? (
@@ -692,7 +794,7 @@ const ProductCard = (props) => {
             <></>
           )}
         </CustomBoxFullWidth>
-        {item?.unit_type ? (
+        {/* {item?.unit_type ? (
           <Typography
             sx={{
               color: (theme) => theme.palette.customColor.textGray,
@@ -708,7 +810,7 @@ const ProductCard = (props) => {
           >
             {t("No unit type")}
           </Typography>
-        )}
+        )} */}
 
         <CustomStackFullWidth
           direction="row"
@@ -718,17 +820,17 @@ const ProductCard = (props) => {
           sx={{ pb: "15px" }}
         >
           <AmountWithDiscountedAmount item={item} />
-          <AddWithIncrementDecrement
-            onHover={state.isTransformed}
-            addToCartHandler={addToCart}
-            isProductExist={isProductExist}
-            handleIncrement={handleIncrement}
-            handleDecrement={handleDecrement}
-            count={count}
-            isLoading={isLoading}
-            updateLoading={updateLoading}
-          />
         </CustomStackFullWidth>
+        <AddWithIncrementDecrement
+          onHover={state.isTransformed}
+          addToCartHandler={addToCart}
+          isProductExist={isProductExist}
+          handleIncrement={handleIncrement}
+          handleDecrement={handleDecrement}
+          count={count}
+          isLoading={isLoading}
+          updateLoading={updateLoading}
+        />
       </CustomStackFullWidth>
     );
   };
