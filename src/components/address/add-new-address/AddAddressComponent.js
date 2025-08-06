@@ -85,7 +85,7 @@ const AddAddressComponent = ({
 
   useEffect(() => {
     if (places) {
-      const tempData= places?.suggestions?.map((item) => ({
+      const tempData = places?.suggestions?.map((item) => ({
         place_id: item?.placePrediction?.placeId,
         description: `${item?.placePrediction?.structuredFormat?.mainText?.text}, ${item?.placePrediction?.structuredFormat?.secondaryText?.text}`,
       }));
@@ -199,7 +199,7 @@ const AddAddressComponent = ({
             sx={{
               position: "absolute",
               bottom: "35%",
-              right: "10px",
+              right: "15px",
               borderRadius: "50%",
               color: (theme) => theme.palette.primary.main,
               backgroundColor: "background.paper",
