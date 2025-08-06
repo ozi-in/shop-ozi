@@ -90,7 +90,7 @@ const SideBarWithData = forwardRef((props, ref) => {
                         <ProductCard
                           key={product?.id}
                           item={product}
-                          cardheight="150px"
+                          cardheight="160px"
                           isFrom="plp-list-view"
                           cardType="vertical-type"
                           horizontalcard="true"

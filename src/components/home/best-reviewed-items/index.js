@@ -105,6 +105,64 @@ const BestReviewedItems = (props) => {
       />
     ));
 
+  // const bestReviewedSliderSettings = {
+  //   //centerMode: true,
+  //   initialSlide: 0,
+  //   dots: false,
+  //   infinite: false,
+  //   speed: 500,
+  //   slidesToShow: info?.best_reviewed_section_banner ? 4 : 5,
+  //   slidesToScroll: 2,
+  //   cssEase: "linear",
+  //   responsive: [
+  //     {
+  //       breakpoint: 350,
+  //       settings: {
+  //         slidesToShow: 1.2,
+  //         slidesToScroll: 1,
+  //         infinite: false,
+  //       },
+  //     },
+  //     {
+  //       breakpoint: 450,
+  //       settings: {
+  //         slidesToShow: 1.5,
+  //         slidesToScroll: 1,
+  //         infinite: false,
+  //       },
+  //     },
+  //     {
+  //       breakpoint: 550,
+  //       settings: {
+  //         slidesToShow: 1.7,
+  //         slidesToScroll: 1,
+  //       },
+  //     },
+  //     {
+  //       breakpoint: 750,
+  //       settings: {
+  //         slidesToShow: 2,
+  //         slidesToScroll: 1,
+  //       },
+  //     },
+  //     {
+  //       breakpoint: 1150,
+  //       settings: {
+  //         slidesToShow: info?.best_reviewed_section_banner ? 2.6 : 2.1,
+  //         slidesToScroll: 1,
+  //       },
+  //     },
+  //     {
+  //       breakpoint: 1200,
+  //       settings: {
+  //         slidesToShow: 3.5,
+  //         slidesToScroll: 1,
+  //       },
+  //     },
+  //   ],
+  //   prevArrow: <PrevFood displayNoneOnMobile />,
+  //   nextArrow: <NextFood displayNoneOnMobile />,
+  // };
   const bestReviewedSliderSettings = {
     //centerMode: true,
     initialSlide: 0,
@@ -118,7 +176,7 @@ const BestReviewedItems = (props) => {
       {
         breakpoint: 350,
         settings: {
-          slidesToShow: 1.2,
+          slidesToShow: 1.45,
           slidesToScroll: 1,
           infinite: false,
         },
@@ -126,7 +184,7 @@ const BestReviewedItems = (props) => {
       {
         breakpoint: 450,
         settings: {
-          slidesToShow: 1.5,
+          slidesToShow: 2,
           slidesToScroll: 1,
           infinite: false,
         },
@@ -134,32 +192,33 @@ const BestReviewedItems = (props) => {
       {
         breakpoint: 550,
         settings: {
-          slidesToShow: 1.7,
+          slidesToShow: 2.5,
           slidesToScroll: 1,
         },
       },
       {
         breakpoint: 750,
         settings: {
-          slidesToShow: 2,
+          slidesToShow: 2.4,
           slidesToScroll: 1,
         },
       },
       {
         breakpoint: 1150,
         settings: {
-          slidesToShow: info?.best_reviewed_section_banner ? 2.6 : 2.1,
+          slidesToShow: info?.best_reviewed_section_banner ? 3 : 2.6,
           slidesToScroll: 1,
         },
       },
       {
         breakpoint: 1200,
         settings: {
-          slidesToShow: 3.5,
+          slidesToShow: 4,
           slidesToScroll: 1,
         },
       },
     ],
+
     prevArrow: <PrevFood displayNoneOnMobile />,
     nextArrow: <NextFood displayNoneOnMobile />,
   };
@@ -356,7 +415,7 @@ const BestReviewedItems = (props) => {
                     justifyContent="space-between"
                   >
                     <H2 text={title} component="h2" />
-                    <Stack
+                    {/* <Stack
                       maxWidth="960px"
                       width={isSmall ? "initial" : "100%"}
                     >
@@ -367,7 +426,7 @@ const BestReviewedItems = (props) => {
                           menus={menu}
                         />
                       )}
-                    </Stack>
+                    </Stack> */}
                   </CustomStackFullWidth>
                   <Grid container spacing={{ xs: 1, md: 1, lg: 1 }}>
                     {info?.best_reviewed_section_banner && !isSmall && (

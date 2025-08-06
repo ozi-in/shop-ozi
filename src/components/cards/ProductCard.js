@@ -131,26 +131,51 @@ export const CardWrapper = styled(Card)(
   })
 );
 
-const CustomCardMedia = styled(CardMedia)(({ theme, loveItem }) => ({
-  position: "relative",
-  padding: loveItem === "true" ? "2px" : "0rem",
-  // margin: "2px",
-  //minHeight: "200px",
-  width: "100%",
-  aspectRatio: "1 / 1", // force square shape
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  overflow: "hidden",
-  borderRadius: "20px",
-  // backgroundColor: "red",
+// const CustomCardMedia = styled(CardMedia)(({ theme, loveItem }) => ({
+//   position: "relative",
+//   padding: loveItem === "true" ? "2px" : "0rem",
+//   // margin: "2px",
+//   //minHeight: "200px",
+//   width: "100%",
+//   aspectRatio: "1 / 1", // force square shape
+//   display: "flex",
+//   alignItems: "center",
+//   justifyContent: "center",
+//   overflow: "hidden",
+//   borderRadius: "20px",
+//   // backgroundColor: "red",
 
-  ".MuiBox-root": {
+//   ".MuiBox-root": {
+//     overflow: "hidden",
+//     borderRadius: "20px",
+//   },
+// }));
+const CustomCardMedia = styled(CardMedia)(
+  ({ theme, horizontalcard, loveItem, cardFor }) => ({
+    position: "relative",
+    padding: loveItem === "true" ? "2px" : "0rem",
+    // margin: "2px",
+    // minHeight: "200px",\
+    width:
+      cardFor === "list-view"
+        ? "200px"
+        : horizontalcard === "true"
+        ? "250px"
+        : "100%",
+    aspectRatio: "1 / 1", // force square shape
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
     overflow: "hidden",
     borderRadius: "20px",
-  },
-}));
+    // backgroundColor: "red",
 
+    ".MuiBox-root": {
+      overflow: "hidden",
+      borderRadius: "20px",
+    },
+  })
+);
 export const CustomCardButton = styled(CustomButtonPrimary)(
   ({ theme, disabled }) => ({
     background: disabled
@@ -743,7 +768,7 @@ const ProductCard = (props) => {
         spacing={1}
         p="1rem"
       >
-        {isWishlisted && (
+        {/* {isWishlisted && (
           <Box
             sx={{
               color: "primary.main",
@@ -754,7 +779,7 @@ const ProductCard = (props) => {
           >
             <FavoriteIcon sx={{ fontSize: "15px" }} />
           </Box>
-        )}
+        )} */}
 
         {/* <PrimaryToolTip text={item?.name} placement="bottom" arrow="false">
           <H3 text={item?.name} component="h3" />
