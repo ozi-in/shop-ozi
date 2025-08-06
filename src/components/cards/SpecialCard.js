@@ -448,7 +448,9 @@ const SpecialCard = (props) => {
       <CustomStackFullWidth
         sx={{
           position: "relative",
-          height: { xs: "140px", md: "180px" },
+          height: "160px",
+          width: "160px",
+          p: 0.5,
         }}
       >
         <Box
@@ -462,7 +464,7 @@ const SpecialCard = (props) => {
             height={isSmall ? 140 : 180}
             alt={item?.name}
             width={210}
-            objectfit="cover"
+            objectfit="contain"
           />
         </Box>
         {item?.halal_tag_status && item?.is_halal ? (

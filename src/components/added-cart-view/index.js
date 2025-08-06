@@ -158,7 +158,7 @@ const CardView = (props) => {
       open={sideDrawerOpen}
       onClose={closeHandler}
       variant="temporary"
-      maxWidth="420px"
+      maxWidth="450px"
       width="100%"
     >
       <CustomStackFullWidth
