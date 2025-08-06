@@ -5,6 +5,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { useGetCategories } from "api-manage/hooks/react-query/all-category/all-categorys";
 import { setCategories } from "redux/slices/storedData";
 import { getModuleId } from "helper-functions/getModuleId";
+import {
+  setSelectedCategoryId,
+  setSelectedSubCategoryId,
+} from "redux/slices/categoryIds";
 
 // Custom Chevron Arrow Component
 const ChevronArrow = ({ size = 12, color = "#1a1a2e" }) => (
@@ -33,7 +37,12 @@ const CategoryNavigation = () => {
   const [hoveredCategory, setHoveredCategory] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
   const closeTimer = useRef(null);
-
+  const selectedCategoryId = useSelector(
+    (state) => state.categoryIds.selectedCategoryId
+  ); // saksham changes
+  const selectedSubCategoryId = useSelector(
+    (state) => state.categoryIds.selectedSubCategoryId
+  );
   const { data: categoriesData, isLoading, refetch } = useGetCategories();
 
   // Ensure categories are fetched and stored in Redux on mount
@@ -73,6 +82,7 @@ const CategoryNavigation = () => {
 
   // Navigate to category
   const handleCategoryClick = (category) => {
+    dispatch(setSelectedCategoryId(category.id));
     router.push({
       pathname: "/home",
       query: {
@@ -89,6 +99,7 @@ const CategoryNavigation = () => {
 
   // Navigate to subcategory
   const handleSubCategoryClick = (subCategory) => {
+    dispatch(setSelectedSubCategoryId(subCategory.id));
     router.push({
       pathname: "/home",
       query: {
@@ -140,8 +151,7 @@ const CategoryNavigation = () => {
                   background: "#f5f5f5",
                   minWidth: 100,
                 }}
-              >
-              </Typography>
+              ></Typography>
             ))
           ) : categories?.length > 0 ? (
             categories.slice(0, 6).map((category) => (
@@ -150,11 +160,14 @@ const CategoryNavigation = () => {
                 variant="body2"
                 sx={{
                   fontWeight: 500,
-                  color: "#222",
+                  color:
+                    selectedCategoryId === category?.id ? "#ffffff" : "#222",
                   cursor: "pointer",
                   px: 1.5,
                   py: 0.5,
                   borderRadius: 2,
+                  backgroundColor:
+                    selectedCategoryId === category?.id ? "#FF7A59" : "#ffffff",
                   transition: "background 0.2s, color 0.2s",
                   display: "flex",
                   alignItems: "center",
@@ -169,7 +182,14 @@ const CategoryNavigation = () => {
               >
                 <Box component="span">{category.name}</Box>
                 {category?.childes?.length > 0 && (
-                  <ChevronArrow size={20} color="#1a1a2e" />
+                  <ChevronArrow
+                    size={20}
+                    color={
+                      selectedCategoryId === category?.id
+                        ? "#ffffff"
+                        : "#1a1a2e"
+                    }
+                  />
                 )}
               </Typography>
             ))
@@ -211,6 +231,14 @@ const CategoryNavigation = () => {
                   cursor: "pointer",
                   px: 1,
                   py: 0.5,
+                  color:
+                    selectedSubCategoryId === subCategory?.id
+                      ? "#ffffff"
+                      : "#222",
+                  backgroundColor:
+                    selectedSubCategoryId === subCategory?.id
+                      ? "#FF7A59"
+                      : "#ffffff",
                   borderRadius: 1,
                   transition: "all 0.2s",
                   "&:hover": {

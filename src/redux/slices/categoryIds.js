@@ -9,6 +9,9 @@ const initialState = {
   selectedBrands: [],
   interestId: [],
   existingModuleId: [],
+
+   selectedCategoryId: null,    // saksham Changes 
+  selectedSubCategoryId: null,
 };
 
 export const categoryIdsSlice = createSlice({
@@ -39,6 +42,17 @@ export const categoryIdsSlice = createSlice({
     setExistingModuleIds: (state, action) => {
       state.existingModuleId = [...state.existingModuleId, action.payload];
     },
+    setSelectedCategoryId: (state, action) => {  //saksham changes 
+      state.selectedCategoryId = action.payload;
+     },
+   setSelectedSubCategoryId: (state, action) => {
+      state.selectedSubCategoryId = action.payload;
+    },
+   resetCategoryId: (state) => {
+      state.selectedCategoryId = null;
+      state.selectedSubCategoryId = null;  
+   }
+
   },
 });
 
@@ -52,5 +66,8 @@ export const {
   setSelectedBrands,
   setStoreSelectedItems2,
   setExistingModuleIds,
+  setSelectedCategoryId,  // saksham changes 
+  setSelectedSubCategoryId,
+  resetCategoryId,
 } = categoryIdsSlice.actions;
 export default categoryIdsSlice.reducer;

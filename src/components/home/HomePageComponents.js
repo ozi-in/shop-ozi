@@ -11,6 +11,7 @@ import {
   setFilterData,
   setStoreSelectedItems,
   setStoreSelectedItems2,
+  resetCategoryId,
 } from "redux/slices/categoryIds";
 import { setWishList } from "redux/slices/wishList";
 
@@ -95,6 +96,7 @@ const HomePageComponents = ({ configData, landingPageData }) => {
   const getModuleWiseComponents = () => {
     switch (getCurrentModuleType()) {
       case ModuleTypes.ECOMMERCE:
+        dispatch(resetCategoryId());
         return <Shop configData={configData} />;
 
       default:

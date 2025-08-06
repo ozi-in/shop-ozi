@@ -4,11 +4,13 @@ import React, { useEffect, useRef, useState } from "react";
 import { StyleCheckBox } from "./group-buttons/OutlinedGroupButtons";
 import { getCurrentModuleType } from "helper-functions/getCurrentModuleType";
 import { t } from "i18next";
-
+import { useDispatch } from "react-redux";
+import { resetCategoryId } from "redux/slices/categoryIds";
 const CustomCheckbox = ({ item, checkHandler, isChecked, seats }) => {
   const theme = useTheme();
   const [checked, setChecked] = useState(false);
   const checkboxRef = useRef(null);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setChecked(isChecked);
@@ -23,6 +25,7 @@ const CustomCheckbox = ({ item, checkHandler, isChecked, seats }) => {
   // }, [checked]);
 
   const handleChange = (event) => {
+    dispatch(resetCategoryId());
     setChecked(event.target.checked);
     checkHandler?.({
       checked: event.target.checked,
