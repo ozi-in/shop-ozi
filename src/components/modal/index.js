@@ -10,7 +10,7 @@ const CustomModal = (props) => {
     closeButton,
     children,
     maxWidth,
-    
+    fullScreen = false,
   } = props;
   const handleCloseModal = (event, reason) => {
     if (reason && reason === "backdropClick") {
@@ -28,10 +28,21 @@ const CustomModal = (props) => {
     <Dialog
       open={openModal}
       onClose={handleCloseModal}
+      //   sx={{
+      //     ".MuiDialog-paper": {
+      //       margin: "16px",
+      //       maxWidth: maxWidth,
+      //     },
+      //   }}
+      // >
+      fullScreen={fullScreen}
       sx={{
         ".MuiDialog-paper": {
-          margin: "16px",
-          maxWidth: maxWidth,
+          margin: fullScreen ? { xs: "0px", md: "16px" } : "16px", // ← Conditional styling
+          maxWidth: fullScreen ? { xs: "100%", md: "730px" } : maxWidth,
+          height: fullScreen ? { xs: "100%", md: "auto" } : "auto",
+          borderRadius: fullScreen ? { xs: "0px", md: "8px" } : "8px",
+          width: fullScreen ? { xs: "100%", md: "auto" } : "auto",
         },
       }}
     >

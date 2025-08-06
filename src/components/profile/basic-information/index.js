@@ -138,6 +138,7 @@ const BasicInformation = (props) => {
                           <Typography
                             component="span"
                             fontSize={{ xs: "12px", md: "14px" }}
+                            fontWeight="500"
                           >
                             {t("Email")}
                           </Typography>

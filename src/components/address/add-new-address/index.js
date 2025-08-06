@@ -53,12 +53,17 @@ const AddNewAddress = (props) => {
     lat: editAddress?.latitude,
     lng: editAddress?.longitude,
   });
+  const isScreenIsLessThenFive = useMediaQuery("(max-width:400px)", {
+    noSsr: true,
+  });
   const token = localStorage.getItem("token");
   const reduxDispatch = useDispatch();
   const [addressType, setAddressType] = useState(
     guestUserInfo ? guestUserInfo?.address_type : "home"
   );
-  const personName = `${profileInfo?.f_name} ${profileInfo?.l_name}`;
+  const personName = [profileInfo?.f_name, profileInfo?.l_name]
+    .filter(Boolean)
+    .join(" ");
 
   //useEffect calls for getting data
   //****getting current location/***/
@@ -88,7 +93,7 @@ const AddNewAddress = (props) => {
   );
   useEffect(() => {
     if (places) {
-      const tempData = places?.data?.suggestions?.map((item) => ({  
+      const tempData = places?.data?.suggestions?.map((item) => ({
         place_id: item?.placePrediction?.placeId,
         description: `${item?.placePrediction?.structuredFormat?.mainText?.text}, ${item?.placePrediction?.structuredFormat?.secondaryText?.text}`,
       }));
@@ -173,13 +178,16 @@ const AddNewAddress = (props) => {
           <Paper
             sx={{
               position: "relative",
-              width: { xs: "300px", sm: "450px", md: "550px", lg: "730px" },
-              p: "1.4rem",
+              width: { xs: "100%", sm: "100%", md: "550px", lg: "730px" }, // ← Full width on mobile
+              height: { xs: "100vh", md: "auto", lg: "90vh" }, // ← Full height on mobile
+              p: { xs: "1rem", md: "1.4rem" }, // ← Responsive padding
+              borderRadius: { xs: "0px", md: "8px" }, // ← No border radius on mobile
+              overflow: "auto", // ← Add scrolling if needed
             }}
           >
             <IconButton
               onClick={() => reduxDispatch(setOpenAddressModal(false))}
-              sx={{ position: "absolute", top: 0, right: 0 }}
+              sx={{ position: "absolute", top: 0, right: 0, padding: "16px" }}
             >
               <CloseIcon sx={{ fontSize: "16px" }} />
             </IconButton>
@@ -222,16 +230,43 @@ const AddNewAddress = (props) => {
               />
               <IconButton
                 onClick={getCurrentLocation}
+                // sx={{
+                //   position: "absolute",
+                //   bottom: "20%",
+                //   right: "10px",
+                //   borderRadius: "50%",
+                //   color: (theme) => theme.palette.primary.main,
+                //   backgroundColor: "background.paper",
+                // }}
                 sx={{
                   position: "absolute",
-                  bottom: "20%",
-                  right: "10px",
+                  bottom: {
+                    xs: isScreenIsLessThenFive ? "22%" : "18%",
+                    sm: "20%",
+                    md: "30%",
+                    lg: "20%",
+                  },
+
+                  right: { xs: "13px", md: "13px" },
                   borderRadius: "50%",
                   color: (theme) => theme.palette.primary.main,
                   backgroundColor: "background.paper",
+                  width: { xs: "40px", md: "40px" },
+                  height: { xs: "40px", md: "40px" },
+                  boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.1)",
+                  "&:hover": {
+                    backgroundColor: "background.paper",
+                    boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.15)",
+                  },
                 }}
               >
-                <GpsFixedIcon sx={{ fontSize: { xs: "18px", md: "24px" } }} />
+                {/* <GpsFixedIcon sx={{ fontSize: { xs: "18px", md: "24px" } }} /> */}
+                <GpsFixedIcon
+                  sx={{
+                    fontSize: { xs: "20px", sm: "24px", md: "24px" },
+                    color: (theme) => theme.palette.primary.main,
+                  }}
+                />
               </IconButton>
             </Stack>
 

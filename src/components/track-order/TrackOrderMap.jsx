@@ -36,16 +36,38 @@ const TrackOrderMap = ({
       />
       <IconButton
         onClick={getCurrentLocation}
+        //   sx={{
+        //     position: "absolute",
+        //     bottom: "20%",
+        //     right: "2.5%",
+        //     borderRadius: "50%",
+        //     color: (theme) => theme.palette.primary.main,
+        //     backgroundColor: "background.paper",
+        //   }}
+        // >
+        //   <GpsFixedIcon sx={{ fontSize: { xs: "18px", md: "24px" } }} />
         sx={{
           position: "absolute",
-          bottom: "20%",
-          right: "2.5%",
+          bottom: { xs: "20%", md: "21%" },
+          right: { xs: "11px", md: "34px" },
           borderRadius: "50%",
           color: (theme) => theme.palette.primary.main,
           backgroundColor: "background.paper",
+          width: { xs: "40px", md: "40px" },
+          height: { xs: "40px", md: "40px" },
+          boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.1)",
+          "&:hover": {
+            backgroundColor: "background.paper",
+            boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.15)",
+          },
         }}
       >
-        <GpsFixedIcon sx={{ fontSize: { xs: "18px", md: "24px" } }} />
+        <GpsFixedIcon
+          sx={{
+            fontSize: { xs: "22px", sm: "22px", md: "24px" },
+            color: (theme) => theme.palette.primary.main,
+          }}
+        />
       </IconButton>
     </Stack>
   );
