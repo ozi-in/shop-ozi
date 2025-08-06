@@ -405,7 +405,14 @@
 
 // export default React.memo(ModuleWiseNav);
 
-import { Avatar, Badge, Grid, Stack, useTheme } from "@mui/material";
+import {
+  Avatar,
+  IconButton,
+  Badge,
+  Grid,
+  Stack,
+  useTheme,
+} from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
@@ -438,6 +445,7 @@ import { getCartListModuleWise } from "helper-functions/getCartListModuleWise";
 import { toast } from "react-hot-toast";
 import CardView from "components/added-cart-view";
 import WishListCardView from "components/wishlist";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 const ModuleWiseNav = (props) => {
   const {
@@ -500,14 +508,50 @@ const ModuleWiseNav = (props) => {
     <CustomStackFullWidth
       direction="row"
       // justifyContent="flex-end"
-      gap="12px"
+      // gap="12px"
+      // alignItems="center"
+      ////////spacing between 3 profiles and 3 dots
+      gap="10px"
       alignItems="center"
     >
-      <Avatar
+      {/* <Avatar
         src={profileImageUrl}
         sx={{ width: 18, height: 18, cursor: "pointer" }}
         onClick={handleProfileClick}
-      />
+      /> */}
+      <IconButton
+        onClick={handleProfileClick}
+        sx={{
+          padding: "8px",
+          borderRadius: "50%",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          "&:hover": {
+            backgroundColor: "rgba(255, 122, 89, 0.1)",
+          },
+        }}
+      >
+        {profileInfo?.image ? (
+          <Avatar
+            alt={profileInfo?.last_name}
+            sx={{
+              width: 24,
+              height: 24,
+              border: "2px solid #FF7A59",
+            }}
+            src={profileInfo?.image_full_url}
+          />
+        ) : (
+          <AccountCircleIcon
+            sx={{
+              fontSize: "24px",
+              color: "#FF7A59",
+            }}
+          />
+        )}
+           
+      </IconButton>
       <DrawerMenu
         setToggled={setToggled}
         setOpenDrawer={setOpenDrawer}
@@ -748,7 +792,7 @@ const ModuleWiseNav = (props) => {
               direction={"row"}
               // justifyContent="flex-end"
               alignItems="center"
-              gap="18px"
+              gap="10px"
             >
               {token ? (
                 <CustomBottomNavigationAction
@@ -756,19 +800,61 @@ const ModuleWiseNav = (props) => {
                   value="wishlist"
                   onClick={() => handleWishListsDrawerOpen()}
                   icon={
+                    // <Badge
+                    //   badgeContent={
+                    //     getModule()?.module_type !== "rental"
+                    //       ? totalWishList
+                    //       : rentalTotalWishList || 0
+                    //   }
+                    //   // color="error"
+                    // >
+                    //   {/* <FavoriteIcon
+                    //   sx={{ color: "transparent", border: "2px solid red" }}
+                    // /> */}
+                    //   sx=
+                    //   {{
+                    //     "& .MuiBadge-badge": {
+                    //       backgroundColor: "#FF7A59",
+                    //       color: "white",
+                    //       minWidth: "16px",
+                    //       height: "16px",
+                    //       fontSize: "10px",
+                    //       padding: "0 4px",
+                    //     },
+                    //     "&:hover .MuiBadge-badge": {
+                    //       backgroundColor: "#FF7A59",
+                    //       color: "white",
+                    //     },
+                    //   }}
+                    //   {/* <FavoriteBorderIcon sx={{ color: "#FF6159" }} /> */}
+                    //   <FavoriteBorderIcon
+                    //     sx={{ color: "#FF6159", fontSize: "24px" }}
+                    //   />
+                    // </Badge>
                     <Badge
                       badgeContent={
                         getModule()?.module_type !== "rental"
                           ? totalWishList
                           : rentalTotalWishList || 0
                       }
-                      // color="error"
+                      sx={{
+                        "& .MuiBadge-badge": {
+                          backgroundColor: "#FF7A59",
+                          color: "white",
+                          minWidth: "16px",
+                          height: "16px",
+                          fontSize: "10px",
+                          padding: "0 4px",
+                        },
+                        "&:hover .MuiBadge-badge": {
+                          backgroundColor: "#FF7A59",
+                          color: "white",
+                        },
+                      }}
                     >
-                      {/* <FavoriteIcon
-                      sx={{ color: "transparent", border: "2px solid red" }}
-                    /> */}
-
-                      <FavoriteBorderIcon sx={{ color: "#FF6159" }} />
+                      <FavoriteBorderIcon
+                        sx={{ color: "#FF6159", fontSize: "24px" }}
+                      />
                     </Badge>
                   }
                 />
@@ -797,10 +883,25 @@ const ModuleWiseNav = (props) => {
                     onClick={() => handleCartDrawerOpen()}
                     // label={t("Cart")}
                     value="cart"
+                    sx={{ marginLeft: "10px" }}
                     icon={
                       <Badge
                         badgeContent={getCartListModuleWise(cartList)?.length}
-                        color="error"
+                        //  color="error"
+                        sx={{
+                          "& .MuiBadge-badge": {
+                            backgroundColor: "#FF7A59",
+                            color: "white",
+                            minWidth: "16px",
+                            height: "16px",
+                            fontSize: "10px",
+                            padding: "0 4px",
+                          },
+                          "&:hover .MuiBadge-badge": {
+                            backgroundColor: "#FF7A59",
+                            color: "white",
+                          },
+                        }}
                       >
                         <ShoppingCartOutlinedIcon sx={{ color: "#ff6159" }} />
                       </Badge>
