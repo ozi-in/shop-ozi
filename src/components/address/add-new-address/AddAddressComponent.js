@@ -196,16 +196,36 @@ const AddAddressComponent = ({
           )}
           <IconButton
             onClick={getCurrentLocation}
+            // sx={{
+            //   position: "absolute",
+            //   bottom: "35%",
+            //   right: "15px",
+            //   borderRadius: "50%",
+            //   color: (theme) => theme.palette.primary.main,
+            //   backgroundColor: "background.paper",
+            // }}
             sx={{
               position: "absolute",
-              bottom: "35%",
-              right: "15px",
+              bottom: { xs: "20%", md: "35%" },
+              right: { xs: "13px", md: "13px" },
               borderRadius: "50%",
               color: (theme) => theme.palette.primary.main,
               backgroundColor: "background.paper",
+              width: { xs: "40px", md: "40px" },
+              height: { xs: "40px", md: "40px" },
+              boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.1)",
+              "&:hover": {
+                backgroundColor: "background.paper",
+                boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.15)",
+              },
             }}
           >
-            <GpsFixedIcon sx={{ fontSize: { xs: "18px", md: "24px" } }} />
+            <GpsFixedIcon
+              sx={{
+                fontSize: { xs: "20px", sm: "22px", md: "24px" },
+                color: (theme) => theme.palette.primary.main,
+              }}
+            />
           </IconButton>
         </Stack>
       </Grid>
