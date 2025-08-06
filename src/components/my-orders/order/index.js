@@ -28,6 +28,7 @@ import { getImageUrl } from "utils/CustomFunctions";
 import { hasChatAndReview } from "components/my-orders/order-details/other-order/StoreDetails";
 import { toast } from "react-hot-toast";
 import { no_chatting_plan, no_review_plan } from "utils/toasterMessages";
+import { getCustomerFacingStatus } from "../../product-details/product-details-section/helperFunction";
 export const CustomPaper = styled(CustomPaperBigCard)(({ theme }) => ({
   padding: "10px",
   backgroundColor: alpha(theme.palette.neutral[300], 0.4),
@@ -283,7 +284,7 @@ const Order = (props) => {
                     `( ${order?.details_count} ${t("Items")} )`}
                 </Typography>
               </Typography>
-              {order?.order_status == "delivered" ? (
+              {/* {order?.order_status == "delivered" ? (
                 <OrderStatusTypography color={color}>
                   {t("Delivered")}
                 </OrderStatusTypography>
@@ -293,7 +294,10 @@ const Order = (props) => {
                     ? t("Payment Failed")
                     : t(order?.order_status).replaceAll("_", " ")}
                 </OrderStatusTypography>
-              )}
+              )} */}
+              <OrderStatusTypography color={color}>
+                {t(getCustomerFacingStatus(order?.order_status))}
+              </OrderStatusTypography>
               <DateTypography>
                 {order?.order_status == "delivered" ? (
                   <CustomFormatedDateTime date={order?.delivered} />
@@ -323,7 +327,6 @@ const Order = (props) => {
           </CustomStackFullWidth>
         </Grid>
       </Grid>
-
     </CustomPaper>
   );
 };

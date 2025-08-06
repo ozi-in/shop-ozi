@@ -182,3 +182,29 @@ export const isVariationAvailable = (productDetailsData) => {
     return true;
   }
 };
+//Customer facing status for logistics
+export const  getCustomerFacingStatus = (logisticsStatus) => {
+  const statusMap = {
+    PENDING: "Order Confirmed",
+    CONFIRMED: "Order Confirmed",
+    OUT_FOR_PICKUP: "Order Getting Packed",
+    REACHED_PICKUP: "Order Getting Packed",
+    PICKED_UP: "Order Out for Delivery",
+    IN_TRANSIT: "Order Out for Delivery",
+    OUT_FOR_DELIVERY: "Order Out for Delivery",
+    REACHED_DELIVERY: "Order Reached Your Location",
+    DELIVERED: "Order Delivered",
+    UNDELIVERED: "Order Undelivered",
+    RTO_OUT_FOR_DELIVERY: "Order Return in Process",
+    RTO_UNDELIVERED: "Order Return Failed",
+    RTO_DELIVERED: "Order Returned",
+    LOST: "Order missplace",
+    DAMAGED: "Goods damage",
+    CANCELED:"Order Canceled"
+  };
+
+  if (!logisticsStatus) return null;
+
+  const key = logisticsStatus.toUpperCase();
+  return statusMap[key] || null;
+}
