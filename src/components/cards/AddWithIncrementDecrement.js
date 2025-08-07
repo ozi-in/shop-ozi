@@ -520,15 +520,76 @@ const AddWithIncrementDecrement = (props) => {
     } else {
       if (isProductExist) {
         return (
+          // <Stack
+          //   onMouseLeave={handleMouseLeave}
+          //   direction="row"
+          //   alignItems="center"
+          //   justifyContent="center"
+          //   sx={{
+          //     marginTop: "11px",
+          //     backgroundColor: handleBackgroundColor(),
+          //     borderRadius: "10px",
+          //   }}
+          // >
+          // <Stack
+          //   onMouseLeave={handleMouseLeave}
+          //   direction="row"
+          //   alignSelf="center"
+          //   alignItems="center"
+          //   justifyContent="space-between"
+          //   sx={{
+          //     marginTop: "11px",
+          //     backgroundColor: handleBackgroundColor(),
+          //     borderRadius: "10px",
+          //     width: "100%",
+          //   }}
+          // >
+          //   <CustomButton onClick={(e) => decrementHandler(e)}>
+          //     <RemoveIcon
+          //       sx={{
+          //         fontSize: { xs: "15px", md: "20px" },
+          //         transition: "all ease 0.5s",
+          //       }}
+          //     />
+          //   </CustomButton>
+
+          //   {updateLoading ? (
+          //     <Stack width="50px">
+          //       <Loading color={theme.palette.primary.main} />
+          //     </Stack>
+          //   ) : (
+          //     <Typography
+          //       onClick={(e) => e.stopPropagation()}
+          //       textAlign="center"
+          //       sx={{
+          //         width: { xs: "30px", md: "50px" },
+          //         transition: "all ease 0.5s",
+          //       }}
+          //     >
+          //       {count}
+          //     </Typography>
+          //   )}
+
+          //   <CustomButton fill="true" onClick={(e) => incrementHandler(e)}>
+          //     <AddIcon
+          //       sx={{
+          //         fontSize: { xs: "15px", md: "20px" },
+          //         transition: "all ease 0.5s",
+          //       }}
+          //     />
+          //   </CustomButton>
+          // </Stack>
           <Stack
             onMouseLeave={handleMouseLeave}
             direction="row"
+            alignSelf="center"
             alignItems="center"
-            justifyContent="center"
+            justifyContent="space-between"
             sx={{
               marginTop: "11px",
               backgroundColor: handleBackgroundColor(),
               borderRadius: "10px",
+              width: "100%",
             }}
           >
             <CustomButton onClick={(e) => decrementHandler(e)}>

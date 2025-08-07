@@ -260,6 +260,11 @@ const ProductInformationBottomSection = ({
     }
   };
 
+  const handleSuccess = (cartItem) => {
+    dispatch(setRemoveItemFromCart(cartItem));
+    toast.success(t(cart_item_remove));
+  };
+
   const handleRemove = (e) => {
     e.stopPropagation();
     const cartItem = isInCart(productDetailsData?.id);
@@ -269,10 +274,7 @@ const ProductInformationBottomSection = ({
         guestId: guestId,
       };
       deleteMutate(cartIdAndGuestId, {
-        onSuccess: () => {
-          dispatch(setRemoveItemFromCart(cartItem));
-          toast.success(t(cart_item_remove));
-        },
+        onSuccess: handleSuccess(cartItem),
         onError: onErrorResponse,
       });
     }

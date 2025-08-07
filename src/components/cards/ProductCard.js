@@ -537,7 +537,7 @@ const ProductCard = (props) => {
         guestId: getGuestId(),
       };
       cartItemRemoveMutate(cartIdAndGuestId, {
-        onSuccess: handleSuccessRemoveItem,
+        onSuccess: handleSuccessRemoveItem(),
         onError: onErrorResponse,
       });
     } else {
