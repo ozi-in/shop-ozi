@@ -1,3 +1,323 @@
+// import React, { useEffect, useReducer, useState } from "react";
+// import { CustomStackFullWidth } from "styled-components/CustomStyles.style";
+// import CustomImageContainer from "../CustomImageContainer";
+// import { Stack } from "@mui/system";
+// import { IconButton, Typography } from "@mui/material";
+// import deleteIcon from "../../assets/delete.png";
+// import CartIcon from "../added-cart-view/assets/CartIcon";
+// import { useTheme } from "@emotion/react";
+// import { CustomIconButton } from "styled-components/CustomButtons.style";
+// import CustomDivider from "../CustomDivider";
+// import { useDispatch, useSelector } from "react-redux";
+// import { getCartListModuleWise } from "helper-functions/getCartListModuleWise";
+// import { setCart } from "redux/slices/cart";
+// import toast from "react-hot-toast";
+// import {
+//   ACTION,
+//   initialState,
+//   reducer,
+// } from "../product-details/product-details-section/states";
+// import { getModuleId } from "helper-functions/getModuleId";
+// import { useRouter } from "next/router";
+// import { t } from "i18next";
+// import CustomDialogConfirm from "../custom-dialog/confirm/CustomDialogConfirm";
+// import { getCurrentModuleType } from "helper-functions/getCurrentModuleType";
+// import { addWishList, removeWishListItem } from "redux/slices/wishList";
+// import { not_logged_in_message } from "utils/toasterMessages";
+// import { useAddToWishlist } from "api-manage/hooks/react-query/wish-list/useAddWishList";
+// import { useWishListDelete } from "api-manage/hooks/react-query/wish-list/useWishListDelete";
+// import AmountWithDiscountedAmount from "../AmountWithDiscountedAmount";
+// import CartClearModal from "../product-details/product-details-section/CartClearModal";
+// import CustomModal from "../modal";
+// import { getGuestId } from "helper-functions/getToken";
+// import { onErrorResponse } from "api-manage/api-error-response/ErrorResponses";
+// import useAddCartItem from "../../api-manage/hooks/react-query/add-cart/useAddCartItem";
+// import Loading from "../custom-loading/Loading";
+
+// const WishListCard = ({ item }) => {
+//   const theme = useTheme();
+//   const [isWishlisted, setIsWishlisted] = useState(false);
+//   const reduxDispatch = useDispatch();
+//   const [openModal, setOpenModal] = React.useState(false);
+//   const [openItemModal, setOpenItemModal] = useState(false);
+//   const [state, dispatch] = useReducer(reducer, initialState);
+//   const { configData } = useSelector((state) => state.configData);
+//   const imageBaseUrl = configData?.base_urls?.item_image_url;
+//   const { cartList: aliasCartList } = useSelector((state) => state.cart);
+//   const cartList = getCartListModuleWise(aliasCartList);
+//   const { mutate: addFavoriteMutation } = useAddToWishlist();
+//   const { wishLists } = useSelector((state) => state.wishList);
+//   const { mutate } = useWishListDelete();
+//   const router = useRouter();
+//   const { mutate: addToMutate, isLoading } = useAddCartItem();
+//   const handleClose = () => {
+//     setOpenItemModal(false);
+//   };
+//   const handleCloseCart = () => {
+//     dispatch({ type: ACTION.setOpenModal, payload: false });
+//   };
+
+//   const handleClearCartModalOpen = () =>
+//     dispatch({ type: ACTION.setClearCartModal, payload: true });
+//   const handleCloseForClearCart = (value) => {
+//     if (value === "add-item") {
+//       reduxDispatch(
+//         setCart({
+//           ...state.modalData[0],
+//           selectedOption: [],
+//         })
+//       );
+//       dispatch({ type: ACTION.setClearCartModal, payload: false });
+//     } else {
+//       dispatch({ type: ACTION.setClearCartModal, payload: false });
+//     }
+//   };
+//   useEffect(() => {
+//     if (item) {
+//       dispatch({
+//         type: ACTION.setModalData,
+//         payload: {
+//           ...item,
+//           quantity: 1,
+//           price: item?.price,
+//           totalPrice: item?.price,
+//         },
+//       });
+//     }
+//   }, [item]);
+//   const handleSuccess = (res) => {
+//     if (res) {
+//       let product = {};
+//       res?.forEach((item) => {
+//         product = {
+//           ...item?.item,
+//           cartItemId: item?.id,
+//           quantity: item?.quantity,
+//           totalPrice: item?.price,
+//           selectedOption: [],
+//         };
+//       });
+//       reduxDispatch(setCart(product));
+//       toast.success(t("Item added to cart"));
+//       dispatch({ type: ACTION.setClearCartModal, payload: false });
+//     }
+//   };
+//   const addToCartHandler = () => {
+//     if (cartList.length > 0) {
+//       const isStoreExist = cartList.find(
+//         (item) => item?.store_id === state?.modalData[0]?.store_id
+//       );
+
+//       if (isStoreExist) {
+//         const itemObject = {
+//           guest_id: getGuestId(),
+//           model: state.modalData[0]?.available_date_starts
+//             ? "ItemCampaign"
+//             : "Item",
+//           add_on_ids: [],
+//           add_on_qtys: [],
+//           item_id: state.modalData[0]?.id,
+//           price: state?.modalData[0]?.price,
+//           quantity: state?.modalData[0]?.quantity,
+//           variation: [],
+//         };
+//         addToMutate(itemObject, {
+//           onSuccess: handleSuccess,
+//           onError: onErrorResponse,
+//         });
+//       } else {
+//         if (cartList.length !== 0) {
+//           handleClearCartModalOpen();
+//         }
+//       }
+//     } else {
+//       const itemObject = {
+//         guest_id: getGuestId(),
+//         model: state.modalData[0]?.available_date_starts
+//           ? "ItemCampaign"
+//           : "Item",
+//         add_on_ids: [],
+//         add_on_qtys: [],
+//         item_id: state.modalData[0]?.id,
+//         price: state?.modalData[0]?.price,
+//         quantity: state?.modalData[0]?.quantity,
+//         variation: [],
+//       };
+//       addToMutate(itemObject, {
+//         onSuccess: handleSuccess,
+//         onError: onErrorResponse,
+//       });
+//     }
+//   };
+//   const addToCart = (e) => {
+//     if (item?.module_type === "ecommerce") {
+//       if (item?.variations.length > 0) {
+//         router.push(
+//           {
+//             pathname: "/product/[id]",
+//             query: {
+//               id: `${item?.slug ? item?.slug : item?.id}`,
+//               module_id: `${getModuleId()}`,
+//             },
+//           },
+//           undefined,
+//           { shallow: true }
+//         );
+//       } else {
+//         e.stopPropagation();
+//         addToCartHandler();
+//       }
+//     } else {
+//       if (item?.food_variations.length > 0 || item?.variations.length > 0) {
+//         setOpenItemModal(true);
+//       } else {
+//         e.stopPropagation();
+//         addToCartHandler();
+//       }
+//     }
+//   };
+//   const handleClick = () => {
+//     if (item?.module_type === "ecommerce") {
+//       router.push(
+//         {
+//           pathname: "/product/[id]",
+//           query: {
+//             id: `${item?.slug ? item?.slug : item?.id}`,
+//             module_id: `${getModuleId()}`,
+//           },
+//         },
+//         undefined,
+//         { shallow: true }
+//       );
+//     } else {
+//       setOpenItemModal(true);
+//     }
+//   };
+
+//   const addToWishlistHandler = (e) => {
+//     e.stopPropagation();
+//     let token = undefined;
+//     if (typeof window !== "undefined") {
+//       token = localStorage.getItem("token");
+//     }
+//     if (token) {
+//       addFavoriteMutation(item?.id, {
+//         onSuccess: (response) => {
+//           if (response) {
+//             reduxDispatch(addWishList(item));
+//             setIsWishlisted(true);
+//             toast.success(response?.message);
+//           }
+//         },
+//         onError: (error) => {
+//           toast.error(error.response.data.message);
+//         },
+//       });
+//     } else toast.error(t(not_logged_in_message));
+//   };
+//   const removeFromWishlistHandler = (e) => {
+//     const onSuccessHandlerForDelete = (res) => {
+//       reduxDispatch(removeWishListItem(item?.id));
+//       setIsWishlisted(false);
+//       toast.success(res.message, {
+//         id: "wishlist",
+//       });
+//     };
+//     mutate(item?.id, {
+//       onSuccess: onSuccessHandlerForDelete,
+//       onError: (error) => {
+//         toast.error(error.response.data.message);
+//       },
+//     });
+//   };
+//   useEffect(() => {
+//     wishlistItemExistHandler();
+//   }, [wishLists]);
+//   const wishlistItemExistHandler = () => {
+//     if (wishLists?.item?.find((wishItem) => wishItem.id === item?.id)) {
+//       setIsWishlisted(true);
+//     } else {
+//       setIsWishlisted(false);
+//     }
+//   };
+//   const handleDelete = (e) => {
+//     e.stopPropagation();
+//     setOpenModal(true);
+//   };
+//   return (
+//     <>
+//       <CustomStackFullWidth
+//         direction="row"
+//         sx={{
+//           cursor: "pointer",
+//           border: "1px solid #e0e0e0",
+//           borderRadius: "8px",
+//           padding: "12px",
+//           backgroundColor: "#fff",
+//           boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+//         }}
+//         alignItems="center"
+//         gap="10px"
+//         onClick={handleClick}
+//       >
+//         <CustomImageContainer
+//           src={item?.image_full_url}
+//           width="60px"
+//           height="60px"
+//           borderRadius="5px"
+//         />
+//         <Stack width="0px" flexGrow="1" justifyContent="center" spacing={0.5}>
+//           <Typography fontWeight="500" fontSize="14px">
+//             {item?.name}
+//           </Typography>
+//           <AmountWithDiscountedAmount item={item} />
+//           <Typography fontWeight="500" fontSize="16px"></Typography>
+//         </Stack>
+//         <Stack direction="row" gap="20px" alignSelf="center">
+//           <CustomIconButton onClick={(e) => addToCart(e)}>
+//             {isLoading ? (
+//               <Loading />
+//             ) : (
+//               <CartIcon
+//                 width="18px"
+//                 height="18px"
+//                 color={theme.palette.primary.main}
+//               />
+//             )}
+//           </CustomIconButton>
+//           <IconButton onClick={(e) => handleDelete(e)}>
+//             <CustomImageContainer
+//               src={deleteIcon.src}
+//               width="18px"
+//               height="18px"
+//             />
+//           </IconButton>
+//         </Stack>
+//       </CustomStackFullWidth>
+//       <CustomDivider paddingTop="1rem" width="100%" />
+
+//       <CustomDialogConfirm
+//         dialogTexts={t("Are you sure you want to  delete this item?")}
+//         open={openModal}
+//         onClose={() => setOpenModal(false)}
+//         onSuccess={removeFromWishlistHandler}
+//       />
+//       <CustomModal
+//         openModal={state.clearCartModal}
+//         handleClose={handleCloseCart}
+//       >
+//         <CartClearModal
+//           dispatchRedux={reduxDispatch}
+//           handleClose={handleCloseForClearCart}
+//           addToCard={addToCartHandler}
+//         />
+//       </CustomModal>
+//     </>
+//   );
+// };
+
+// export default WishListCard;
+
 import React, { useEffect, useReducer, useState } from "react";
 import { CustomStackFullWidth } from "styled-components/CustomStyles.style";
 import CustomImageContainer from "../CustomImageContainer";
@@ -21,7 +341,6 @@ import { getModuleId } from "helper-functions/getModuleId";
 import { useRouter } from "next/router";
 import { t } from "i18next";
 import CustomDialogConfirm from "../custom-dialog/confirm/CustomDialogConfirm";
-import { getCurrentModuleType } from "helper-functions/getCurrentModuleType";
 import { addWishList, removeWishListItem } from "redux/slices/wishList";
 import { not_logged_in_message } from "utils/toasterMessages";
 import { useAddToWishlist } from "api-manage/hooks/react-query/wish-list/useAddWishList";
@@ -34,15 +353,17 @@ import { onErrorResponse } from "api-manage/api-error-response/ErrorResponses";
 import useAddCartItem from "../../api-manage/hooks/react-query/add-cart/useAddCartItem";
 import Loading from "../custom-loading/Loading";
 
+// ✅ Import hook to fetch full cart list
+import useGetAllCartList from "api-manage/hooks/react-query/add-cart/useGetAllCartList";
+
 const WishListCard = ({ item }) => {
   const theme = useTheme();
   const [isWishlisted, setIsWishlisted] = useState(false);
   const reduxDispatch = useDispatch();
-  const [openModal, setOpenModal] = React.useState(false);
+  const [openModal, setOpenModal] = useState(false);
   const [openItemModal, setOpenItemModal] = useState(false);
   const [state, dispatch] = useReducer(reducer, initialState);
   const { configData } = useSelector((state) => state.configData);
-  const imageBaseUrl = configData?.base_urls?.item_image_url;
   const { cartList: aliasCartList } = useSelector((state) => state.cart);
   const cartList = getCartListModuleWise(aliasCartList);
   const { mutate: addFavoriteMutation } = useAddToWishlist();
@@ -50,15 +371,24 @@ const WishListCard = ({ item }) => {
   const { mutate } = useWishListDelete();
   const router = useRouter();
   const { mutate: addToMutate, isLoading } = useAddCartItem();
-  const handleClose = () => {
-    setOpenItemModal(false);
-  };
+  const guestId = getGuestId(); // ✅ get guest ID
+
+  // ✅ use the cart list fetching hook
+  const { refetch: refetchCartList } = useGetAllCartList(guestId, (res) => {
+    if (res?.data) {
+      reduxDispatch(setCart(res?.data)); // ✅ update redux with full cart
+    }
+  });
+
+  const handleClose = () => setOpenItemModal(false);
+
   const handleCloseCart = () => {
     dispatch({ type: ACTION.setOpenModal, payload: false });
   };
 
   const handleClearCartModalOpen = () =>
     dispatch({ type: ACTION.setClearCartModal, payload: true });
+
   const handleCloseForClearCart = (value) => {
     if (value === "add-item") {
       reduxDispatch(
@@ -67,128 +397,96 @@ const WishListCard = ({ item }) => {
           selectedOption: [],
         })
       );
-      dispatch({ type: ACTION.setClearCartModal, payload: false });
-    } else {
-      dispatch({ type: ACTION.setClearCartModal, payload: false });
     }
+    dispatch({ type: ACTION.setClearCartModal, payload: false });
   };
+
+  // ✅ Set modal data when item changes
   useEffect(() => {
     if (item) {
+      const cartItem = cartList.find((cart) => cart.item_id === item.id);
+      const currentQuantity = cartItem?.quantity || 0;
+      const newQuantity = currentQuantity + 1;
+
       dispatch({
         type: ACTION.setModalData,
         payload: {
           ...item,
-          quantity: 1,
+          quantity: newQuantity,
           price: item?.price,
-          totalPrice: item?.price,
+          totalPrice: item?.price * newQuantity,
         },
       });
     }
-  }, [item]);
-  const handleSuccess = (res) => {
-    if (res) {
-      let product = {};
-      res?.forEach((item) => {
-        product = {
-          ...item?.item,
-          cartItemId: item?.id,
-          quantity: item?.quantity,
-          totalPrice: item?.price,
-          selectedOption: [],
-        };
-      });
-      reduxDispatch(setCart(product));
-      toast.success(t("Item added to cart"));
-      dispatch({ type: ACTION.setClearCartModal, payload: false });
-    }
+  }, [item, cartList]);
+
+  // ✅ After adding to cart, refetch cart list
+  const handleSuccess = () => {
+    toast.success(t("Item added to cart"));
+    refetchCartList(); // ✅ Pull fresh data from backend
+    dispatch({ type: ACTION.setClearCartModal, payload: false });
   };
+
   const addToCartHandler = () => {
+    const modalData = state.modalData[0];
+    const itemObject = {
+      guest_id: guestId,
+      model: modalData?.available_date_starts ? "ItemCampaign" : "Item",
+      add_on_ids: [],
+      add_on_qtys: [],
+      item_id: modalData?.id,
+      price: modalData?.price,
+      quantity: modalData?.quantity,
+      variation: [],
+    };
+
     if (cartList.length > 0) {
       const isStoreExist = cartList.find(
-        (item) => item?.store_id === state?.modalData[0]?.store_id
+        (cartItem) => cartItem?.store_id === modalData?.store_id
       );
 
       if (isStoreExist) {
-        const itemObject = {
-          guest_id: getGuestId(),
-          model: state.modalData[0]?.available_date_starts
-            ? "ItemCampaign"
-            : "Item",
-          add_on_ids: [],
-          add_on_qtys: [],
-          item_id: state.modalData[0]?.id,
-          price: state?.modalData[0]?.price,
-          quantity: state?.modalData[0]?.quantity,
-          variation: [],
-        };
         addToMutate(itemObject, {
           onSuccess: handleSuccess,
           onError: onErrorResponse,
         });
       } else {
-        if (cartList.length !== 0) {
-          handleClearCartModalOpen();
-        }
+        handleClearCartModalOpen();
       }
     } else {
-      const itemObject = {
-        guest_id: getGuestId(),
-        model: state.modalData[0]?.available_date_starts
-          ? "ItemCampaign"
-          : "Item",
-        add_on_ids: [],
-        add_on_qtys: [],
-        item_id: state.modalData[0]?.id,
-        price: state?.modalData[0]?.price,
-        quantity: state?.modalData[0]?.quantity,
-        variation: [],
-      };
       addToMutate(itemObject, {
         onSuccess: handleSuccess,
         onError: onErrorResponse,
       });
     }
   };
+
   const addToCart = (e) => {
+    e.stopPropagation();
     if (item?.module_type === "ecommerce") {
       if (item?.variations.length > 0) {
-        router.push(
-          {
-            pathname: "/product/[id]",
-            query: {
-              id: `${item?.slug ? item?.slug : item?.id}`,
-              module_id: `${getModuleId()}`,
-            },
-          },
-          undefined,
-          { shallow: true }
-        );
+        router.push({
+          pathname: "/product/[id]",
+          query: { id: item?.slug || item?.id, module_id: getModuleId() },
+        });
       } else {
-        e.stopPropagation();
         addToCartHandler();
       }
     } else {
       if (item?.food_variations.length > 0 || item?.variations.length > 0) {
         setOpenItemModal(true);
       } else {
-        e.stopPropagation();
         addToCartHandler();
       }
     }
   };
+
   const handleClick = () => {
     if (item?.module_type === "ecommerce") {
-      router.push(
-        {
-          pathname: "/product/[id]",
-          query: {
-            id: `${item?.slug ? item?.slug : item?.id}`,
-            module_id: `${getModuleId()}`,
-          },
-        },
-        undefined,
-        { shallow: true }
-      );
+      router.push({
+        pathname: "/product/[id]",
+        query: { id: item?.slug || item?.id, module_id: getModuleId() },
+      });
     } else {
       setOpenItemModal(true);
     }
@@ -196,54 +494,51 @@ const WishListCard = ({ item }) => {
 
   const addToWishlistHandler = (e) => {
     e.stopPropagation();
-    let token = undefined;
-    if (typeof window !== "undefined") {
-      token = localStorage.getItem("token");
-    }
+    const token =
+      typeof window !== "undefined" ? localStorage.getItem("token") : null;
+
     if (token) {
       addFavoriteMutation(item?.id, {
         onSuccess: (response) => {
-          if (response) {
-            reduxDispatch(addWishList(item));
-            setIsWishlisted(true);
-            toast.success(response?.message);
-          }
+          reduxDispatch(addWishList(item));
+          setIsWishlisted(true);
+          toast.success(response?.message);
         },
         onError: (error) => {
           toast.error(error.response.data.message);
         },
       });
-    } else toast.error(t(not_logged_in_message));
+    } else {
+      toast.error(t(not_logged_in_message));
+    }
   };
+
   const removeFromWishlistHandler = (e) => {
-    const onSuccessHandlerForDelete = (res) => {
-      reduxDispatch(removeWishListItem(item?.id));
-      setIsWishlisted(false);
-      toast.success(res.message, {
-        id: "wishlist",
-      });
-    };
     mutate(item?.id, {
-      onSuccess: onSuccessHandlerForDelete,
+      onSuccess: (res) => {
+        reduxDispatch(removeWishListItem(item?.id));
+        setIsWishlisted(false);
+        toast.success(res.message, { id: "wishlist" });
+      },
       onError: (error) => {
         toast.error(error.response.data.message);
       },
     });
   };
+
   useEffect(() => {
-    wishlistItemExistHandler();
-  }, [wishLists]);
-  const wishlistItemExistHandler = () => {
-    if (wishLists?.item?.find((wishItem) => wishItem.id === item?.id)) {
+    if (wishLists?.item?.some((wishItem) => wishItem.id === item?.id)) {
       setIsWishlisted(true);
     } else {
       setIsWishlisted(false);
     }
-  };
+  }, [wishLists]);
+
   const handleDelete = (e) => {
     e.stopPropagation();
     setOpenModal(true);
   };
+
   return (
     <>
       <CustomStackFullWidth
@@ -271,10 +566,9 @@ const WishListCard = ({ item }) => {
             {item?.name}
           </Typography>
           <AmountWithDiscountedAmount item={item} />
-          <Typography fontWeight="500" fontSize="16px"></Typography>
         </Stack>
         <Stack direction="row" gap="20px" alignSelf="center">
-          <CustomIconButton onClick={(e) => addToCart(e)}>
+          <CustomIconButton onClick={addToCart}>
             {isLoading ? (
               <Loading />
             ) : (
@@ -285,7 +579,7 @@ const WishListCard = ({ item }) => {
               />
             )}
           </CustomIconButton>
-          <IconButton onClick={(e) => handleDelete(e)}>
+          <IconButton onClick={handleDelete}>
             <CustomImageContainer
               src={deleteIcon.src}
               width="18px"
@@ -294,6 +588,7 @@ const WishListCard = ({ item }) => {
           </IconButton>
         </Stack>
       </CustomStackFullWidth>
+
       <CustomDivider paddingTop="1rem" width="100%" />
 
       <CustomDialogConfirm
@@ -302,6 +597,7 @@ const WishListCard = ({ item }) => {
         onClose={() => setOpenModal(false)}
         onSuccess={removeFromWishlistHandler}
       />
+
       <CustomModal
         openModal={state.clearCartModal}
         handleClose={handleCloseCart}
