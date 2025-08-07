@@ -511,7 +511,7 @@ const ModuleWiseNav = (props) => {
       // gap="12px"
       // alignItems="center"
       ////////spacing between 3 profiles and 3 dots
-      gap="10px"
+      gap="0px"
       alignItems="center"
     >
       {/* <Avatar
@@ -552,6 +552,7 @@ const ModuleWiseNav = (props) => {
         )}
            
       </IconButton>
+      <Box sx={{ ml: "-12px" }}></Box>
       <DrawerMenu
         setToggled={setToggled}
         setOpenDrawer={setOpenDrawer}
