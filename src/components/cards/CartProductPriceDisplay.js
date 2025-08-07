@@ -28,7 +28,7 @@ const CartProductPriceDisplay = ({ item }) => {
     <Stack direction="row" alignItems="center" spacing={1}>
       <Typography
         fontSize={{ xs: "12px", lg: "14px" }}
-        color="#000"
+        color="#FF6159"
         fontWeight="700"
       >
         {getAmountWithSign(sellingPrice)}
@@ -43,7 +43,7 @@ const CartProductPriceDisplay = ({ item }) => {
           {getAmountWithSign(mrp)}
         </Typography>
       )}
-      {percent && percent > 0 && (
+      {/* {percent && percent > 0 && (
         <Typography
           fontSize={{ xs: "7px", lg: "11px" }}
           style={{ color: "#FF6159", fontWeight: 700 }}
@@ -51,7 +51,7 @@ const CartProductPriceDisplay = ({ item }) => {
         >
           {percent}% OFF
         </Typography>
-      )}
+      )} */}
     </Stack>
   );
 };
