@@ -27,6 +27,10 @@ const ManageSearch = ({
   const [d_type, setD_type] = useState(null);
   const [isEmpty, setIsEmpty] = useState(true);
   const [searchValue, setSearchValue] = useState("");
+  const truncateText = (text, maxLength = 65) => {
+    if (!text) return "";
+    return text.length > maxLength ? `${text.slice(0, maxLength)}...` : text;
+  };
   useEffect(() => {
     if (searchQuery === undefined) {
       setSearchValue("");
@@ -177,7 +181,8 @@ const ManageSearch = ({
           <CustomSearch
             label={t("Search foods and restaurants...")}
             handleSearchResult={handleKeyPress}
-            selectedValue={searchQuery}
+            // selectedValue={searchQuery}
+            selectedValue={truncateText(searchQuery)}
             setIsEmpty={setIsEmpty}
             handleOnFocus={handleOnFocus}
             setSearchValue={setSearchValue}
@@ -189,7 +194,8 @@ const ManageSearch = ({
         <CustomSearch
           label={t(dynamicLabel())}
           handleSearchResult={handleKeyPress}
-          selectedValue={searchQuery}
+          //selectedValue={searchQuery}
+          selectedValue={truncateText(searchQuery)}
           setIsEmpty={setIsEmpty}
           handleOnFocus={handleOnFocus}
           setSearchValue={setSearchValue}
