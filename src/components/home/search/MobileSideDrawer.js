@@ -18,7 +18,7 @@ import HighToLow from "../../../sort/HighToLow";
 import CustomRatings from "../../search/CustomRatings";
 import SearchFilter from "../../search/search-filter";
 import NewSortBy from "components/search/NewSortBy";
-
+import CustomSlider from "components/search/CustomSlider";
 const MobileSideDrawer = (props) => {
   const {
     open,
@@ -37,10 +37,15 @@ const MobileSideDrawer = (props) => {
     setFilterData,
     handleCheckbox,
     ratingValue,
+    minMax,
+    setMinMax,
     handleSortByNew,
     newSort,
   } = props;
   const { t } = useTranslation();
+  const handleMinMax = (value) => {
+    setMinMax(value);
+  };
   const content = (
     <CustomStackFullWidth sx={{ mt: "42px" }}>
       <Grid container>
@@ -159,6 +164,14 @@ const MobileSideDrawer = (props) => {
               handleChangeRatings={handleChangeRatings}
               // readOnly
             /> */}
+            <CustomStackFullWidth spacing={1}>
+              <Typography fontWeight="bold">{t("Price")}</Typography>
+              <CustomSlider
+                handleChangePrice={handleMinMax}
+                minMax={minMax}
+                priceFilterRange={minMax}
+              />
+            </CustomStackFullWidth>
           </CustomStackFullWidth>
         </Grid>
         <Grid item xs={12}>

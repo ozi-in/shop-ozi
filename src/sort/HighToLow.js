@@ -11,6 +11,10 @@ const Wrapper = styled(Button)(({ theme, border }) => ({
   borderRadius: "5px",
   padding: "7px 16px",
   textTransform: "capitalize",
+  width: "200px", // make button fill popover width
+  justifyContent: "flex-start", // align text/content to left
+  boxSizing: "border-box", // include padding in width
+  minWidth: 0,
 }));
 
 const HighToLow = ({ handleSortBy, sortBy }) => {
@@ -93,7 +97,8 @@ const HighToLow = ({ handleSortBy, sortBy }) => {
         }}
         PaperProps={{
           style: {
-            width: anchorEl?.clientWidth || "auto",
+            // width: anchorEl?.clientWidth || "auto",
+            width: anchorEl?.clientWidth ? `${anchorEl.clientWidth}px` : "auto",  // set width to popover width
           },
         }}
       >

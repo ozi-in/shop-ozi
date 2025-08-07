@@ -397,6 +397,8 @@ const SearchResult = (props) => {
             ratingValue={rating_count}
             handleSortByNew={handleSortByNew}
             newSort={newSort}
+            minMax={minMax}
+            setMinMax={setMinMax}
           />
         )}
       </CustomStackFullWidth>
