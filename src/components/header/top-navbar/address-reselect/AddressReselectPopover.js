@@ -106,7 +106,10 @@ const AddressReselectPopover = (props) => {
         onClose={onClose}
         open={open}
         PaperProps={{
-          sx: { width: { xs: 300, sm: 320, md: 350 }, p: "1rem" },
+          sx: {
+            width: { xs: "80%", sm: 320, md: 350 },
+            p: "1rem",
+          },
         }}
         transitionDuration={2}
         {...other}
@@ -117,6 +120,7 @@ const AddressReselectPopover = (props) => {
             style={{
               maxHeight: popOverHeightHandler(),
               paddingRight: "5px",
+              // backgroundColor: "red",
             }}
           >
             <Stack width="100%" alignItems="center">
