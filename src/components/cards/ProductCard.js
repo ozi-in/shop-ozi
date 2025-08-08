@@ -106,8 +106,8 @@ export const CardWrapper = styled(Card)(
       wishlistcard === "true" || nomargin === "true"
         ? "0rem"
         : cardType === "vertical-type"
-        ? "0rem"
-        : ".7rem",
+          ? "0rem"
+          : ".7rem",
 
     // Border for FOOD module
     border:
@@ -160,8 +160,8 @@ const CustomCardMedia = styled(CardMedia)(
       cardFor === "list-view"
         ? "200px"
         : horizontalcard === "true"
-        ? "250px"
-        : "100%",
+          ? "250px"
+          : "100%",
     aspectRatio: "1 / 1", // force square shape
     display: "flex",
     alignItems: "center",
@@ -254,7 +254,7 @@ const ProductCard = (props) => {
     }
   };
 
-  useEffect(() => {}, [state.clearCartModal]);
+  useEffect(() => { }, [state.clearCartModal]);
   const handleClearCartModalOpen = () =>
     dispatch({ type: ACTION.setClearCartModal, payload: true });
   const handleCloseForClearCart = (value) => {
@@ -425,7 +425,7 @@ const ProductCard = (props) => {
     }
   };
 
-  const quickViewHandleClick = () => {};
+  const quickViewHandleClick = () => { };
   const cartUpdateHandleSuccess = (res) => {
     if (res) {
       res?.forEach((item) => {
@@ -625,9 +625,9 @@ const ProductCard = (props) => {
               variant={isSmall ? "body2" : "body1"}
             ></Typography>
             {isFrom === "new-arival" ||
-            isFrom === "plp-list-view" ||
-            isFrom === "top-rated" ||
-            isFrom === dealTitle ? (
+              isFrom === "plp-list-view" ||
+              isFrom === "top-rated" ||
+              isFrom === dealTitle ? (
               (item?.stock ?? 0) > 0 ? (
                 <AddWithIncrementDecrement
                   onHover={state.isTransformed}
@@ -1358,10 +1358,10 @@ const ProductCard = (props) => {
               {handleBadge()}
 
               {isFrom === "new-arival" ||
-              isFrom === "top-rated" ||
-              isFrom === dealTitle ||
-              isFrom === "plp" ||
-              isFrom === "plp-list-view" ? (
+                isFrom === "top-rated" ||
+                isFrom === dealTitle ||
+                isFrom === "plp" ||
+                isFrom === "plp-list-view" ? (
                 <Stack>
                   {/* Product Image */}
                   <NextImage

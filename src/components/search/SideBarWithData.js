@@ -72,7 +72,7 @@ const SideBarWithData = forwardRef((props, ref) => {
                           cardFor="vertical"
                           cardType="vertical-type"
                           isFrom="plp"
-                          // cardFor="popular items"
+                        // cardFor="popular items"
                         />
                       </Grid>
                     ))
@@ -95,7 +95,7 @@ const SideBarWithData = forwardRef((props, ref) => {
                           cardType="vertical-type"
                           horizontalcard="true"
                           cardFor="list-view"
-                          // cardFor="popular items"
+                        // cardFor="popular items"
                         />
                       </Grid>
                     ))
@@ -169,7 +169,7 @@ const SideBarWithData = forwardRef((props, ref) => {
           <CustomStackFullWidth spacing={2} sx={{ paddingTop: "1rem" }}>
             <AppliedFilters
               filterData={filterData}
-              //setFilterData={setFilterData}
+            //setFilterData={setFilterData}
             />
             <CustomBoxFullWidth>
               <Grid container spacing={2} ref={ref}>
