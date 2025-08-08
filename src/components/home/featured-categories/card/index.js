@@ -71,7 +71,7 @@ const FeaturedItemCard = ({
           padding: ".5rem",
           cursor: "pointer",
           height: { xs: "150px", md: "155px" },
-          width: { xs: mobilTopSlider ? "110px" : "120px", md: "124px" },
+          width: { xs: mobilTopSlider ? "120px" : "100%", md: "124px" },
           backgroundColor: (theme) => theme.palette.background.paper,
           border: (theme) =>
             `1.5px solid ${alpha(theme.palette.neutral[400], 0.2)}`,
