@@ -67,21 +67,17 @@ const AddAddressComponent = ({
   const [placeDescription, setPlaceDescription] = useState(undefined);
   const [predictions, setPredictions] = useState([]);
   const [placeId, setPlaceId] = useState("");
-
+  const [currentLocationValue, setCurrentLocationValue] = useState(null);
   //****getting current location/***/
-  const { coords, isGeolocationAvailable, isGeolocationEnabled, getPosition } =
-    useGeolocated({
-      positionOptions: {
-        enableHighAccuracy: false,
-      },
-      userDecisionTimeout: 5000,
-      isGeolocationEnabled: true,
-    });
+  const { coords } = useGeolocated({
+    positionOptions: {
+      enableHighAccuracy: false,
+    },
+    userDecisionTimeout: 5000,
+    isGeolocationEnabled: true,
+  });
 
-  const { data: places, isLoading } = useGetAutocompletePlace(
-    searchKey,
-    enabled
-  );
+  const { data: places } = useGetAutocompletePlace(searchKey, enabled);
 
   useEffect(() => {
     if (places) {
@@ -95,18 +91,25 @@ const AddAddressComponent = ({
   const zoneIdEnabled = locationEnabled;
   const { data: zoneData } = useGetZoneId(location, zoneIdEnabled);
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      if (zoneData) {
-        // dispatch(setZoneData(zoneData?.data?.zone_data));
-        localStorage.setItem("zoneid", zoneData?.zone_id);
-      }
+    if (typeof window !== "undefined" && zoneData) {
+      localStorage.setItem("zoneid", zoneData?.zone_id);
     }
   }, [zoneData]);
-  const { isLoading: isLoading2, data: placeDetails } = useGetPlaceDetails(
+  const { data: placeDetails } = useGetPlaceDetails(
     placeId,
     placeDetailsEnabled
   );
   //
+
+  // useEffect(() => {
+  //   if (placeDetails) {
+  //     setLocation({
+  //       lat: placeDetails?.location?.latitude,
+  //       lng: placeDetails?.location?.longitude,
+  //     });
+  //     setLocationEnabled(true);
+  //   }
+  // }, [placeDetails]);
 
   useEffect(() => {
     if (placeDetails) {
@@ -115,20 +118,33 @@ const AddAddressComponent = ({
         lng: placeDetails?.location?.longitude,
       });
       setLocationEnabled(true);
+      setCurrentLocationValue({
+        description: placeDetails?.formattedAddress || "",
+      });
     }
   }, [placeDetails]);
-  const { data: geoCodeResults, isFetching: isFetchingGeoCode } =
-    useGetGeoCode(location);
+
+  const { data: geoCodeResults } = useGetGeoCode(location);
 
   const handleClick = (name) => {
     setAddressType(name);
     setEditAddress({ ...editAddress, address_type: null });
   };
+  // const handleChangeForSearchs = (event) => {
+  //   if (event.target.value) {
+  //     setSearchKey(event.target.value);
+  //     setEnabled(true);
+  //     setPlaceDetailsEnabled(true);
+  //   }
+  // };
   const handleChangeForSearchs = (event) => {
     if (event.target.value) {
       setSearchKey(event.target.value);
       setEnabled(true);
       setPlaceDetailsEnabled(true);
+    } else {
+      setSearchKey("");
+      setEnabled(false);
     }
   };
   const handleChangeS = (event, value) => {
@@ -139,6 +155,17 @@ const AddAddressComponent = ({
   };
   const getCurrentLocation = () => {
     setLocation({ lat: coords.latitude, lng: coords.longitude });
+  };
+  const handleClearSearch = () => {
+    setSearchKey("");
+    setPredictions([]);
+    setPlaceId("");
+    setPlaceDescription(undefined);
+    setCurrentLocationValue(null);
+    setEnabled(false);
+    setPlaceDetailsEnabled(false);
+    // Optionally reset map to default location
+    setLocation(configData?.default_location);
   };
 
   return (
@@ -166,7 +193,7 @@ const AddAddressComponent = ({
         </Stack>
       </Grid>
       <Grid item xs={12} md={5} position="relative" align="center">
-        <AddAddressSearchBox>
+        {/* <AddAddressSearchBox>
           <CustomMapSearch
             predictions={predictions}
             handleChange={(event, value) =>
@@ -178,6 +205,18 @@ const AddAddressComponent = ({
             handleAgreeLocation={() => handleAgreeLocation(coords, dispatch)}
             currentLocation={state.currentLocation}
             handleCloseLocation={() => handleCloseLocation(dispatch)}
+          />
+        </AddAddressSearchBox> */}
+        <AddAddressSearchBox>
+          <CustomMapSearch
+            predictions={predictions}
+            currentLocationValue={currentLocationValue}
+            searchKey={searchKey} // Pass searchKey as prop
+            handleChange={(event, value) => handleChangeS(event, value)}
+            HandleChangeForSearch={(event) => handleChangeForSearchs(event)}
+            handleAgreeLocation={() => handleAgreeLocation(coords, dispatch)}
+            currentLocation={state.currentLocation}
+            handleCloseLocation={handleClearSearch} // Use our clear function
           />
         </AddAddressSearchBox>
         <Stack>
@@ -194,7 +233,7 @@ const AddAddressComponent = ({
               height="350px"
             />
           )}
-          <IconButton
+          {/* <IconButton
             onClick={getCurrentLocation}
             // sx={{
             //   position: "absolute",
@@ -226,6 +265,55 @@ const AddAddressComponent = ({
                 color: (theme) => theme.palette.primary.main,
               }}
             />
+          </IconButton> */}
+          {/* <IconButton
+            onClick={getCurrentLocation}
+            sx={{
+              position: "absolute",
+              bottom: "25%",
+              right: "10px",
+              borderRadius: "50%",
+              color: (theme) => theme.palette.primary.main,
+              backgroundColor: "background.paper",
+            }}
+          >
+            <GpsFixedIcon sx={{ fontSize: { xs: "18px", md: "24px" } }} />
+               
+          </IconButton> */}
+          <IconButton
+            onClick={getCurrentLocation}
+            // sx={{
+            //   position: "absolute",
+            //   bottom: "35%",
+            //   right: "15px",
+            //   borderRadius: "50%",
+            //   color: (theme) => theme.palette.primary.main,
+            //   backgroundColor: "background.paper",
+            // }}
+
+            sx={{
+              position: "absolute",
+              bottom: { xs: "20%", md: "35%" },
+              right: { xs: "13px", md: "13px" },
+              borderRadius: "50%",
+              color: (theme) => theme.palette.primary.main,
+              backgroundColor: "background.paper",
+              width: { xs: "40px", md: "40px" },
+              height: { xs: "40px", md: "40px" },
+              boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.1)",
+              "&:hover": {
+                backgroundColor: "background.paper",
+                boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.15)",
+              },
+            }}
+          >
+            <GpsFixedIcon
+              sx={{
+                fontSize: { xs: "20px", sm: "22px", md: "24px" },
+                color: (theme) => theme.palette.primary.main,
+              }}
+            />
+               
           </IconButton>
         </Stack>
       </Grid>

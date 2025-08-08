@@ -34,35 +34,44 @@ const CustomMapSearch = ({
   isLanding = false,
   isRefetching,
   searchHeight,
+  searchKey,
 }) => {
   const theme = useTheme();
   const isXSmall = useMediaQuery(theme.breakpoints.down("sm"));
+  const safePredictions = Array.isArray(predictions) ? predictions : [];
   return (
     <>
       {!showCurrentLocation ? (
         <Autocomplete
           fullWidth
-          options={predictions}
+          options={safePredictions}
           getOptionLabel={(option) => option.description}
           onChange={(event, value) => handleChange(event, value)}
           value={currentLocationValue}
+          inputValue={searchKey || ""}
+          onInputChange={(event, newInputValue) => {
+            HandleChangeForSearch({ target: { value: newInputValue } });
+          }}
           clearOnBlur={false}
           loading={frommap === "true" ? placesIsLoading : null}
           // open={true}
           loadingText={
             frommap === "true" ? t("Search suggestions are loading...") : ""
           }
+          noOptionsText={
+            searchKey && searchKey.length > 0
+              ? t("No results found")
+              : t("Start typing to search...")
+          }
           sx={{
-            '& .MuiOutlinedInput-root': {
-              padding:searchHeight? '0px': '9px', // Adjust these values as needed
+            "& .MuiOutlinedInput-root": {
+              padding: searchHeight ? "0px" : "9px", // Adjust these values as needed
             },
           }}
-         
           PaperComponent={(props) => (
             <Paper
               sx={{
                 borderRadius: "0 0 4px 4px",
-                
               }}
               {...props}
             />
@@ -78,7 +87,7 @@ const CustomMapSearch = ({
               placeholder={t("Search location here...")}
               isLanding
               isXSmall
-              onChange={(event) => HandleChangeForSearch(event)}
+              //onChange={(event) => HandleChangeForSearch(event)}
               InputProps={{
                 ...params.InputProps,
                 endAdornment:
@@ -93,10 +102,10 @@ const CustomMapSearch = ({
                     >
                       <SearchIcon />
                     </IconButton>
-                  ) : currentLocationValue?.description ? (
+                  ) : searchKey || currentLocationValue?.description ? (
                     <IconButton
                       sx={{
-                        mr: "-61px",
+                        mr: "-40px",
                         padding: "5px",
                       }}
                     >
