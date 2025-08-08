@@ -328,7 +328,7 @@ import { PrimaryToolTip } from "./QuickView";
 import { ShopNowButton } from "styled-components/CustomStyles.style";
 
 const CustomButton = styled(Box)(({ theme, fill }) => ({
-  width: "36px",
+  width: "56px",
   height: "36px",
   borderRadius: "4px",
   textAlign: "center",
@@ -355,9 +355,14 @@ const CustomButton = styled(Box)(({ theme, fill }) => ({
   "&:hover": {
     filter: "brightness(0.6)",
   },
+  // [theme.breakpoints.down("sm")]: {
+  //   width: "25px",
+  //   height: "25px",
+  // },
   [theme.breakpoints.down("sm")]: {
-    width: "25px",
-    height: "25px",
+    width: "45px",
+    height: "100%", // make it take full height of the Stack
+    minHeight: "35px", // optional fallback to match Stack height
   },
 }));
 
@@ -579,59 +584,146 @@ const AddWithIncrementDecrement = (props) => {
           //     />
           //   </CustomButton>
           // </Stack>
-          <Stack
-            onMouseLeave={handleMouseLeave}
-            direction="row"
-            alignSelf="center"
-            alignItems="center"
-            justifyContent="space-between"
+          // <Stack
+          //   onMouseLeave={handleMouseLeave}
+          //   direction="row"
+          //   alignSelf="center"
+          //   alignItems="center"
+          //   justifyContent="space-between"
+          //   sx={{
+          //     marginTop: "11px",
+          //     backgroundColor: handleBackgroundColor(),
+          //     borderRadius: "10px",
+          //     width: "100%",
+          //   }}
+          // >
+          //   <CustomButton onClick={(e) => decrementHandler(e)}>
+          //     <RemoveIcon
+          //       sx={{
+          //         fontSize: { xs: "15px", md: "20px" },
+          //         transition: "all ease 0.5s",
+          //       }}
+          //     />
+          //   </CustomButton>
+
+          //   {updateLoading ? (
+          //     <Stack width="50px">
+          //       <Loading color={theme.palette.primary.main} />
+          //     </Stack>
+          //   ) : (
+          //     <Typography
+          //       onClick={(e) => e.stopPropagation()}
+          //       textAlign="center"
+          //       sx={{
+          //         width: { xs: "30px", md: "50px" },
+          //         transition: "all ease 0.5s",
+          //       }}
+          //     >
+          //       {count}
+          //     </Typography>
+          //   )}
+
+          //   <CustomButton fill="true" onClick={(e) => incrementHandler(e)}>
+          //     <AddIcon
+          //       sx={{
+          //         fontSize: { xs: "15px", md: "20px" },
+          //         transition: "all ease 0.5s",
+          //       }}
+          //     />
+          //   </CustomButton>
+          // </Stack>
+          <Box
             sx={{
-              marginTop: "11px",
-              backgroundColor: handleBackgroundColor(),
-              borderRadius: "10px",
               width: "100%",
+              display: "flex",
+              justifyContent: "center",
             }}
           >
-            <CustomButton onClick={(e) => decrementHandler(e)}>
-              <RemoveIcon
-                sx={{
-                  fontSize: { xs: "15px", md: "20px" },
-                  transition: "all ease 0.5s",
-                }}
-              />
-            </CustomButton>
+            {/* <Stack
+              onMouseLeave={handleMouseLeave}
+              direction="row"
+              alignSelf="center"
+              alignItems="center"
+              justifyContent="space-between"
+              sx={{
+                marginTop: { xs: "0", md: "11px" },
+                backgroundColor: handleBackgroundColor(),
+                borderRadius: "10px",
+                width: "80%",
+                height: { xs: "40px", md: "auto" },
+              }}
+            > */}
+            <Stack
+              onMouseLeave={handleMouseLeave}
+              direction="row"
+              alignSelf="center"
+              alignItems="center"
+              justifyContent="space-between"
+              sx={{
+                marginTop: { xs: "0", md: "11px" },
+                backgroundColor: handleBackgroundColor(),
+                borderRadius: "4px",
+                width: { xs: "100%", md: "80%" },
+                height: { xs: "40px", md: "auto" },
+              }}
+            >
+              <CustomButton onClick={(e) => decrementHandler(e)}>
+                <RemoveIcon
+                  sx={{
+                    fontSize: { xs: "15px", md: "20px" },
+                    transition: "all ease 0.5s",
+                  }}
+                />
+              </CustomButton>
 
-            {updateLoading ? (
-              <Stack width="50px">
-                <Loading color={theme.palette.primary.main} />
-              </Stack>
-            ) : (
-              <Typography
-                onClick={(e) => e.stopPropagation()}
-                textAlign="center"
-                sx={{
-                  width: { xs: "30px", md: "50px" },
-                  transition: "all ease 0.5s",
-                }}
-              >
-                {count}
-              </Typography>
-            )}
+              {updateLoading ? (
+                <Stack width="50px">
+                  <Loading color={theme.palette.primary.main} />
+                </Stack>
+              ) : (
+                <Typography
+                  onClick={(e) => e.stopPropagation()}
+                  textAlign="center"
+                  sx={{
+                    width: { xs: "30px", md: "50px" },
+                    transition: "all ease 0.5s",
+                  }}
+                >
+                  {count}
+                </Typography>
+              )}
 
-            <CustomButton fill="true" onClick={(e) => incrementHandler(e)}>
-              <AddIcon
-                sx={{
-                  fontSize: { xs: "15px", md: "20px" },
-                  transition: "all ease 0.5s",
-                }}
-              />
-            </CustomButton>
-          </Stack>
+              <CustomButton fill="true" onClick={(e) => incrementHandler(e)}>
+                <AddIcon
+                  sx={{
+                    fontSize: { xs: "15px", md: "20px" },
+                    transition: "all ease 0.5s",
+                  }}
+                />
+              </CustomButton>
+            </Stack>
+          </Box>
         );
       } else {
         return (
           <>
             {isLoading ? (
+              // <Stack
+              //   alignItems="center"
+              //   justifyContent="center"
+              //   sx={{
+              //     backgroundColor: (theme) => theme.palette.neutral[100],
+
+              //     color: (theme) => theme.palette.primary.main,
+              //     height: { xs: "25px", md: "35px" },
+              //     width: { xs: "25px", md: "35px" },
+              //     borderRadius: "5px",
+              //     transition: "all ease 0.5s",
+              //     marginTop: "23px",
+              //     border: (theme) =>
+              //       "1px solid ${alpha(theme.palette.neutral[400], 0.2)}",
+              //   }}
+              // >
               <Stack
                 alignItems="center"
                 justifyContent="center"
@@ -640,10 +732,10 @@ const AddWithIncrementDecrement = (props) => {
 
                   color: (theme) => theme.palette.primary.main,
                   height: { xs: "25px", md: "35px" },
-                  width: { xs: "25px", md: "35px" },
+                  width: { xs: "100%", md: "100%" },
                   borderRadius: "5px",
                   transition: "all ease 0.5s",
-                  marginTop: "23px",
+                  marginTop: "12px",
                   border: (theme) =>
                     "1px solid ${alpha(theme.palette.neutral[400], 0.2)}",
                 }}
