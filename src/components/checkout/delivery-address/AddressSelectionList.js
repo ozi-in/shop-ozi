@@ -30,76 +30,116 @@ const AddressSelectionList = (props) => {
 		setSelectedAddress,
 		renderOnNavbar,
 	} = props;
+
+	// Function to check if two addresses match by content
+	const isAddressMatch = (address1, address2) => {
+		if (!address1 || !address2) return false;
+		
+		// First check by ID (for exact matches)
+		if (address1.id === address2.id) return true;
+		
+		// Then check by address text (more flexible matching)
+		const addressText1 = (address1.address || "").toLowerCase().trim();
+		const addressText2 = (address2.address || "").toLowerCase().trim();
+		
+		// Check if addresses are similar (one contains the other or they're very similar)
+		const addressTextMatch = addressText1.includes(addressText2) || 
+								 addressText2.includes(addressText1) ||
+								 addressText1 === addressText2;
+		
+		// For debugging
+		if (addressText1.includes("41, block f, sushant lok iii") || addressText2.includes("41, block f, sushant lok iii")) {
+			console.log("Address match check for Harmony:", {
+				address1: address1.address,
+				address2: address2.address,
+				addressText1,
+				addressText2,
+				addressTextMatch,
+				lat1: address1.lat || address1.latitude,
+				lat2: address2.lat || address2.latitude,
+				lng1: address1.lng || address1.longitude,
+				lng2: address2.lng || address2.longitude
+			});
+		}
+		
+		// For now, just check text match to simplify the logic
+		return addressTextMatch;
+	};
+
 	return (
 		<>
 			<Stack gap="15px">
 				{data &&
 					allAddress?.length > 0 &&
-					data?.addresses?.map((item, index) => (
-						<Stack key={item.id}>
-							<CustomListItem
-								border={
-									item.id === address?.id
-										? `1px solid ${theme.palette.primary.main}`
-										: `1px solid ${theme.palette.neutral[200]}`
-								}
-								onClick={() => handleLatLng(item)}
-								alignItems="flex-start"
-								selected={item.id === address?.id}
-								cursor="pointer"
-								// className="selected"
-							>
-								<CustomStackFullWidth
-									direction="row"
+					data?.addresses?.map((item, index) => {
+						const isSelected = isAddressMatch(item, address);
+						
+						return (
+							<Stack key={item.id}>
+								<CustomListItem
+									border={
+										isSelected
+											? `1px solid ${theme.palette.primary.main}`
+											: `1px solid ${theme.palette.neutral[200]}`
+									}
+									onClick={() => handleLatLng(item)}
 									alignItems="flex-start"
+									selected={isSelected}
+									cursor="pointer"
+									// className="selected"
 								>
-									<Radio
-										checked={item.id === address?.id}
-										row
-										aria-labelledby="demo-row-radio-buttons-group-label"
-										name="row-radio-buttons-group"
-										sx={{ marginTop: "-2px" }}
-									/>
-									<ListItemText
-										primary={
-											<Typography
-												textTransform="capitalize"
-												fontSize={{
-													xs: "13px",
-													sm: "14px",
-													md: "16px",
-												}}
-												fontWeight={
-													item.id === address?.id
-														? "600"
-														: "600"
-												}
-											>
-												{t(item.address_type)}
-											</Typography>
-										}
-										secondary={
-											<CustomTypographyEllipsis
-												sx={{
-													fontSize: {
-														xs: "10px",
-														md: "12px",
-														maxWidth:
-															renderOnNavbar ===
-															"true"
-																? "220px"
-																: "100%",
-													},
-												}}
-											>
-												{item.address}
-											</CustomTypographyEllipsis>
-										}
-									/>
-								</CustomStackFullWidth>
-							</CustomListItem>
-						</Stack>
-					))}
+									<CustomStackFullWidth
+										direction="row"
+										alignItems="flex-start"
+									>
+										<Radio
+											checked={isSelected}
+											row
+											aria-labelledby="demo-row-radio-buttons-group-label"
+											name="row-radio-buttons-group"
+											sx={{ marginTop: "-2px" }}
+										/>
+										<ListItemText
+											primary={
+												<Typography
+													textTransform="capitalize"
+													fontSize={{
+														xs: "13px",
+														sm: "14px",
+														md: "16px",
+													}}
+													fontWeight={
+														isSelected
+															? "600"
+															: "600"
+													}
+												>
+													{t(item.address_type)}
+												</Typography>
+											}
+											secondary={
+												<CustomTypographyEllipsis
+													sx={{
+														fontSize: {
+															xs: "10px",
+															md: "12px",
+															maxWidth:
+																renderOnNavbar ===
+																"true"
+																	? "220px"
+																	: "100%",
+														},
+													}}
+												>
+													{item.address}
+												</CustomTypographyEllipsis>
+											}
+										/>
+									</CustomStackFullWidth>
+								</CustomListItem>
+							</Stack>
+						);
+					})}
 				{!isRefetching && allAddress?.length === 0 && (
 					<CustomAlert
 						type="info"
