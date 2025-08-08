@@ -1057,7 +1057,7 @@ const FeaturedCategories = () => {
                     key={item?.id || index}
                     sx={{
                       flex: "0 0 auto",
-                      width: { xs: "48%", sm: "30%", md: "18%" },
+                      width: { xs: "48%", sm: "30%", md: "18%", lg: "20%" },
                     }}
                   >
                     <ShopCategoryCard
