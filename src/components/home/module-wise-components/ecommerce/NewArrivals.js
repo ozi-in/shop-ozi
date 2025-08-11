@@ -1,0 +1,467 @@
+// import styled from "@emotion/styled";
+// import {
+//   Grid,
+//   Skeleton,
+//   useMediaQuery,
+//   useTheme,
+//   IconButton,
+//   Box,
+// } from "@mui/material";
+// import { useEffect, useRef, useState } from "react";
+
+// import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
+// import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+
+// import useNewArrivals from "../../../../api-manage/hooks/react-query/product-details/useNewArrivals";
+// import { CustomStackFullWidth } from "styled-components/CustomStyles.style";
+// import MenuSimmer from "../../../Shimmer/MenuSimmer";
+// import ProductCard from "../../../cards/ProductCard";
+// import H2 from "../../../typographies/H2";
+// import { HomeComponentsWrapper } from "../../HomePageComponents";
+// import TabMenu from "../../best-reviewed-items/TabMenu";
+// import ProductCardSimmer from "components/Shimmer/ProductCardSimmer";
+
+// const NewArrivals = ({ bannerData, title }) => {
+//   const [menu, setMenu] = useState([]);
+//   const [filteredData, setFilteredData] = useState([]);
+//   const bannerCount = bannerData?.new_arrival_section_banner ? 8 : 10;
+//   const [selectedMenuIndex, setSelectedMenuIndex] = useState(0);
+//   const { data, refetch, isLoading } = useNewArrivals();
+
+//   const theme = useTheme();
+//   const isMedium = useMediaQuery(theme.breakpoints.only("sm"));
+//   const scrollRef = useRef();
+
+//   useEffect(() => {
+//     refetch();
+//   }, []);
+
+//   useEffect(() => {
+//     if (data?.categories && data?.products) {
+//       setMenu(["All", ...data.categories.map((c) => c.name)]);
+//       setFilteredData(data.products);
+//     }
+//   }, [data]);
+
+//   useEffect(() => {
+//     if (!data?.categories || !data?.products) return;
+
+//     if (selectedMenuIndex === 0) {
+//       setFilteredData(data.products);
+//     } else {
+//       const catId = data.categories[selectedMenuIndex - 1]?.id;
+//       const filtered = data.products.filter((p) => p.category_id === catId);
+//       setFilteredData(filtered);
+//     }
+//   }, [selectedMenuIndex, data]);
+
+//   const itemArrayManage = (arr) =>
+//     isMedium ? arr.slice(0, 6) : arr.slice(0, 8);
+
+//   const scroll = (direction) => {
+//     if (!scrollRef.current) return;
+//     const { scrollLeft, clientWidth } = scrollRef.current;
+//     const to =
+//       direction === "left"
+//         ? scrollLeft - clientWidth
+//         : scrollLeft + clientWidth;
+//     scrollRef.current.scrollTo({ left: to, behavior: "smooth" });
+//   };
+
+//   return (
+//     <HomeComponentsWrapper
+//       justifyContent="center"
+//       alignItems="center"
+//       mt="30px"
+//     >
+//       <CustomStackFullWidth
+//         direction="row"
+//         justifyContent="space-between"
+//         alignItems="center"
+//       >
+//         {isLoading ? (
+//           <Skeleton variant="text" width="110px" />
+//         ) : (
+//           <H2 text={title ? title : "New Arrivals"} component="h2" />
+//         )}
+//         <TopRightControls>
+//           <ArrowButton onClick={() => scroll("left")} aria-label="scroll left">
+//             <NavigateBeforeIcon fontSize="medium" />
+//           </ArrowButton>
+//           <ArrowButton
+//             onClick={() => scroll("right")}
+//             aria-label="scroll right"
+//           >
+//             <NavigateNextIcon fontSize="medium" />
+//           </ArrowButton>
+//         </TopRightControls>
+//       </CustomStackFullWidth>
+
+//       <CustomStackFullWidth
+//         justifyContent="center"
+//         alignItems="center"
+//         mt="8px"
+//       >
+//         <ScrollBox>
+//           {isLoading ? (
+//             // <MenuSimmer count={12} />
+//             <Grid container spacing={2} wrap="nowrap">
+//               {Array.from({ length: 5 }).map((_, idx) => (
+//                 <Grid
+//                   item
+//                   key={idx}
+//                   sx={{
+//                     flex: "0 0 auto",
+//                     width: { xs: "48%", sm: "30%", md: "20%" },
+//                   }}
+//                 >
+//                   <ProductCardSimmer />
+//                 </Grid>
+//               ))}
+
+//             </Grid>
+//           ) : (
+//             menu.length > 0 &&
+//             data?.categories?.length > 0 && (
+//               <TabMenu
+//                 selectedMenuIndex={selectedMenuIndex}
+//                 setSelectedMenuIndex={setSelectedMenuIndex}
+//                 menus={menu}
+//               />
+//             )
+//           )}
+//         </ScrollBox>
+//       </CustomStackFullWidth>
+
+//       <Box sx={{ position: "relative", width: "100%", mt: ".5rem" }}>
+//         <SlideWrapper>
+//           <ScrollableContainer ref={scrollRef}>
+//             <Grid container spacing={2} wrap="nowrap">
+//               {filteredData.length > 0 &&
+//                 itemArrayManage(filteredData).map((product) => (
+//                   <Grid
+//                     item
+//                     key={product.id}
+//                     sx={{
+//                       flex: "0 0 auto",
+//                       width: { xs: "48%", sm: "30%", md: "20%" },
+//                     }}
+//                   >
+//                     <ProductCard
+//                       item={product}
+//                       cardheight="350px"
+//                       cardFor="popular items"
+//                       noMargin
+//                       isFrom="new-arival"
+//                     />
+//                   </Grid>
+//                 ))}
+//             </Grid>
+//           </ScrollableContainer>
+//         </SlideWrapper>
+//       </Box>
+//     </HomeComponentsWrapper>
+//   );
+// };
+
+// const TopRightControls = styled(Box)({
+//   display: "flex",
+//   gap: "8px",
+// });
+
+// // const ArrowButton = styled(IconButton)({
+// //   padding: 0,
+// //   background: "transparent",
+// //   boxShadow: "none",
+// //   "&:hover": {
+// //     background: "transparent",
+// //   },
+// // });
+// const ArrowButton = styled(IconButton)({
+//   minWidth: "32px",
+//   width: "32px",
+//   height: "32px",
+//   padding: 0,
+//   borderRadius: "50%",
+//   "&:hover": {
+//     backgroundColor: "#ff6259", // light hover background
+//   },
+// });
+
+// // export const ScrollBox = styled(Box)({
+// //   ".MuiTypography-root": { whiteSpace: "pre" },
+// //   position: "relative",
+// //   zIndex: 3,
+// // });
+// export const ScrollBox = styled(Box)(({ theme }) => ({
+//   ".MuiTypography-root": { whiteSpace: "pre" },
+//   position: "relative",
+//   zIndex: 3,
+//   width: "100%",
+//   overflow: "hidden", // prevent overflow here
+//   [theme.breakpoints.down("sm")]: {
+//     paddingLeft: theme.spacing(2),
+//     paddingRight: theme.spacing(2),
+//   },
+// }));
+
+// const SlideWrapper = styled(Box)({
+//   position: "relative",
+//   width: "100%",
+// });
+
+// const ScrollableContainer = styled(Box)(({ theme }) => ({
+//   overflowX: "auto",
+//   scrollBehavior: "smooth",
+//   paddingBottom: theme.spacing(0),
+//   "&::-webkit-scrollbar": { display: "none" },
+//   [theme.breakpoints.down("sm")]: {
+//     paddingLeft: theme.spacing(2), // 👈 adds ~16px left space on mobile only
+//   },
+// }));
+
+// export default NewArrivals;
+
+
+import styled from "@emotion/styled";
+import {
+  Grid,
+  Skeleton,
+  useMediaQuery,
+  useTheme,
+  IconButton,
+  Box,
+} from "@mui/material";
+import { useEffect, useRef, useState } from "react";
+
+import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+
+import useNewArrivals from "../../../../api-manage/hooks/react-query/product-details/useNewArrivals";
+import { CustomStackFullWidth } from "styled-components/CustomStyles.style";
+import MenuSimmer from "../../../Shimmer/MenuSimmer";
+import ProductCard from "../../../cards/ProductCard";
+import H2 from "../../../typographies/H2";
+import { HomeComponentsWrapper } from "../../HomePageComponents";
+import TabMenu from "../../best-reviewed-items/TabMenu";
+import ProductCardSimmer from "components/Shimmer/ProductCardSimmer";
+
+const NewArrivals = ({ bannerData, title }) => {
+  const [menu, setMenu] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
+  const [selectedMenuIndex, setSelectedMenuIndex] = useState(0);
+  const { data, refetch, isLoading } = useNewArrivals();
+
+  const theme = useTheme();
+  const isMedium = useMediaQuery(theme.breakpoints.only("sm"));
+  const scrollRef = useRef();
+
+  const [isAtStart, setIsAtStart] = useState(true);
+  const [isAtEnd, setIsAtEnd] = useState(false);
+
+  useEffect(() => {
+    refetch();
+  }, []);
+
+  useEffect(() => {
+    if (data?.categories && data?.products) {
+      setMenu(["All", ...data.categories.map((c) => c.name)]);
+      setFilteredData(data.products);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (!data?.categories || !data?.products) return;
+
+    if (selectedMenuIndex === 0) {
+      setFilteredData(data.products);
+    } else {
+      const catId = data.categories[selectedMenuIndex - 1]?.id;
+      const filtered = data.products.filter((p) => p.category_id === catId);
+      setFilteredData(filtered);
+    }
+  }, [selectedMenuIndex, data]);
+
+  useEffect(() => {
+    checkScrollPosition();
+  }, [filteredData]);
+
+  const itemArrayManage = (arr) =>
+    isMedium ? arr.slice(0, 6) : arr.slice(0, 8);
+
+  const scroll = (direction) => {
+    if (!scrollRef.current) return;
+    const { scrollLeft, clientWidth } = scrollRef.current;
+    const to =
+      direction === "left"
+        ? scrollLeft - clientWidth
+        : scrollLeft + clientWidth;
+    scrollRef.current.scrollTo({ left: to, behavior: "smooth" });
+
+    setTimeout(() => {
+      checkScrollPosition();
+    }, 300);
+  };
+
+  const checkScrollPosition = () => {
+    if (!scrollRef.current) return;
+    const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+    setIsAtStart(scrollLeft <= 0);
+    setIsAtEnd(scrollLeft + clientWidth >= scrollWidth - 1);
+  };
+
+  return (
+    <HomeComponentsWrapper
+      justifyContent="center"
+      alignItems="center"
+      mt="30px"
+    >
+      <CustomStackFullWidth
+        direction="row"
+        justifyContent="space-between"
+        alignItems="center"
+      >
+        {isLoading ? (
+          <Skeleton variant="text" width="110px" />
+        ) : (
+          <H2 text={title ? title : "New Arrivals"} component="h2" />
+        )}
+        <TopRightControls>
+          <ArrowButton
+            onClick={() => scroll("left")}
+            aria-label="scroll left"
+            disabled={isAtStart}
+            $hidehover={isAtStart}
+          >
+            <NavigateBeforeIcon fontSize="medium" />
+          </ArrowButton>
+          <ArrowButton
+            onClick={() => scroll("right")}
+            aria-label="scroll right"
+            disabled={isAtEnd}
+            $hidehover={isAtEnd}
+          >
+            <NavigateNextIcon fontSize="medium" />
+          </ArrowButton>
+        </TopRightControls>
+      </CustomStackFullWidth>
+
+      <CustomStackFullWidth
+        justifyContent="center"
+        alignItems="center"
+        mt="8px"
+      >
+        <ScrollBox>
+          {isLoading ? (
+            <Grid container spacing={2} wrap="nowrap">
+              {Array.from({ length: 5 }).map((_, idx) => (
+                <Grid
+                  item
+                  key={idx}
+                  sx={{
+                    flex: "0 0 auto",
+                    width: { xs: "48%", sm: "30%", md: "20%" },
+                  }}
+                >
+                  <ProductCardSimmer />
+                </Grid>
+              ))}
+            </Grid>
+          ) : (
+            menu.length > 0 &&
+            data?.categories?.length > 0 && (
+              <TabMenu
+                selectedMenuIndex={selectedMenuIndex}
+                setSelectedMenuIndex={setSelectedMenuIndex}
+                menus={menu}
+              />
+            )
+          )}
+        </ScrollBox>
+      </CustomStackFullWidth>
+
+      <Box sx={{ position: "relative", width: "100%", mt: ".5rem" }}>
+        <SlideWrapper>
+          <ScrollableContainer ref={scrollRef} onScroll={checkScrollPosition}>
+            <Grid container spacing={2} wrap="nowrap">
+              {filteredData.length > 0 &&
+                itemArrayManage(filteredData).map((product) => (
+                  <Grid
+                    item
+                    key={product.id}
+                    sx={{
+                      flex: "0 0 auto",
+                      width: { xs: "48%", sm: "30%", md: "20%" },
+                    }}
+                  >
+                    <ProductCard
+                      item={product}
+                      cardheight="350px"
+                      cardFor="popular items"
+                      noMargin
+                      isFrom="new-arival"
+                    />
+                  </Grid>
+                ))}
+            </Grid>
+          </ScrollableContainer>
+        </SlideWrapper>
+      </Box>
+    </HomeComponentsWrapper>
+  );
+};
+
+// Styled Components
+const TopRightControls = styled(Box)({
+  display: "flex",
+  gap: "8px",
+});
+
+const ArrowButton = styled(IconButton, {
+  shouldForwardProp: (prop) => prop !== "$hidehover" && prop !== "disabled",
+})(({ $hidehover, disabled }) => ({
+  minWidth: "32px",
+  width: "32px",
+  height: "32px",
+  padding: 0,
+  borderRadius: "50%",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  backgroundColor: "transparent",
+  transition: "background-color 0.3s",
+  pointerEvents: disabled ? "none" : "auto",
+  opacity: disabled ? 0.3 : 1,
+  "&:hover": {
+    backgroundColor: $hidehover || disabled ? "transparent" : "#ff6259",
+  },
+}));
+
+export const ScrollBox = styled(Box)(({ theme }) => ({
+  ".MuiTypography-root": { whiteSpace: "pre" },
+  position: "relative",
+  zIndex: 3,
+  width: "100%",
+  overflow: "hidden",
+  [theme.breakpoints.down("sm")]: {
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
+  },
+}));
+
+const SlideWrapper = styled(Box)({
+  position: "relative",
+  width: "100%",
+});
+
+const ScrollableContainer = styled(Box)(({ theme }) => ({
+  overflowX: "auto",
+  scrollBehavior: "smooth",
+  paddingBottom: theme.spacing(0),
+  "&::-webkit-scrollbar": { display: "none" },
+  [theme.breakpoints.down("sm")]: {
+    paddingLeft: theme.spacing(2),
+  },
+}));
+
+export default NewArrivals;

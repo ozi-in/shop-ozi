@@ -1,0 +1,380 @@
+import React, { useState } from "react";
+import { Typography, useMediaQuery } from "@mui/material";
+import CustomImageContainer from "../CustomImageContainer";
+import { CustomStackFullWidth } from "styled-components/CustomStyles.style";
+import {
+  getAmountWithSign,
+  getDiscountedAmount,
+} from "helper-functions/CardHelpers";
+import { Stack } from "@mui/system";
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
+import IconButton from "@mui/material/IconButton";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setDecrementToCartItem,
+  setIncrementToCartItem,
+  setRemoveItemFromCart,
+} from "redux/slices/cart";
+import VariationContent from "./VariationContent";
+import { toast } from "react-hot-toast";
+import { t } from "i18next";
+import {
+  cart_item_remove,
+  out_of_limits,
+  out_of_stock,
+} from "utils/toasterMessages";
+import { getCurrentModuleType } from "helper-functions/getCurrentModuleType";
+import { CartIncrementStack } from "./Cart.style";
+import CustomDivider from "../CustomDivider";
+import { useTheme } from "@emotion/react";
+import useDeleteCartItem from "../../api-manage/hooks/react-query/add-cart/useDeleteCartItem";
+import { onErrorResponse } from "api-manage/api-error-response/ErrorResponses";
+import useCartItemUpdate from "../../api-manage/hooks/react-query/add-cart/useCartItemUpdate";
+import { getItemDataForAddToCart } from "../product-details/product-details-section/helperFunction";
+import Loading from "../custom-loading/Loading";
+import {
+  getConvertDiscount,
+  getImageUrl,
+  getTotalVariationsPrice,
+  handleTotalAmountWithAddons,
+} from "utils/CustomFunctions";
+import Body2 from "components/typographies/Body2";
+import CartPriceDisplay from "./CartPriceDisplay";
+import ClearIcon from "@mui/icons-material/Clear";
+import Box from "@mui/material/Box";
+import { useRouter } from "next/router";
+
+const CartContent = (props) => {
+  const { cartItem, imageBaseUrl } = props;
+  const { configData } = useSelector((state) => state.configData);
+  const theme = useTheme();
+  const isSmall = useMediaQuery(theme.breakpoints.down("md"));
+  const dispatch = useDispatch();
+  const [updateModalOpen, setUpdateModalOpen] = useState(false);
+  const guestId = localStorage.getItem("guest_id");
+  const { mutate, isLoading: removeIsLoading } = useDeleteCartItem();
+  const { mutate: updateMutate, isLoading } = useCartItemUpdate();
+  const router = useRouter();
+  const cartUpdateHandleSuccess = (res) => {
+    if (res) {
+      res?.forEach((item) => {
+        if (cartItem?.cartItemId === item?.id) {
+          const product = {
+            ...item?.item,
+            cartItemId: item?.id,
+            totalPrice: item?.price,
+            quantity: item?.quantity,
+            food_variations: item?.item?.food_variations,
+            selectedAddons: item?.item?.addons,
+            itemBasePrice: item?.item?.price,
+            selectedOption: item?.variation,
+          };
+
+          dispatch(setIncrementToCartItem(product)); // Dispatch the single product
+        }
+      });
+    }
+  };
+  const cartUpdateHandleSuccessDecrement = (res) => {
+    if (res) {
+      res?.forEach((item) => {
+        if (cartItem?.cartItemId === item?.id) {
+          // If quantity becomes 0, remove the item from cart
+          if (item?.quantity === 0) {
+            dispatch(setRemoveItemFromCart(cartItem));
+            toast.success(t(cart_item_remove));
+          } else {
+            const product = {
+              ...item?.item,
+              cartItemId: item?.id,
+              totalPrice: item?.price,
+              quantity: item?.quantity,
+              food_variations: item?.item?.food_variations,
+              selectedAddons: item?.item?.addons,
+              itemBasePrice: item?.item?.price,
+              selectedOption: item?.variation,
+            };
+            dispatch(setDecrementToCartItem(product));
+          }
+        }
+      });
+    }
+  };
+  const handleIncrement = (cartItem) => {
+    const updateQuantity = cartItem?.quantity + 1;
+    const price =
+      cartItem?.price + getTotalVariationsPrice(cartItem?.food_variations);
+    //here quantity is incremented with number 1
+    const productPrice = price * updateQuantity;
+    const mainPrice =
+      getCurrentModuleType() === "food"
+        ? productPrice
+        : (cartItem?.selectedOption?.length > 0
+            ? cartItem?.selectedOption?.[0]?.price
+            : cartItem?.price) * updateQuantity;
+
+    const itemObject = getItemDataForAddToCart(
+      cartItem,
+      updateQuantity,
+      mainPrice,
+      guestId
+    );
+
+    if (getCurrentModuleType() !== "food") {
+      if (cartItem?.stock <= cartItem?.quantity) {
+        toast.error(t(out_of_stock));
+      } else {
+        if (cartItem?.maximum_cart_quantity) {
+          if (cartItem?.maximum_cart_quantity <= cartItem?.quantity) {
+            toast.error(t(out_of_limits));
+          } else {
+            updateMutate(itemObject, {
+              onSuccess: cartUpdateHandleSuccess,
+              onError: onErrorResponse,
+            });
+          }
+        } else {
+          updateMutate(itemObject, {
+            onSuccess: cartUpdateHandleSuccess,
+            onError: onErrorResponse,
+          });
+        }
+      }
+    } else {
+      if (cartItem?.maximum_cart_quantity) {
+        if (cartItem?.maximum_cart_quantity <= cartItem?.quantity) {
+          toast.error(t(out_of_limits));
+        } else {
+        }
+      }
+      updateMutate(itemObject, {
+        onSuccess: cartUpdateHandleSuccess,
+        onError: onErrorResponse,
+      });
+    }
+  };
+
+  const handleDecrement = () => {
+    const updateQuantity = cartItem?.quantity - 1;
+    
+    // If quantity becomes 0, remove the item from cart
+    if (updateQuantity === 0) {
+      const cartIdAndGuestId = {
+        cart_id: cartItem?.cartItemId,
+        guestId: guestId,
+      };
+      mutate(cartIdAndGuestId, {
+        onSuccess: () => {
+          dispatch(setRemoveItemFromCart(cartItem));
+          toast.success(t(cart_item_remove));
+        },
+        onError: onErrorResponse,
+      });
+      return;
+    }
+    
+    const price =
+      cartItem?.price + getTotalVariationsPrice(cartItem?.food_variations);
+    //here quantity is decremented with number 1
+    const productPrice = price * updateQuantity;
+    const mainPrice =
+      getCurrentModuleType() === "food"
+        ? productPrice
+        : (cartItem?.selectedOption?.length > 0
+            ? cartItem?.selectedOption?.[0]?.price
+            : cartItem?.price) * updateQuantity;
+    const itemObject = getItemDataForAddToCart(
+      cartItem,
+      updateQuantity,
+      mainPrice,
+      guestId
+    );
+    updateMutate(itemObject, {
+      onSuccess: cartUpdateHandleSuccessDecrement,
+      onError: onErrorResponse,
+    });
+  };
+
+  const handleSuccess = () => {
+    dispatch(setRemoveItemFromCart(cartItem));
+    toast.success(t(cart_item_remove));
+  };
+  // const handleRemove = () => {
+  //   const cartIdAndGuestId = {
+  //     cart_id: cartItem?.cartItemId,
+  //     guestId: guestId,
+  //   };
+  //   mutate(cartIdAndGuestId, {
+  //     onSuccess: handleSuccess,
+  //     onError: onErrorResponse,
+  //   });
+  // };
+  const handleRemove = () => {
+    const cartIdAndGuestId = {
+      cart_id: cartItem?.cartItemId,
+      guestId: guestId,
+    };
+    mutate(cartIdAndGuestId, {
+      onSuccess: handleSuccess(),
+      onError: onErrorResponse,
+    });
+  };
+  const handleUpdateModalOpen = () => {
+    setUpdateModalOpen(true);
+  };
+  const handleFoodItemTotalPriceWithAddons = () => {
+    if (cartItem?.selectedAddons?.length > 0) {
+      const addOnsTotalPrice = cartItem?.selectedAddons?.reduce(
+        (prev, addOn) => addOn?.price * addOn?.quantity + prev,
+        0
+      );
+      return addOnsTotalPrice + cartItem?.totalPrice;
+    } else {
+      return cartItem?.totalPrice;
+    }
+  };
+
+  return (
+    <>
+      <Box position="relative" width="100%">
+        <IconButton
+          aria-label="clear"
+          size="small"
+          sx={{
+            position: "absolute",
+            top: 0,
+            right: "10px",
+            zIndex: 2,
+          }}
+          onClick={handleRemove}
+          disabled={removeIsLoading || isLoading}
+        >
+          <ClearIcon sx={{ width: "18px", height: "18px" }} />
+        </IconButton>
+        <CustomStackFullWidth
+          direction="row"
+          sx={{
+            padding: ".2rem 2rem .2rem 1.3rem",
+            marginTop: { xs: ".5rem", sm: "1rem", md: "1rem" },
+          }}
+          gap="10px"
+        >
+          <Stack
+            onClick={() => handleUpdateModalOpen()}
+            sx={{ cursor: "pointer" }}
+          >
+            <CustomImageContainer
+              height="80px"
+              width="80px"
+              smWidth="65px"
+              smHeight="65px"
+              src={cartItem?.image_full_url}
+              borderRadius=".7rem"
+              objectfit="cover"
+            />
+          </Stack>
+          <Stack width="0px" flexGrow="1" justifyContent="center" spacing={0.2}>
+            <Typography fontWeight="500" fontSize={{ xs: "12px", md: "14px" }}>
+              {cartItem?.name}
+            </Typography>
+            {cartItem?.module_type === "pharmacy" && (
+              <Typography
+                sx={{
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  display: "-webkit-box",
+                  WebkitLineClamp: "1",
+                  WebkitBoxOrient: "vertical",
+                  paddingTop: "3px",
+                  wordWrap: "break-word",
+                }}
+                variant="body2"
+                color="#93A2AE"
+                textAlign="center"
+              >
+                {cartItem?.generic_name[0]}
+              </Typography>
+            )}
+            {cartItem?.is_prescription_required == 1 && (
+              <Typography
+                color={theme.palette.error.main}
+                fontSize="11px"
+                textTransform="capitalize"
+              >
+                {t("prescription is required")}
+              </Typography>
+            )}
+            <VariationContent cartItem={cartItem} />
+            <CartPriceDisplay cartItem={cartItem} />
+          </Stack>
+          <CartIncrementStack>
+            {/* {cartItem?.quantity === 1 ? (
+            <IconButton
+              disabled={removeIsLoading}
+              aria-label="delete"
+              size="small"
+              color="error"
+              sx={{ padding: "2px" }}
+              onClick={() => handleRemove()}
+            >
+              <DeleteIcon sx={{ width: "16px" }} />
+            </IconButton>
+          ) 
+           : ( */}
+            <IconButton
+              aria-label="delete"
+              size="small"
+              sx={{ padding: "2px" }}
+              disabled={isLoading}
+            >
+              <RemoveIcon
+                size="small"
+                sx={{
+                  color: (theme) => theme.palette.primary.main,
+                  width: "16px",
+                }}
+                onClick={() =>
+                  cartItem?.quantity === 1 ? handleRemove() : handleDecrement()
+                }
+              />
+            </IconButton>
+
+            {isLoading ? (
+              <Stack width="16px" height="18px">
+                <Loading color={theme.palette.primary.main} />
+              </Stack>
+            ) : (
+              <Typography fontSize="12px" fontWeight="500">
+                {cartItem?.quantity}
+              </Typography>
+            )}
+
+            <IconButton
+              aria-label="delete"
+              sx={{ padding: "2px" }}
+              disabled={isLoading}
+            >
+              <AddIcon
+                sx={{
+                  color: (theme) => theme.palette.primary.main,
+                  width: "16px",
+                }}
+                size="small"
+                onClick={() => handleIncrement(cartItem)}
+              />
+            </IconButton>
+          </CartIncrementStack>
+        </CustomStackFullWidth>
+        <Stack paddingLeft="1rem">
+          <CustomDivider paddingTop={isSmall ? ".5rem" : "1rem"} border="2px" />
+        </Stack>
+      </Box>
+    </>
+  );
+};
+
+CartContent.propTypes = {};
+
+export default CartContent;
