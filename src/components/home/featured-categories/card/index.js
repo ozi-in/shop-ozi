@@ -70,7 +70,7 @@ const FeaturedItemCard = ({
         sx={{
           padding: ".5rem",
           cursor: "pointer",
-          height: { xs: "150px", md: "155px" },
+          height: { xs: "160px", md: "155px" },
           width: { xs: mobilTopSlider ? "120px" : "100%", md: "124px" },
           backgroundColor: (theme) => theme.palette.background.paper,
           border: (theme) =>
@@ -92,7 +92,7 @@ const FeaturedItemCard = ({
         <Stack
           sx={{
             position: "relative",
-            height: { xs: "95px", md: "110px" },
+            minHeight: "100px",
             width: "100%",
             img: {
               width: "100%",
