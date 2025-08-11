@@ -151,6 +151,7 @@ const FeaturedItemCard = ({
                 fontSize: "13px",
                 lineHeight: "1.3",
                 maxHeight: "2.6em", // roughly 2 lines (optional)
+                minHeight: "35px",
               }}
               color={hover && "primary.main"}
               component="h4"
