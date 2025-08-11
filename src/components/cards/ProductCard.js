@@ -98,7 +98,7 @@ export const CardWrapper = styled(Card)(
     overflow: "hidden",
 
     // Fixed height/width with fallbacks
-    height: cardheight || "350px",
+    //height: cardheight || "350px",
     width: cardWidth || (cardFor === "list-view" ? "100%" : "220px"),
 
     // Margin Logic
@@ -801,6 +801,7 @@ const ProductCard = (props) => {
               WebkitLineClamp: 2,
               WebkitBoxOrient: "vertical",
               wordBreak: "break-word",
+              minHeight: "42px", // Ensures room for 2 lines even if 1 exists
             }}
           >
             {item?.name}
@@ -878,7 +879,7 @@ const ProductCard = (props) => {
                 toast.error(t("Out of stock"));
               }}
               sx={{
-                width: "100%",
+                width: { md: "50%", xs: "100%" },
                 height: "38px",
                 minHeight: "38px",
                 mt: { xs: 0, sm: "0", md: "5%" },
@@ -1059,6 +1060,7 @@ const ProductCard = (props) => {
           {isFrom === "plp" ? (
             (item?.stock ?? 0) > 0 ? (
               <AddWithIncrementDecrement
+                isFromPLP={isFrom === "plp"}
                 onHover={state.isTransformed}
                 addToCartHandler={addToCart}
                 isProductExist={isProductExist}

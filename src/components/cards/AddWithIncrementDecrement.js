@@ -381,7 +381,7 @@ const AddWithIncrementDecrement = (props) => {
     count,
     isLoading,
     updateLoading,
-    isInPopularCardUi,
+    isFromPLP,
   } = props;
   const theme = useTheme();
   const [isAdded, setIsAdded] = useState(false);
@@ -662,7 +662,8 @@ const AddWithIncrementDecrement = (props) => {
               justifyContent="space-between"
               sx={{
                 // marginTop: { xs: "0", md: "11px" },
-                marginTop: { md: "11px" },
+
+                marginTop: { md: isFromPLP ? "0px" : "11px", xs: "0px" },
                 backgroundColor: handleBackgroundColor(),
                 borderRadius: "4px",
                 width: { xs: "100%", md: "80%" },
