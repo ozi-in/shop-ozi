@@ -879,7 +879,7 @@ const ProductCard = (props) => {
                 toast.error(t("Out of stock"));
               }}
               sx={{
-                width: { md: "50%", xs: "100%" },
+                width: "100%",
                 height: "38px",
                 minHeight: "38px",
                 mt: { xs: 0, sm: "0", md: "5%" },
