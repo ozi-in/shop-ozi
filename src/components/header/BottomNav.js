@@ -130,7 +130,20 @@ const BottomNav = () => {
                   icon={
                     <Badge
                       badgeContent={getCartListModuleWise(cartList)?.length}
-                      color="error"
+                      sx={{
+                        "& .MuiBadge-badge": {
+                          backgroundColor: "#FF7A59",
+                          color: "white",
+                          minWidth: "16px",
+                          height: "16px",
+                          fontSize: "10px",
+                          padding: "0 4px",
+                        },
+                        "&:hover .MuiBadge-badge": {
+                          backgroundColor: "#FF7A59",
+                          color: "white",
+                        },
+                      }}
                     >
                       <ShoppingCartRoundedIcon />
                     </Badge>
@@ -171,7 +184,21 @@ const BottomNav = () => {
                       ? totalWishList
                       : rentalTotalWishList || 0
                   }
-                  color="error"
+                  // color="error"
+                  sx={{
+                    "& .MuiBadge-badge": {
+                      backgroundColor: "#FF7A59",
+                      color: "white",
+                      minWidth: "16px",
+                      height: "16px",
+                      fontSize: "10px",
+                      padding: "0 4px",
+                    },
+                    "&:hover .MuiBadge-badge": {
+                      backgroundColor: "#FF7A59",
+                      color: "white",
+                    },
+                  }}
                 >
                   <FavoriteIcon />
                 </Badge>

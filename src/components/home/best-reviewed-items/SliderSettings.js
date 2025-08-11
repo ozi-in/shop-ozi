@@ -58,13 +58,13 @@ const PrevWrapper = styled(Box)(({ theme, isdisabled }) => ({
   alignItems: "center",
   justifyContent: "center",
   // backgroundColor: "rgba(255, 255, 255, 0.8)",
-  backgroundColor: theme.palette.primary.main,
+  backgroundColor: theme.palette.buttonColors.main,
   boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",
   height: "35px",
   width: "35px",
   borderRadius: "50%",
   "&:hover": {
-    backgroundColor: "black",
+    backgroundColor: theme.palette.buttonColors.hover,
   },
 }));
 const NextWrapper = styled(Box)(({ theme, isdisabled }) => ({
@@ -73,7 +73,7 @@ const NextWrapper = styled(Box)(({ theme, isdisabled }) => ({
   right: 8,
   display: isdisabled ? "none" : "flex",
   // backgroundColor: "rgba(255, 255, 255, 0.8)",
-  backgroundColor: theme.palette.primary.main,
+  backgroundColor: theme.palette.buttonColors.main,
   borderRadius: "50%",
   boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",
   alignItems: "center",
@@ -81,7 +81,7 @@ const NextWrapper = styled(Box)(({ theme, isdisabled }) => ({
   height: "35px",
   width: "35px",
   "&:hover": {
-    backgroundColor: "black",
+    backgroundColor: theme.palette.buttonColors.hover,
   },
 }));
 export const NextFood = ({
@@ -119,11 +119,18 @@ export const NextFood = ({
           />
         ) : (
           <ChevronRightIcon
+            // sx={{
+            //   fontSize: "30px",
+            //   color: (theme) => theme.palette.neutral[600],
+            //   "&:hover": {
+            //     color: theme.palette.neutral[100],
+            //   },
+            // }}
             sx={{
               fontSize: "30px",
-              color: (theme) => theme.palette.neutral[600],
+              color: "#ffffff", // Bright blue color for testing
               "&:hover": {
-                color: theme.palette.neutral[100],
+                color: "#ffffff", // Bright yellow on hover
               },
             }}
           />
@@ -167,11 +174,18 @@ export const PrevFood = ({
           />
         ) : (
           <ChevronLeftIcon
+            // sx={{
+            //   fontSize: "30px",
+            //   color: (theme) => theme.palette.neutral[600],
+            //   "&:hover": {
+            //     color: theme.palette.neutral[100],
+            //   },
+            // }}
             sx={{
               fontSize: "30px",
-              color: (theme) => theme.palette.neutral[600],
+              color: "#ffffff", // Bright blue color for testing
               "&:hover": {
-                color: theme.palette.neutral[100],
+                color: "#ffffff", // Bright yellow on hover
               },
             }}
           />

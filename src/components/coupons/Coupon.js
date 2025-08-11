@@ -126,7 +126,7 @@ const Coupon = (props) => {
               : coupon?.discount_type === "percent"
               ? `${coupon?.discount} %`
               : getAmountWithSign(coupon?.discount)}
-            {coupon?.coupon_type === "free_delivery" ? "" : t("Off")}
+            {coupon?.coupon_type === "free_delivery" ? "" : " " +t("Off")}
           </Typography>
           <Typography fontSize="10px" color={theme.palette.neutral[500]}>
             {couponType(coupon)}

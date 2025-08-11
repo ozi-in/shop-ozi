@@ -88,7 +88,7 @@ const MobileFeaturedCategoriesSlider = () => {
               <Skeleton width="80%" sx={{ mt: 1 }} />
             </Box>
           ))
-        : featuredCategories.map((item, index) => (
+        :[...featuredCategories].reverse().map((item, index) => (
             <Box
               key={item?.id || index}
               sx={{ minWidth: "100px", flex: "0 0 auto" }}
