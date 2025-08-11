@@ -408,6 +408,7 @@ const SpecialCard = (props) => {
             fontSize={{ xs: "12px", md: "14px" }}
             fontWeight="500"
             component="h3"
+            minHeight="42px"
           >
             {item?.name}
           </Typography>

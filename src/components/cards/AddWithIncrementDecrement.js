@@ -662,7 +662,7 @@ const AddWithIncrementDecrement = (props) => {
               justifyContent="space-between"
               sx={{
                 // marginTop: { xs: "0", md: "11px" },
-                marginTop: { md: isInPopularCardUi ? "11px" : 0 },
+                marginTop: { md: "11px" },
                 backgroundColor: handleBackgroundColor(),
                 borderRadius: "4px",
                 width: { xs: "100%", md: "80%" },
