@@ -43,15 +43,29 @@ const SearchResult = (props) => {
   const [offset, setOffset] = useState(0);
   const [openSideDrawer, setOpenSideDrawer] = useState(false);
   const [filterValue, setFilterValue] = useState([]);
-  const [minMax, setMinMax] = useState([0, 20000000]);
+  // const [minMax, setMinMax] = useState([0, 20000000]);
   const [type, setType] = useState("all");
   const [category_id, setCategoryId] = useState(id);
-  const [sortBy, setSortBy] = useState("");
+  // const [sortBy, setSortBy] = useState("");
   const [newSort, setNewSort] = useState("");
   const [isEmpty, setIsEmpty] = useState(false);
   const [linkRouteTo, setLinkRouteTo] = useState(routeTo);
   const { ref, inView } = useInView({
     rootMargin: "0px 0px 38% 0px",
+  });
+  const [minMax, setMinMax] = useState(() => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("price_range");
+      return saved ? JSON.parse(saved) : [0, 10000];
+    }
+    return [0, 10000];
+  });
+  const [sortBy, setSortBy] = useState(() => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("sort_by");
+      return saved ? JSON.parse(saved) : "";
+    }
+    return "";
   });
   const { selectedBrands, selectedCategories, filterData, rating_count } =
     useSelector((state) => state.categoryIds);
@@ -149,7 +163,13 @@ const SearchResult = (props) => {
   useEffect(() => {
     handleFilterSelection();
   }, []);
+  useEffect(() => {
+    localStorage.setItem("price_range", JSON.stringify(minMax));
+  }, [minMax]);
 
+  useEffect(() => {
+    localStorage.setItem("sort_by", JSON.stringify(sortBy));
+  }, [sortBy]);
   useEffect(() => {
     const hasData =
       currentTab === 0
