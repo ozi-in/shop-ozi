@@ -680,87 +680,6 @@ const ProductCard = (props) => {
     );
   };
 
-  // const listViewCardUi = () => {
-  //   return (
-  //     <CustomStackFullWidth
-  //       justifyContent="space-between"
-  //       alignItems="flex-start"
-  //       spacing={1}
-  //       p="1rem"
-  //     >
-  //       {isWishlisted && (
-  //         <Box
-  //           sx={{
-  //             color: "primary.main",
-  //             position: "absolute",
-  //             top: 20,
-  //             right: 10,
-  //           }}
-  //         >
-  //           <FavoriteIcon sx={{ fontSize: "15px" }} />
-  //         </Box>
-  //       )}
-
-  //       <PrimaryToolTip text={item?.name} placement="bottom" arrow="false">
-  //         <H3 text={item?.name} component="h3" />
-  //       </PrimaryToolTip>
-  //       <CustomBoxFullWidth>
-  //         {item?.module_type === "pharmacy" ? (
-  //           <Typography
-  //             className={classes.singleLineEllipsis}
-  //             variant="body2"
-  //             color="text.secondary"
-  //             sx={{ wordBreak: "break-word" }}
-  //             component="h4"
-  //           >
-  //             {item?.generic_name[0]}
-  //           </Typography>
-  //         ) : (
-  //           // <Body2 text={item?.store_name} component="h4" />
-
-  //           <></>
-  //         )}
-  //       </CustomBoxFullWidth>
-  //       {item?.unit_type ? (
-  //         <Typography
-  //           sx={{
-  //             color: (theme) => theme.palette.customColor.textGray,
-  //           }}
-  //         >
-  //           {item?.unit_type}
-  //         </Typography>
-  //       ) : (
-  //         <Typography
-  //           sx={{
-  //             color: (theme) => theme.palette.customColor.textGray,
-  //           }}
-  //         >
-  //           {t("No unit type")}
-  //         </Typography>
-  //       )}
-
-  //       <CustomStackFullWidth
-  //         direction="row"
-  //         alignItems="flex-start"
-  //         justifyContent="space-between"
-  //         spacing={2}
-  //         sx={{ pb: "15px" }}
-  //       >
-  //         <AmountWithDiscountedAmount item={item} />
-  //         <AddWithIncrementDecrement
-  //           onHover={state.isTransformed}
-  //           addToCartHandler={addToCart}
-  //           isProductExist={isProductExist}
-  //           handleIncrement={handleIncrement}
-  //           handleDecrement={handleDecrement}
-  //           count={count}
-  //           isLoading={isLoading}
-  //           updateLoading={updateLoading}
-  //         />
-  //       </CustomStackFullWidth>
-  //     </CustomStackFullWidth>
-  //   );
-  // };
   const listViewCardUi = () => {
     return (
       <CustomStackFullWidth
@@ -769,22 +688,6 @@ const ProductCard = (props) => {
         spacing={1}
         p="1rem"
       >
-        {/* {isWishlisted && (
-          <Box
-            sx={{
-              color: "primary.main",
-              position: "absolute",
-              top: 20,
-              right: 10,
-            }}
-          >
-            <FavoriteIcon sx={{ fontSize: "15px" }} />
-          </Box>
-        )} */}
-
-        {/* <PrimaryToolTip text={item?.name} placement="bottom" arrow="false">
-          <H3 text={item?.name} component="h3" />
-        </PrimaryToolTip> */}
         <PrimaryToolTip text={item?.name} placement="bottom" arrow="false">
           <Typography
             variant={horizontalcard === "true" ? "subtitle2" : "h6"}
@@ -824,23 +727,6 @@ const ProductCard = (props) => {
             <></>
           )}
         </CustomBoxFullWidth>
-        {/* {item?.unit_type ? (
-          <Typography
-            sx={{
-              color: (theme) => theme.palette.customColor.textGray,
-            }}
-          >
-            {item?.unit_type}
-          </Typography>
-        ) : (
-          <Typography
-            sx={{
-              color: (theme) => theme.palette.customColor.textGray,
-            }}
-          >
-            {t("No unit type")}
-          </Typography>
-        )} */}
 
         <CustomStackFullWidth
           direction="row"
@@ -851,16 +737,7 @@ const ProductCard = (props) => {
         >
           <AmountWithDiscountedAmount item={item} />
         </CustomStackFullWidth>
-        {/* <AddWithIncrementDecrement
-          onHover={state.isTransformed}
-          addToCartHandler={addToCart}
-          isProductExist={isProductExist}
-          handleIncrement={handleIncrement}
-          handleDecrement={handleDecrement}
-          count={count}
-          isLoading={isLoading}
-          updateLoading={updateLoading}
-        /> */}
+
         {isFrom === "plp-list-view" ? (
           (item?.stock ?? 0) > 0 ? (
             <AddWithIncrementDecrement
@@ -872,6 +749,7 @@ const ProductCard = (props) => {
               count={count}
               isLoading={isLoading}
               updateLoading={updateLoading}
+              isFromPLPList={isFrom === "plp-list-view"}
             />
           ) : (
             <ShopNowButton
@@ -879,11 +757,15 @@ const ProductCard = (props) => {
                 toast.error(t("Out of stock"));
               }}
               sx={{
-                width: "100%",
+                width: {
+                  md: isFrom === "plp-list-view" ? "50%" : "100%",
+                  xs: "100%",
+                },
                 height: "38px",
                 minHeight: "38px",
+                alignSelf: isFrom === "plp-list-view" ? "self-end" : "unset",
                 mt: { xs: 0, sm: "0", md: "5%" },
-
+                // border: "2px solid red",
                 // mt: "20px",
                 cursor: "default",
                 backgroundColor: "#E5E7EB",

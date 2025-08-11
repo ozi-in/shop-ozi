@@ -27,7 +27,7 @@ const CartProductPriceDisplay = ({ item }) => {
   return (
     <Stack direction="row" alignItems="center" spacing={1}>
       <Typography
-        fontSize={{ xs: "12px", lg: "14px" }}
+        fontSize={{ xs: "15px", lg: "14px" }}
         color="#FF6159"
         fontWeight="700"
       >
@@ -35,7 +35,7 @@ const CartProductPriceDisplay = ({ item }) => {
       </Typography>
       {sellingPrice !== mrp && (
         <Typography
-          fontSize={{ xs: "8px", lg: "12px" }}
+          fontSize={{ xs: "11px", lg: "12px" }}
           color="text.secondary"
           fontWeight="400"
           sx={{ textDecoration: "line-through" }}

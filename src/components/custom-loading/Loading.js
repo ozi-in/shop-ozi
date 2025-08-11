@@ -1,9 +1,9 @@
 import React from "react";
 import { CircularProgress, Stack } from "@mui/material";
-export default function Loading({ color }) {
+export default function Loading({ color, isFromPLPList }) {
   return (
     <Stack
-      alignItems="center"
+      alignItems={isFromPLPList ? "flex-end" : "center"}
       style={{
         left: "50%",
       }}

@@ -382,6 +382,7 @@ const AddWithIncrementDecrement = (props) => {
     isLoading,
     updateLoading,
     isFromPLP,
+    isFromPLPList,
   } = props;
   const theme = useTheme();
   const [isAdded, setIsAdded] = useState(false);
@@ -637,7 +638,7 @@ const AddWithIncrementDecrement = (props) => {
             sx={{
               width: "100%",
               display: "flex",
-              justifyContent: "center",
+              justifyContent: isFromPLPList ? "flex-end" : "center",
             }}
           >
             {/* <Stack
@@ -663,10 +664,13 @@ const AddWithIncrementDecrement = (props) => {
               sx={{
                 // marginTop: { xs: "0", md: "11px" },
 
-                marginTop: { md: isFromPLP ? "0px" : "11px", xs: "0px" },
+                marginTop: {
+                  md: isFromPLP || isFromPLPList ? "0px" : "11px",
+                  xs: "0px",
+                },
                 backgroundColor: handleBackgroundColor(),
                 borderRadius: "4px",
-                width: { xs: "100%", md: "80%" },
+                width: { xs: "100%", md: isFromPLPList ? "50%" : "80%" },
                 height: { xs: "40px", md: "auto" },
               }}
             >
@@ -681,7 +685,10 @@ const AddWithIncrementDecrement = (props) => {
 
               {updateLoading ? (
                 <Stack width="50px">
-                  <Loading color={theme.palette.primary.main} />
+                  <Loading
+                    isFromPLPList={isFromPLPList}
+                    color={theme.palette.primary.main}
+                  />
                 </Stack>
               ) : (
                 <Typography
@@ -711,22 +718,6 @@ const AddWithIncrementDecrement = (props) => {
         return (
           <>
             {isLoading ? (
-              // <Stack
-              //   alignItems="center"
-              //   justifyContent="center"
-              //   sx={{
-              //     backgroundColor: (theme) => theme.palette.neutral[100],
-
-              //     color: (theme) => theme.palette.primary.main,
-              //     height: { xs: "25px", md: "35px" },
-              //     width: { xs: "25px", md: "35px" },
-              //     borderRadius: "5px",
-              //     transition: "all ease 0.5s",
-              //     marginTop: "23px",
-              //     border: (theme) =>
-              //       "1px solid ${alpha(theme.palette.neutral[400], 0.2)}",
-              //   }}
-              // >
               <Stack
                 alignItems="center"
                 justifyContent="center"
@@ -735,10 +726,12 @@ const AddWithIncrementDecrement = (props) => {
 
                   color: (theme) => theme.palette.primary.main,
                   height: { xs: "25px", md: "35px" },
-                  width: { xs: "100%", md: "100%" },
+                  width: { xs: "100%", md: isFromPLPList ? "50%" : "100%" },
                   borderRadius: "5px",
                   transition: "all ease 0.5s",
+                  // bgcolor: "red",
                   marginTop: "12px",
+                  alignSelf: isFromPLPList ? "flex-end" : "unset",
                   border: (theme) =>
                     "1px solid ${alpha(theme.palette.neutral[400], 0.2)}",
                 }}
@@ -751,7 +744,7 @@ const AddWithIncrementDecrement = (props) => {
                   sx={{
                     width: "100%",
                     display: "flex",
-                    justifyContent: "center",
+                    justifyContent: isFromPLPList ? "flex-end" : "center",
                     alignItems: "center",
                     mt: { lg: "10px" },
                   }}
@@ -760,12 +753,13 @@ const AddWithIncrementDecrement = (props) => {
                   <ShopNowButton
                     onClick={(e) => handleCart(e)}
                     sx={{
-                      width: "100%",
+                      width: { md: isFromPLPList ? "50%" : "100%", xs: "100%" },
                       height: "38px",
                       minHeight: "38px",
                       padding: "1px 0",
                       margin: 0,
                       // mt: "20px",
+                      //   alignSelf: isFromPLPList ? "self-end" : "unset",
                       "&:hover": { backgroundColor: "#FF6159" },
                     }}
                   >
