@@ -83,6 +83,10 @@ const CategoryNavigation = () => {
   // Navigate to category
   const handleCategoryClick = (category) => {
     dispatch(setSelectedCategoryId(category.id));
+    localStorage.setItem(
+      "selected_highlighted_categories",
+      JSON.stringify(category.id)
+    );
     router.push({
       pathname: "/home",
       query: {
@@ -100,6 +104,10 @@ const CategoryNavigation = () => {
   // Navigate to subcategory
   const handleSubCategoryClick = (subCategory) => {
     dispatch(setSelectedSubCategoryId(subCategory.id));
+    localStorage.setItem(
+      "selected_sub_highlighted_categories",
+      JSON.stringify(subCategory.id)
+    );
     router.push({
       pathname: "/home",
       query: {

@@ -39,7 +39,14 @@ const SearchResult = (props) => {
   const isSmall = useMediaQuery(theme.breakpoints.down("md"));
   const id = router.query.id;
   const brand_id = router.query.brand_id;
-  const [currentView, setCurrentView] = useState(0);
+  //  const [currentView, setCurrentView] = useState(0);
+  const [currentView, setCurrentView] = useState(() => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("set_view");
+      return saved !== null ? JSON.parse(saved) : 0; // 0 is default
+    }
+    return 0;
+  });
   const [offset, setOffset] = useState(0);
   const [openSideDrawer, setOpenSideDrawer] = useState(false);
   const [filterValue, setFilterValue] = useState([]);
@@ -162,6 +169,13 @@ const SearchResult = (props) => {
 
   useEffect(() => {
     handleFilterSelection();
+  }, []);
+  useEffect(() => {
+    const stored = localStorage.getItem("set_view");
+    if (stored !== null) {
+      console.log("ohWowWegetItem", stored);
+      setCurrentView(parseInt(stored));
+    }
   }, []);
   useEffect(() => {
     localStorage.setItem("price_range", JSON.stringify(minMax));

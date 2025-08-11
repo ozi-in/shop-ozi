@@ -72,7 +72,7 @@ const SideBarWithData = forwardRef((props, ref) => {
                           cardFor="vertical"
                           cardType="vertical-type"
                           isFrom="plp"
-                        // cardFor="popular items"
+                          // cardFor="popular items"
                         />
                       </Grid>
                     ))
@@ -95,7 +95,7 @@ const SideBarWithData = forwardRef((props, ref) => {
                           cardType="vertical-type"
                           horizontalcard="true"
                           cardFor="list-view"
-                        // cardFor="popular items"
+                          // cardFor="popular items"
                         />
                       </Grid>
                     ))
@@ -153,7 +153,16 @@ const SideBarWithData = forwardRef((props, ref) => {
   return (
     <CustomBoxFullWidth sx={{ marginTop: "20px" }}>
       <Grid container>
-        <Grid item xs={0} sm={0} md={0} lg={3}>
+        {/* <Grid item xs={0} sm={0} md={0} lg={3}> */}
+        <div
+          style={{
+            position: "sticky",
+            top: "20%",
+            width: "25%",
+            // apne navbar ke height ke hisaab se change karo
+            alignSelf: "flex-start",
+          }}
+        >
           <SearchFilter
             searchValue={searchValue}
             id={id}
@@ -164,12 +173,13 @@ const SideBarWithData = forwardRef((props, ref) => {
             currentTab={currentTab}
             linkRouteTo={linkRouteTo}
           />
-        </Grid>
+        </div>
+        {/* </Grid> */}
         <Grid item xs={12} sm={12} md={12} lg={9} spacing={2.5}>
           <CustomStackFullWidth spacing={2} sx={{ paddingTop: "1rem" }}>
             <AppliedFilters
               filterData={filterData}
-            //setFilterData={setFilterData}
+              //setFilterData={setFilterData}
             />
             <CustomBoxFullWidth>
               <Grid container spacing={2} ref={ref}>
