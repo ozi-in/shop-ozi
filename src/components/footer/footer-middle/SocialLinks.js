@@ -93,18 +93,18 @@ const SocialLinks = (props) => {
   const theme = useTheme();
   const iconHandler = (name) => {
     switch (name) {
-      case "facebook":
-        return <Facebook />;
+      // case "facebook":
+      //   return <Facebook />;
       case "instagram":
         return <Instragram />;
-      case "twitter":
-        return <Twitter />;
+      // case "twitter":
+      //   return <Twitter />;
       case "linkedin":
         return <LinkedIn />;
-      case "pinterest":
-        return <Pinterest />;
+      // case "pinterest":
+      //   return <Pinterest />;
       default:
-        return <Twitter />;
+        return ;
     }
   };
   return (

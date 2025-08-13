@@ -172,7 +172,7 @@ const FooterTop = (props) => {
                     "Be the first to know about new arrivals, app-only deals & helpful tips — no spam, just what you need."
                   }
                 </Typography>
-                <Subscribe />
+                {/* <Subscribe /> */}
               </Stack>
             </Grid>
 

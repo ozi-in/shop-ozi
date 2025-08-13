@@ -441,11 +441,11 @@ const SecondNavBar = ({ configData }) => {
     });
   };
 
-  const handleTrackOrder = () => {
-    router.push({
-      pathname: "/track-order",
-    });
-  };
+  // const handleTrackOrder = () => {
+  //   router.push({
+  //     pathname: "/track-order",
+  //   });
+  // };
   const handleClose = () => {
     setModalFor("sign-in");
     setOpenSignIn(false);

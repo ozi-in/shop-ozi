@@ -24,7 +24,7 @@ export const StyledFooterTop = styled(CustomStackFullWidth)(({ theme }) => ({
       ? alpha(theme.palette.moduleTheme.food, 0.051)
       : alpha(theme.palette.primary.main, 0.1),
   width: "100%",
-  minHeight: "220px",
+  minHeight: "180px",
   [theme.breakpoints.down("md")]: {
     paddingBottom: "20px",
   },

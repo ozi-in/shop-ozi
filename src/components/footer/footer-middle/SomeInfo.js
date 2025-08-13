@@ -113,7 +113,7 @@
 
 // export default SomeInfo;
 import { useTheme } from "@emotion/react";
-import { Typography } from "@mui/material";
+import { Typography, alpha } from "@mui/material";
 import React from "react";
 import {
   CustomStackFullWidth,
@@ -136,7 +136,8 @@ const SomeInfo = (props) => {
             justifyContent="flex-start" // changed from "center"
             spacing={3}
             sx={{
-              cursor: "pointer",
+              color: (theme) => theme.palette.buttonColors.main,
+              cursor: "default",
               img: {
                 transition: "all ease 0.5s",
               },
@@ -171,6 +172,7 @@ const SomeInfo = (props) => {
               <Typography
                 variant="body2"
                 sx={{
+                 color: (theme) => alpha(theme.palette.neutral[500], 0.8),
                   textAlign: "center",
                 }}
               >
@@ -185,7 +187,8 @@ const SomeInfo = (props) => {
           justifyContent="flex-start" // changed from "center"
           spacing={3}
           sx={{
-            cursor: "pointer",
+            color: (theme) => theme.palette.buttonColors.main,
+            cursor: "default",
             img: {
               transition: "all ease 0.5s",
             },
@@ -221,9 +224,10 @@ const SomeInfo = (props) => {
               variant="body2"
               sx={{
                 textAlign: "left",
-                whiteSpace: "nowrap",
-                overflow: "hidden",
-                textOverflow: "ellipsis",
+                whiteSpace: "normal",
+                overflow: "visible",
+                textOverflow: "unset",
+                color: (theme) => alpha(theme.palette.neutral[500], 0.8),
                 maxWidth: "120px",
                 // For hover effect
                 "&:hover": {

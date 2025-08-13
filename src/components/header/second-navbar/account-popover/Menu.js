@@ -51,18 +51,18 @@ const Menu = ({ onClose, cartListRefetch }) => {
 
 
   const handleClick = (item) => {
-    if (item?.id === 10) {
-      router.push({
-        pathname: "/track-order",
-      });
-    } else {
+    // if (item?.id === 10) {
+    //   router.push({
+    //     pathname: "/track-order",
+    //   });
+    // } else {
       router.push({
         pathname: "/profile",
         query: {
           page: item?.name,
         },
       });
-    }
+    // }
   };
   return (
     <Box>

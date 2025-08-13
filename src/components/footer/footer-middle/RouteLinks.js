@@ -185,7 +185,7 @@ const RouteLinks = (props) => {
       </Typography>
 
       <Typography
-        onClick={() => handleClickToRoute("/track-order")}
+        onClick={() => handleClickToRoute("/profile?page=my-orders")}
         sx={{
           whiteSpace: "nowrap",
           cursor: "pointer",
@@ -197,7 +197,7 @@ const RouteLinks = (props) => {
       >
         {selectedModule?.module_type === "rental"
           ? t("Track Trip")
-          : t("Track Order")}
+          : t("Track Orders")}
       </Typography>
 
       <Typography

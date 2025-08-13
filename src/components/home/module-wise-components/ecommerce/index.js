@@ -259,7 +259,7 @@ const Shop = ({ configData }) => {
         <CustomContainer>
           <BestReviewedItems
             menus={menus}
-            title="Best Reviewed Items"
+            title="Recently Viewed Items"
             bannerIsLoading={isLoading}
             url={`${data?.promotional_banner_url}/${data?.best_reviewed_section_banner}`}
           />
