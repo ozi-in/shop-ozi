@@ -66,6 +66,16 @@ const TopDetails = (props) => {
   const dispatch = useDispatch();
 
   const buttonBackgroundColor = () => {
+    if (
+      trackData?.order_status?.toLowerCase() === "pending" &&
+      trackData?.payment_status?.toLowerCase() === "unpaid" &&
+      ["digital_payment", "razor_pay"].includes(
+        trackData?.payment_method?.toLowerCase()
+      )
+    ) {
+      return theme.palette.error.main;
+    }
+
     if (trackData?.order_status === "pending") {
       return theme.palette.info.main;
     }
@@ -246,7 +256,11 @@ const TopDetails = (props) => {
             >
               {/* {t(capitalizeText(trackData?.order_status))} */}
               {t(
-                capitalizeText(getCustomerFacingStatus(trackData?.order_status))
+                capitalizeText(getCustomerFacingStatus(
+                  trackData?.order_status,
+                  trackData?.payment_status,
+                  trackData?.payment_method
+                ))
               )}
             </Typography>
             <Typography
@@ -352,7 +366,7 @@ const TopDetails = (props) => {
                 : theme.palette.error.main
             }
 
-            // color={theme.palette.whiteContainer}
+          // color={theme.palette.whiteContainer}
           >
             {trackData?.refund?.refund_status}
           </OrderStatusButton>
@@ -364,7 +378,7 @@ const TopDetails = (props) => {
             <OrderStatusButton
               background={alpha(theme.palette.error.light, 0.3)}
               onClick={() => setOpenModal(true)}
-              // color={theme.palette.whiteContainer}
+            // color={theme.palette.whiteContainer}
             >
               {trackData?.refund_cancellation_note}
             </OrderStatusButton>
@@ -400,7 +414,7 @@ const TopDetails = (props) => {
               <OrderStatusButton
                 background={theme.palette.error.light}
                 onClick={() => setOpenModal(true)}
-                // color={theme.palette.whiteContainer}
+              // color={theme.palette.whiteContainer}
               >
                 {isSmall ? t("Refund") : t("Refund Request")}
               </OrderStatusButton>
@@ -408,13 +422,13 @@ const TopDetails = (props) => {
           </Stack>
         )}
       {trackData &&
-      trackData?.payment_method === "digital_payment" &&
-      trackData?.payment_status === "unpaid" &&
-      zoneData?.data?.zone_data?.[0]?.cash_on_delivery ? (
+        trackData?.payment_method === "digital_payment" &&
+        trackData?.payment_status === "unpaid" &&
+        zoneData?.data?.zone_data?.[0]?.cash_on_delivery ? (
         <OrderStatusButton
           background={theme.palette.primary.main}
           onClick={() => setModalOpenForPayment(true)}
-          // color={theme.palette.whiteContainer}
+        // color={theme.palette.whiteContainer}
         >
           {isSmall ? t("Switch to COD") : t("Switch to cash on delivery")}
         </OrderStatusButton>

@@ -183,7 +183,20 @@ export const isVariationAvailable = (productDetailsData) => {
   }
 };
 //Customer facing status for logistics
-export const  getCustomerFacingStatus = (logisticsStatus) => {
+export const getCustomerFacingStatus = (
+  logisticsStatus,
+  paymentStatus,
+  paymentMethod
+) => {
+  // Payment failed condition
+  if (
+    logisticsStatus?.toLowerCase() === "pending" &&
+    paymentStatus?.toLowerCase() === "unpaid" &&
+    ["digital_payment", "razor_pay"].includes(paymentMethod?.toLowerCase())
+  ) {
+    return "Payment Failed";
+  }
+
   const statusMap = {
     PENDING: "Order Confirmed",
     CONFIRMED: "Order Confirmed",
@@ -198,13 +211,13 @@ export const  getCustomerFacingStatus = (logisticsStatus) => {
     RTO_OUT_FOR_DELIVERY: "Order Return in Process",
     RTO_UNDELIVERED: "Order Return Failed",
     RTO_DELIVERED: "Order Returned",
-    LOST: "Order missplace",
-    DAMAGED: "Goods damage",
-    CANCELED:"Order Canceled"
+    LOST: "Order misplaced",
+    DAMAGED: "Goods damaged",
+    CANCELED: "Order Canceled",
   };
 
   if (!logisticsStatus) return null;
 
   const key = logisticsStatus.toUpperCase();
   return statusMap[key] || null;
-}
+};
