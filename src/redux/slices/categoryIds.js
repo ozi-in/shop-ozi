@@ -57,6 +57,7 @@ export const categoryIdsSlice = createSlice({
       localStorage.removeItem("selected_highlighted_categories");
       localStorage.removeItem("price_range");
       localStorage.removeItem("set_view");
+      localStorage.removeItem("filter_data");
     },
   },
 });

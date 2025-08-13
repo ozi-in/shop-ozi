@@ -508,54 +508,54 @@ const CategoryNavigation = () => {
         >
           {isLoading
             ? Array.from({ length: 5 }).map((_, index) => (
-                <Typography
-                  key={index}
-                  variant="body2"
-                  sx={{
-                    fontWeight: 500,
-                    color: "#ccc",
-                    px: 1.5,
-                    py: 0.5,
-                    borderRadius: 2,
-                    background: "#f5f5f5",
-                    minWidth: 120,
-                  }}
-                />
-              ))
+              <Typography
+                key={index}
+                variant="body2"
+                sx={{
+                  fontWeight: 500,
+                  color: "#ccc",
+                  px: 1.5,
+                  py: 0.5,
+                  borderRadius: 2,
+                  background: "#f5f5f5",
+                  minWidth: 120,
+                }}
+              />
+            ))
             : superCategoriesConfig.map((superCat) => (
-                <Typography
-                  key={superCat.name}
-                  variant="body2"
-                  sx={{
-                    fontWeight: 500,
-                    color:
-                      hoveredSuperCategory?.name === superCat.name
-                        ? "#FF7A59"
-                        : "#222",
-                    cursor: "pointer",
-                    px: 1.5,
-                    py: 0.5,
-                    borderRadius: 2,
-                    backgroundColor:
-                      hoveredSuperCategory?.name === superCat.name
-                        ? "#FFF3E0"
-                        : "#ffffff",
-                    transition: "all 0.2s",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "4px",
-                    "&:hover": {
-                      background: "#FFF3E0",
-                      color: "#FF7A59",
-                    },
-                  }}
-                  onMouseEnter={(e) => handleSuperHover(e, superCat)}
-                  onClick={() => handleSuperCategoryClick(superCat)}
-                >
-                  <Box component="span">{superCat.name}</Box>
-                  <ChevronArrow size={20} color="#1a1a2e" />
-                </Typography>
-              ))}
+              <Typography
+                key={superCat.name}
+                variant="body2"
+                sx={{
+                  fontWeight: 500,
+                  color:
+                    hoveredSuperCategory?.name === superCat.name
+                      ? "#FF7A59"
+                      : "#222",
+                  cursor: "pointer",
+                  px: 1.5,
+                  py: 0.5,
+                  borderRadius: 2,
+                  backgroundColor:
+                    hoveredSuperCategory?.name === superCat.name
+                      ? "#FFF3E0"
+                      : "#ffffff",
+                  transition: "all 0.2s",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "4px",
+                  "&:hover": {
+                    background: "#FFF3E0",
+                    color: "#FF7A59",
+                  },
+                }}
+                onMouseEnter={(e) => handleSuperHover(e, superCat)}
+                onClick={() => handleSuperCategoryClick(superCat)}
+              >
+                <Box component="span">{superCat.name}</Box>
+                <ChevronArrow size={20} color="#1a1a2e" />
+              </Typography>
+            ))}
         </Stack>
       </Box>
 
@@ -639,7 +639,17 @@ const CategoryNavigation = () => {
             top:
               anchorCatEl.getBoundingClientRect().top -
               anchorSuperEl.getBoundingClientRect().top,
-            left: anchorCatEl.getBoundingClientRect().left + 100,
+            left: (() => {
+              const anchorRect = anchorCatEl.getBoundingClientRect();
+              const paperWidth = 200; // same as minWidth
+              const spaceRight = window.innerWidth - anchorRect.right;
+
+              // If not enough space on right, open on left
+              if (spaceRight < paperWidth) {
+                return anchorRect.left - paperWidth - 65;
+              }
+              return anchorRect.left + 100; // normal right position
+            })(),
             zIndex: 1400,
             p: 2,
             minWidth: 200,

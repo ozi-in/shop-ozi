@@ -581,7 +581,6 @@ const SecondNavBar = ({ configData }) => {
                     setOpenDrawer={setOpenDrawer}
                   />
                 </Stack>
-                        
               </Stack>
             )}
           </Stack>

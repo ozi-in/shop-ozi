@@ -99,7 +99,7 @@ export const CardWrapper = styled(Card)(
 
     // Fixed height/width with fallbacks
     //height: cardheight || "350px",
-    width: cardWidth || (cardFor === "list-view" ? "100%" : "220px"),
+    width: cardWidth || (cardFor === "list-view" ? "100%" : ""),
 
     // Margin Logic
     margin:
@@ -282,7 +282,7 @@ const ProductCard = (props) => {
   const handleBadge = () => {
     if (Number.parseInt(item?.discount) > 0) {
       if (item?.discount_type === "percent") {
-        return <CustomBadge top={10} text={`${item?.discount}${p_off}`} />;
+        return <CustomBadge top={10} text={`${Math.ceil(item?.discount)}${p_off}`} />;
       } else {
         return (
           <CustomBadge

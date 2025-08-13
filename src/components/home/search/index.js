@@ -282,8 +282,16 @@ const SearchResult = (props) => {
         ? { ...item, checked: e.target.checked }
         : item
     );
+    localStorage.setItem("filter_data", JSON.stringify(newData));
     dispatch(setFilterData(newData));
   };
+
+  useEffect(()=> {
+    const stored = JSON.parse(localStorage.getItem("filter_data"));
+    if (stored) {
+      dispatch(setFilterData(stored));
+    }
+  },[dispatch]);
 
   useEffect(() => {
     const defaultValues = ["default", "fast_delivery", "nearby", "high", "low"];

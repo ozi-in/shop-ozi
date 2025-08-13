@@ -87,7 +87,7 @@ const SearchMenu = (props) => {
                 active={currentView === 0 ? "true" : "false"}
                 onClick={() => setCurrentView(0)}
               >
-                <WindowIcon />
+                <WindowIcon  />
                 {isSmallSize ? null : <Body2 text="Grid view" />}
               </ViewWrapper>
             ) : null}
@@ -98,7 +98,7 @@ const SearchMenu = (props) => {
                 active={currentView === 1 ? "true" : "false"}
                 onClick={() => setCurrentView(1)}
               >
-                <ViewListIcon sx={{ fontSize: "30px" }} />
+                <ViewListIcon  sx={{ fontSize: "25px" }}/>
                 {isSmallSize ? null : <Body2 text="List view" />}
               </ViewWrapper>
             ) : null}

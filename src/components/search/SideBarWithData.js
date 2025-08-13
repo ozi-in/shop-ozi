@@ -177,10 +177,27 @@ const SideBarWithData = forwardRef((props, ref) => {
         {/* </Grid> */}
         <Grid item xs={12} sm={12} md={12} lg={9} spacing={2.5}>
           <CustomStackFullWidth spacing={2} sx={{ paddingTop: "1rem" }}>
+            {filterData.some(filter => filter.checked) && (
+            <div
+            style={{
+            position: "sticky",
+            top: "20%",
+            width: "100%",
+             // Navbar height ka hisaab se set karo
+            zIndex: 1100, // Navbar se upar rakhna hai to 1500 bhi kar sakte ho
+            background: "#fff",
+            // apne navbar ke height ke hisaab se change karo
+            alignSelf: "flex-start",
+            padding:"10px 5px"
+          }}
+            >
+              <div>{console.log("Filter Data:", {filterData})}</div>
             <AppliedFilters
               filterData={filterData}
               //setFilterData={setFilterData}
             />
+            </div>
+            )}
             <CustomBoxFullWidth>
               <Grid container spacing={2} ref={ref}>
                 {getLayoutHandler()}

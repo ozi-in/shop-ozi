@@ -50,6 +50,7 @@ const AppliedFilters = (props) => {
     const newFilter = filterData?.map((item) =>
       item?.value === selectedItem?.value ? { ...item, checked: false } : item
     );
+    localStorage.setItem("filter_data", JSON.stringify(newFilter));
     dispatch(setFilterData(newFilter));
   };
   return (

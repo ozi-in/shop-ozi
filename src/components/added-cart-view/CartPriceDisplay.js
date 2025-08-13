@@ -6,7 +6,7 @@ import { getAmountWithSign, getDiscountedAmount } from "../../helper-functions/C
 import { handleTotalAmountWithAddons } from "../../utils/CustomFunctions";
 
 const CartPriceDisplay = ({ cartItem }) => {
-  const getMRP = () => cartItem?.price || 0;
+  const getMRP = () => (cartItem?.price * cartItem?.quantity) || 0;
   const getSellingPrice = () => handleTotalAmountWithAddons(
     getDiscountedAmount(
       cartItem?.totalPrice,

@@ -176,7 +176,7 @@ const HighToLow = ({ handleSortBy, sortBy }) => {
           fontSize="13px"
           sx={{ color: (theme) => theme.palette.neutral[600] }}
         >
-          {t(`Sort by: ${label}`)}
+          {t(`Sort By Price: ${label}`)}
         </Typography>
         {showArrow === "true" &&
           (open ? (
