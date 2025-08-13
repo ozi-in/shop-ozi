@@ -106,6 +106,7 @@ const Coupon = (props) => {
     <Card
       elevation={9}
       sx={{
+        width: "75%",
         padding: ".5rem",
         boxShadow: `0px 2px 10px -3px ${(theme) =>
           alpha(theme.palette.primary.main, 0.1)}`,

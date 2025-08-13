@@ -33,6 +33,7 @@ const divider = "#E6E8F0";
 
 const primary = {
   main: "#FF6259", // Ozi Peach
+  mainLight: "rgba(255, 242, 241, 1)",
   deep: "#026034",
   light: "#EBFDF2",
   dark: "#1c6641",

@@ -106,8 +106,8 @@ export const CardWrapper = styled(Card)(
       wishlistcard === "true" || nomargin === "true"
         ? "0rem"
         : cardType === "vertical-type"
-        ? "0rem"
-        : ".7rem",
+          ? "0rem"
+          : ".7rem",
 
     // Border for FOOD module
     border:
@@ -160,8 +160,8 @@ const CustomCardMedia = styled(CardMedia)(
       cardFor === "list-view"
         ? "200px"
         : horizontalcard === "true"
-        ? "250px"
-        : "100%",
+          ? "250px"
+          : "100%",
     aspectRatio: "1 / 1", // force square shape
     display: "flex",
     alignItems: "center",
@@ -254,7 +254,7 @@ const ProductCard = (props) => {
     }
   };
 
-  useEffect(() => {}, [state.clearCartModal]);
+  useEffect(() => { }, [state.clearCartModal]);
   const handleClearCartModalOpen = () =>
     dispatch({ type: ACTION.setClearCartModal, payload: true });
   const handleCloseForClearCart = (value) => {
@@ -425,7 +425,7 @@ const ProductCard = (props) => {
     }
   };
 
-  const quickViewHandleClick = () => {};
+  const quickViewHandleClick = () => { };
   const cartUpdateHandleSuccess = (res) => {
     if (res) {
       res?.forEach((item) => {
@@ -570,6 +570,38 @@ const ProductCard = (props) => {
           paddingLeft: horizontalcard === "true" ? "10px" : "0px",
         }}
       >
+
+
+        {item?.tag_names && Array.isArray(item?.tag_names) && item?.tag_names.length > 0 ? (
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              minHeight: "30px",
+              height: "30px",
+              mt: 1,
+              mb: 1,
+            }}
+          >
+            <Box
+              sx={{
+                backgroundColor: (theme) => theme.palette.primary.mainLight,
+                color: (theme) => theme.palette.primary.main,
+                px: 1.5,
+                py: 0.5,
+                borderRadius: '12px',
+                fontSize: '11px',
+                fontWeight: 'semi-bold',
+                textAlign: 'center',
+              }}
+            >
+              {item.tag_names[0]}
+            </Box>
+          </Box>
+        ) : (<Box style={{ height: "46px" }} ></Box>)}
+
+
         {/* Heart icon */}
         <Box sx={{ position: "absolute", top: 10, right: 10, zIndex: 10 }} />
 
@@ -625,9 +657,9 @@ const ProductCard = (props) => {
               variant={isSmall ? "body2" : "body1"}
             ></Typography>
             {isFrom === "new-arival" ||
-            isFrom === "plp-list-view" ||
-            isFrom === "top-rated" ||
-            isFrom === dealTitle ? (
+              isFrom === "plp-list-view" ||
+              isFrom === "top-rated" ||
+              isFrom === dealTitle ? (
               (item?.stock ?? 0) > 0 ? (
                 <AddWithIncrementDecrement
                   onHover={state.isTransformed}
@@ -727,6 +759,34 @@ const ProductCard = (props) => {
             <></>
           )}
         </CustomBoxFullWidth>
+        {item?.tag_names && Array.isArray(item?.tag_names) && item?.tag_names.length > 0 ? (
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              minHeight: "30px",
+              height: "30px",
+              mt: 1,
+              mb: 1,
+            }}
+          >
+            <Box
+              sx={{
+                backgroundColor: (theme) => theme.palette.primary.mainLight,
+                color: (theme) => theme.palette.primary.main,
+                px: 1.5,
+                py: 0.5,
+                borderRadius: '12px',
+                fontSize: '11px',
+                fontWeight: 'semi-bold',
+                textAlign: 'center',
+              }}
+            >
+              {item.tag_names[0]}
+            </Box>
+          </Box>
+        ) : (<Box style={{ height: "30px" }} ></Box>)}
 
         <CustomStackFullWidth
           direction="row"
@@ -891,6 +951,36 @@ const ProductCard = (props) => {
         height="100%"
         p={item?.module_type === "pharmacy" ? "5px 16px 16px 16px" : ".3rem"}
       >
+        {item?.tag_names && Array.isArray(item?.tag_names) && item?.tag_names.length > 0 ? (
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              minHeight: "30px",
+              height: "30px",
+              mt: 1,
+              mb: 1,
+            }}
+          >
+            <Box
+              sx={{
+                backgroundColor: (theme) => theme.palette.primary.mainLight,
+                color: (theme) => theme.palette.primary.main,
+                px: 1.5,
+                py: 0.5,
+                borderRadius: '12px',
+                fontSize: '11px',
+                fontWeight: 'semi-bold',
+                textAlign: 'center',
+              }}
+            >
+              {item.tag_names[0]}
+            </Box>
+          </Box>
+        ) : (<Box style={{ height: "46px" }} ></Box>)}
+
+
         {item?.module_type === "pharmacy" ? (
           <Typography
             sx={{
@@ -1236,17 +1326,18 @@ const ProductCard = (props) => {
               position: "relative",
             }}
           >
+            {handleBadge()}
             <CustomCardMedia
               horizontalcard={horizontalcard}
               loveItem={loveItem}
             >
-              {handleBadge()}
+              
 
               {isFrom === "new-arival" ||
-              isFrom === "top-rated" ||
-              isFrom === dealTitle ||
-              isFrom === "plp" ||
-              isFrom === "plp-list-view" ? (
+                isFrom === "top-rated" ||
+                isFrom === dealTitle ||
+                isFrom === "plp" ||
+                isFrom === "plp-list-view" ? (
                 <Stack>
                   {/* Product Image */}
                   <NextImage
@@ -1345,29 +1436,44 @@ const ProductCard = (props) => {
                   }}
                 >
                   {isWishlisted ? (
-                    <FavoriteIcon
-                      style={{
-                        color: "#FF6159",
-                        fontSize: 18,
-                        cursor: "pointer",
-                        borderRadius: "50%",
-                        stroke: "#fff",
-                        strokeWidth: 1,
-                      }}
+                    // <FavoriteIcon
+                    //   style={{
+                    //     color: "#FF6159",
+                    //     fontSize: 18,
+                    //     cursor: "pointer",
+                    //     borderRadius: "50%",
+                    //     stroke: "#fff",
+                    //     strokeWidth: 1,
+                    //   }}
+                    //   onClick={removeFromWishlistHandler}
+                    // />
+
+                    <NextImage
+                      width={20}
+                      height={20}
+                      src="../ic_filled_heart.svg"
                       onClick={removeFromWishlistHandler}
-                    />
+                    ></NextImage>
+
                   ) : (
-                    <FavoriteBorderIcon
-                      style={{
-                        color: "#000",
-                        fontSize: 18,
-                        cursor: "pointer",
-                        borderRadius: "50%",
-                        stroke: "#fff",
-                        strokeWidth: 1,
-                      }}
+                    // <FavoriteBorderIcon
+                    //   style={{
+                    //     color: "#000",
+                    //     fontSize: 18,
+                    //     cursor: "pointer",
+                    //     borderRadius: "50%",
+                    //     stroke: "#fff",
+                    //     strokeWidth: 1,
+                    //   }}
+                    //   onClick={addToWishlistHandler}
+                    // />
+
+                    <NextImage
+                      width={20}
+                      height={20}
+                      src="../ic_heart.svg"
                       onClick={addToWishlistHandler}
-                    />
+                    ></NextImage>
                   )}
                 </Box>
               </Box>

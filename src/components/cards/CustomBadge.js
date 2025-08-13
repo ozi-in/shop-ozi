@@ -20,11 +20,11 @@ export const CustomBadgeWrapepr = styled(Badge)(
     left: left ? left : 0,
     zIndex: "1",
     fontSize: fontSize ? fontSize : "15px",
-    fontWeight: "500",
+    fontWeight: "semi-bold",
     lineHeight: "24px",
     padding: "0px 10px",
 
-    borderRadius: border_radius ? border_radius : "0px 4px 4px 0px",
+    borderRadius: border_radius ? border_radius : "0px 12px 12px 0px",
     [theme.breakpoints.down("sm")]: {
       fontSize: "10px",
     },

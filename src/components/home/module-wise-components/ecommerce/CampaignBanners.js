@@ -490,7 +490,7 @@ const CampaignBanners = () => {
         }
 
         .marquee-content img {
-          height: 300px;
+          height: 260px;
           margin: 0 10px;
           cursor: pointer;
           border-radius: 28px;
