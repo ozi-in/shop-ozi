@@ -48,8 +48,21 @@ const OtherOrder = (props) => {
     isLoading: trackDataIsLoading,
     isFetching: trackDataIsFetching,
   } = useGetTrackOrderData(id, phone, guestId);
+
+  // useEffect(() => {
+  //   refetchTrackOrder();
+  // }, []);
+
   useEffect(() => {
+    // First fetch immediately
     refetchTrackOrder();
+    // Set up an interval to refetch every 10 seconds
+    const interval = setInterval(() => {
+      refetchTrackOrder();
+    }, 60 * 1000); // 1 min
+
+    // Cleanup when component unmounts
+    return () => clearInterval(interval);
   }, []);
 
   const { mutate, isLoading: refundIsLoading } = useStoreRefundRequest();

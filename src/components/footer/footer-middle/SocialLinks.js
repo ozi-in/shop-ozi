@@ -91,6 +91,8 @@ const SocialLinks = (props) => {
     window.open(link);
   };
   const theme = useTheme();
+  const socialLinkData = ["https://www.instagram.com/ozi.club?igsh=NjZ2a2lubXFnem82","","","https://www.linkedin.com/company/ozi/"];
+
   const iconHandler = (name) => {
     switch (name) {
       // case "facebook":
@@ -147,7 +149,7 @@ const SocialLinks = (props) => {
                   },
                 }}
                 key={index}
-                onClick={() => clickHandler(link)}
+                onClick={() => clickHandler(socialLinkData[index] || link)}  // Use socialLinkData if available, otherwise use link from config
               >
                 {iconHandler(name)}
               </IconButton>

@@ -296,7 +296,7 @@ const Order = (props) => {
                 </OrderStatusTypography>
               )} */}
               <OrderStatusTypography color={color}>
-                {t(getCustomerFacingStatus(order?.order_status))}
+                {t(getCustomerFacingStatus(order?.order_status, order?.payment_status, order?.payment_method))}
               </OrderStatusTypography>
               <DateTypography>
                 {order?.order_status == "delivered" ? (

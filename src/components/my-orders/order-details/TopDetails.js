@@ -192,10 +192,13 @@ const TopDetails = (props) => {
     }
   };
   const handleTime = () => {
-    if (differenceInMinutes() > 5) {
-      return `${differenceInMinutes() - 5} - ${differenceInMinutes()} `;
-    } else {
-      return `1-5`;
+    // if (differenceInMinutes() > 5) {
+    //   return `${differenceInMinutes() - 5} - ${differenceInMinutes()} `;
+    // } else {
+    //   return `1-5`;
+    // }
+    if (trackData?.delivery_tat) {
+      return `${trackData?.delivery_tat}`;
     }
   };
 
@@ -304,39 +307,44 @@ const TopDetails = (props) => {
             </Typography>
           </Typography>
 
-          {trackData?.module_type === "food" && (
-            <Stack
-              direction="row"
-              borderLeft={!isSmall && `2px solid ${theme.palette.neutral[400]}`}
-              paddingLeft={!isSmall && "1rem"}
-              alignItems="center"
-              spacing={1}
-            >
-              {" "}
-              <TrackSvg />
-              <Typography
-                color={theme.palette.primary.main}
-                fontSize={{ xs: "10px", md: "12px" }}
-                fontWeight="500"
+          {trackData?.module_type === "ecommerce" && (getCustomerFacingStatus(trackData?.order_status, trackData?.payment_status, trackData?.payment_method) === "Order Getting Packed" || getCustomerFacingStatus(trackData?.order_status, trackData?.payment_status, trackData?.payment_method) === "Order Out for Delivery") &&
+            // trackData?.module_type === "ecommerce" && trackData?.order_status !== "canceled" && trackData?.order_status !== "delivered" && !(
+            // trackData?.order_status?.toLowerCase() === "pending" &&
+            // trackData?.payment_status?.toLowerCase() === "unpaid" &&
+            // ["digital_payment", "razor_pay"].includes(trackData?.payment_method?.toLowerCase())
+            (
+              <Stack
+                direction="row"
+                borderLeft={!isSmall && `2px solid ${theme.palette.neutral[400]}`}
+                paddingLeft={!isSmall && "1rem"}
+                alignItems="center"
+                spacing={1}
               >
-                {t("Estimated delivery:")}{" "}
+                {" "}
+                <TrackSvg />
                 <Typography
-                  fontSize={{ xs: "10px", md: "12px" }}
-                  fontWeight="500"
-                  component="span"
-                >
-                  {handleTime()}
-                </Typography>
-                <Typography
-                  color="primary"
+                  color={theme.palette.primary.main}
                   fontSize={{ xs: "10px", md: "12px" }}
                   fontWeight="500"
                 >
-                  {t("min")}
+                  {t("Estimated delivery:")}{" "}
+                  <Typography
+                    fontSize={{ xs: "10px", md: "12px" }}
+                    fontWeight="500"
+                    component="span"
+                  >
+                    {handleTime()}
+                  </Typography>
+                  <Typography
+                    color="primary"
+                    fontSize={{ xs: "10px", md: "12px" }}
+                    fontWeight="500"
+                  >
+                    {t("min")}
+                  </Typography>
                 </Typography>
-              </Typography>
-            </Stack>
-          )}
+              </Stack>
+            )}
         </Stack>
         {configData?.order_delivery_verification ? (
           <Typography
@@ -410,7 +418,7 @@ const TopDetails = (props) => {
                 {/*{t("Give a review")}*/}
               </Button>
             </Link>
-            {configData?.refund_active_status && getToken() && (
+            {/* {configData?.refund_active_status && getToken() && (
               <OrderStatusButton
                 background={theme.palette.error.light}
                 onClick={() => setOpenModal(true)}
@@ -418,12 +426,12 @@ const TopDetails = (props) => {
               >
                 {isSmall ? t("Refund") : t("Refund Request")}
               </OrderStatusButton>
-            )}
+            )} */}
           </Stack>
         )}
       {trackData &&
         trackData?.payment_method === "digital_payment" &&
-        trackData?.payment_status === "unpaid" &&
+        trackData?.payment_status === "unpaid" && trackData?.order_status !== "canceled" &&
         zoneData?.data?.zone_data?.[0]?.cash_on_delivery ? (
         <OrderStatusButton
           background={theme.palette.primary.main}
@@ -522,7 +530,7 @@ const TopDetails = (props) => {
         />
       </CustomModal>
     </CustomStackFullWidth>
-    // </HeadingBox>
+
   );
 };
 

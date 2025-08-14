@@ -21,7 +21,7 @@ export const StyledFooterTop = styled(CustomStackFullWidth)(({ theme }) => ({
     getCurrentModuleType() === ModuleTypes?.ECOMMERCE
       ? "transparent"
       : getCurrentModuleType() === ModuleTypes?.FOOD
-      ? alpha(theme.palette.moduleTheme.food, 0.051)
+      ? "transparent"
       : alpha(theme.palette.primary.main, 0.1),
   width: "100%",
   minHeight: "180px",

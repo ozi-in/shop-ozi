@@ -108,7 +108,7 @@ const FooterBottom = (props) => {
           zIndex: "1",
           backgroundColor:
             getCurrentModuleType() === ModuleTypes?.FOOD
-              ? alpha(theme.palette.moduleTheme.food, 0.051)
+              ? "transparent"
               : alpha(theme.palette.primary.main, 0.051),
           [theme.breakpoints.down("sm")]: {
             backgroundColor: "transparent",
