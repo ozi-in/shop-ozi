@@ -897,7 +897,7 @@ const BestReviewedItems = ({ title, info }) => {
   }, [filteredData]);
 
   const getCardWidth = () => {
-    if (width <= 450) return "48%";
+    if (width <= 450) return "43%";
     if (width <= 750) return "32%";
     if (width <= 900) return "24%";
     return "20%";

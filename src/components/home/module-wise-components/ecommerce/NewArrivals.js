@@ -391,7 +391,7 @@ const NewArrivals = ({ bannerData, title }) => {
                     key={product.id}
                     sx={{
                       flex: "0 0 auto",
-                      width: { xs: "48%", sm: "30%", md: "20%" },
+                      width: { xs: "43%", sm: "30%", md: "20%" },
                     }}
                   >
                     <ProductCard

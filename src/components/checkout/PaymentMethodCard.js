@@ -94,7 +94,15 @@ const PaymentMethodCard = (props) => {
           onChange={handleChange}
         >
           <FormControlLabel
-            sx={{flexGrow:1,marginInlineStart:{xs:"0px",md:"-11px"}}}
+          labelPlacement="start"
+
+            sx={{
+              flexGrow: 1, marginInlineStart: { xs: "0px", md: "0px" },mt:"20px", border: "1px solid #ccc",
+              borderRadius: "10px",
+              padding: "12px 12px",
+              transition: "0.3s",
+              justifyContent:"space-between"
+            }}
             value={type}
             control={
               <Radio

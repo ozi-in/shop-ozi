@@ -96,7 +96,7 @@ const Shop = ({ configData }) => {
         </CustomStackFullWidth>
       )}
 
-      <MobileFeaturedCategoriesSlider />
+      {/* <MobileFeaturedCategoriesSlider /> */}
       {/* {!isMobile && <HeroBanner />} */}
       <HeroBanner />
       {/* {isMobile && (

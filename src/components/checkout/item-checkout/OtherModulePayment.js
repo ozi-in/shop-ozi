@@ -356,10 +356,12 @@ const OtherModulePayment = (props) => {
                         return (
                           <Grid
                             item
+                            marginRight={1.5}
                             xs={
                               configData?.active_payment_method_list?.length > 1
                                 ? 6
                                 : 12
+                                
                             }
                             key={index}
                           >

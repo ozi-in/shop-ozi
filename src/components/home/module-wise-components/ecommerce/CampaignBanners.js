@@ -487,7 +487,7 @@ const CampaignBanners = () => {
 
         .banner-item {
           flex-shrink: 0;
-          width: 400px;
+          width: 500px;
           height: auto;
           border-radius: 20px;
           overflow: hidden;
@@ -508,15 +508,15 @@ const CampaignBanners = () => {
 
         @media (max-width: 768px) {
           .banner-item {
-            width: 300px;
+            width: 500px;
             height: 150px;
           }
         }
 
         @media (max-width: 480px) {
           .banner-item {
-            width: 250px;
-            height: 125px;
+            width: 400px;
+            height: auto;
           }
         }
       `}</style>

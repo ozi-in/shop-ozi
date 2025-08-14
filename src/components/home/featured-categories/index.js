@@ -1178,10 +1178,10 @@ const FeaturedCategories = () => {
     infinite: false,
     speed: 500,
     swipeToSlide: true,
-    slidesToShow: 1,
+    slidesToShow: 2.5, 
     slidesToScroll: 1,
     rows: 2,
-    slidesPerRow: 3,
+    slidesPerRow: 1,
     responsive: [
       {
         breakpoint: 400,
@@ -1225,7 +1225,7 @@ const FeaturedCategories = () => {
                     key={idx}
                     sx={{
                       flex: "0 0 auto",
-                      width: { xs: "48%", sm: "30%", md: "18%", lg: "20%" },
+                      width: { xs: "43%", sm: "30%", md: "18%", lg: "20%" },
                     }}
                   >
                     <ProductCardSimmer />
@@ -1263,7 +1263,7 @@ const FeaturedCategories = () => {
                   key={item?.id || index}
                   sx={{
                     flex: "0 0 auto",
-                    width: { xs: "48%", sm: "30%", md: "18%", lg: "20%" },
+                    width: { xs: "43%", sm: "30%", md: "18%", lg: "20%" },
                   }}
                 >
                   <ShopCategoryCard

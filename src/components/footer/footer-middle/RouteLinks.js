@@ -111,6 +111,7 @@ import { CustomStackFullWidth } from "styled-components/CustomStyles.style";
 import { RouteLinksData } from "../demoLinks";
 import { setAllData } from "redux/slices/storeRegistrationData";
 import { useDispatch, useSelector } from "react-redux";
+import { not_logged_in_message } from "utils/toasterMessages";
 
 const RouteLinks = (props) => {
   const dispatch = useDispatch();
@@ -119,6 +120,7 @@ const RouteLinks = (props) => {
   const { token, configData } = props;
   const { t } = useTranslation();
   const router = useRouter();
+
   const handleClick = (href, value) => {
     if (value === "loyalty_points" || value === "my_wallet") {
       if (token) {
@@ -149,8 +151,20 @@ const RouteLinks = (props) => {
       router.push(href, undefined, { shallow: true });
     }
   };
+  
   const handleClickToRoute = (href) => {
-    router.push(href, undefined, { shallow: true });
+    if (href === "/profile?page=my-orders") {
+        let token = undefined;
+        if (typeof window !== "undefined") {
+          token = localStorage.getItem("token");
+        }
+        if (token) {
+          router.push(href, undefined, { shallow: true });
+        } else toast.error(t(not_logged_in_message));
+
+      } else {
+        router.push(href, undefined, { shallow: true });
+      }
   };
   const theme = useTheme();
   const isXsmall = useMediaQuery(theme.breakpoints.down("sm"));
