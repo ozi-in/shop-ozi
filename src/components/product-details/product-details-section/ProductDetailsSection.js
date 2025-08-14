@@ -69,7 +69,7 @@ const ProductDetailsSection = ({
           md={7}
           marginTop={productThumbImage?.length > 0 ? "0px" : "40px"}
         >
-          {productDetailsData?.module_type !== "food" && (
+          {productDetailsData?.module_type === "ecommerce" && (
             <ProductInformation
               productDetailsData={productDetailsData}
               configData={configData}

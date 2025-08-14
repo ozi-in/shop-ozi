@@ -36,7 +36,7 @@ const IncrementDecrementManager = (props) => {
         alignItems={productUpdate ? "flex-start" : "center"}
         justifyContent="flex-start"
       >
-        <Stack direction="row" spacing={4} alignItems="center">
+        {/* <Stack direction="row" spacing={4} alignItems="center">
           <Stack
             direction="row"
             alignIems="center"
@@ -56,12 +56,12 @@ const IncrementDecrementManager = (props) => {
                </Typography>
              </Stack>
           </Stack>
-        </Stack>
+        </Stack> */}
         <Stack
           direction="row"
           witdh="100%"
           spacing={1}
-          paddingLeft={productUpdate ? "none" : { sm: "0px", md: "45px" }}
+          paddingLeft={productUpdate ? "none" : { sm: "0px", md: "0px" }}
         >
           <Typography fontWeight="500" fontSize={{ xs: "12px", md: "14px" }}>
             {t("Total Price")}:

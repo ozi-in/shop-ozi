@@ -738,7 +738,7 @@ const ModuleWiseNav = (props) => {
                     ></Typography>
                   ) : (
                     <Typography color="#000000" fontWeight={500} fontSize={14}>
-                      Delivered in {deliveryTat}
+                      Delivery in {deliveryTat}
                     </Typography>
                   )}
                 </Box>

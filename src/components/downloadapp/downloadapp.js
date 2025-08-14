@@ -439,7 +439,7 @@ const Footer2 = () => {
         <Heading>Shop now for You & Your Little One - On the Go!</Heading>
         <Description>
           Get Fast Deliveries of Baby Care, Kids Clothes, Essentials, Gifts And
-          Mom Needs – Anytime, Anywhere.
+          Mom Needs - Anytime, Anywhere.
         </Description>
       </LeftSection>
       <RightSection>
@@ -447,7 +447,15 @@ const Footer2 = () => {
         <RightContentWrapper>
           <DownloadCard>
             <DownloadCardTitle variant="ios">For iOS</DownloadCardTitle>
-            <Button>
+            <Button
+            onClick={() => {
+                window.open(
+                  "https://apps.apple.com/in/app/ozi-parenting-need-in-minutes/id6748863035",
+                  "_blank",
+                  "noopener,noreferrer"
+                );
+              }}
+              >
               <FaApple style={{ fontSize: "24px" }} /> Download App
             </Button>
             <QR src="/qr-ios.png" alt="QR iOS" />
@@ -458,10 +466,18 @@ const Footer2 = () => {
 
           <DownloadCard>
             <DownloadCardTitle variant="android">For Android</DownloadCardTitle>
-            <Button>
-              <img src={gPlay.src}></img> Download App
+            <Button
+              onClick={() => {
+                window.open(
+                  "https://play.google.com/store/apps/details?id=com.ozi.user&pcampaignid=web_share",
+                  "_blank",
+                  "noopener,noreferrer"
+                );
+              }}
+            >
+              <img src={gPlay.src} alt="Google Play" /> Download App
             </Button>
-            <QR src="/qr-ios.png" alt="QR Android" />
+            <QR src="/qr-android.png" alt="QR Android" />
             <PlatformIcon>
               <FaAndroid />
             </PlatformIcon>

@@ -945,8 +945,8 @@ const ProductCard = (props) => {
   const verticalCardUi = () => {
     return (
       <CustomStackFullWidth
-        justifyContent="center"
-        alignItems="center"
+         justifyContent="flex-start"
+        alignItems="flex-start"
         spacing={0.6}
         height="100%"
         p={item?.module_type === "pharmacy" ? "5px 16px 16px 16px" : ".3rem"}
@@ -978,7 +978,7 @@ const ProductCard = (props) => {
               {item.tag_names[0]}
             </Box>
           </Box>
-        ) : (<Box style={{ height: "46px" }} ></Box>)}
+        ) : (<Box style={{ height: "30px" }} ></Box>)}
 
 
         {item?.module_type === "pharmacy" ? (

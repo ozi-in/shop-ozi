@@ -563,7 +563,7 @@ const SecondNavBar = ({ configData }) => {
                     fontSize={14}
                     pl={"5px"}
                   >
-                    Delivered in {tatData?.duration}
+                    Delivery in {tatData?.duration}
                   </Typography>
                 )}
                 <Stack direction="row" alignItems="flex-start" spacing={0.5}>

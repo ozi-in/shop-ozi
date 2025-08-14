@@ -351,12 +351,13 @@ const ProductInformation = ({
             <Typography
               fontSize={{ xs: "14px", sm: "18px" }}
               fontWeight="600"
+              color={theme.palette.neutral[900]}
               component="h1"
             >
               {state.modalData[0]?.name}
             </Typography>
-            {state.modalData[0]?.stock > 0 &&
-              isVariationAvailable(state.modalData[0]) && <InStockTag />}
+            {/* {state.modalData[0]?.stock > 0 &&
+              isVariationAvailable(state.modalData[0]) && <InStockTag />} */}
           </CustomStackFullWidth>
         ) : (
           <Skeleton width={100} variant="text" />
@@ -372,7 +373,7 @@ const ProductInformation = ({
           </Typography>
         )}
 
-        {state.modalData[0]?.isCampaignItem ? null : (
+        {/* {state.modalData[0]?.isCampaignItem ? null : (
           <Stack direction="row" alignItems="center" spacing={1}>
             {state.modalData[0]?.avg_rating > 0 && (
               <Stack direction="row" alignItems="base-line" spacing={0.5}>
@@ -385,7 +386,7 @@ const ProductInformation = ({
                   ({state.modalData[0]?.avg_rating?.toFixed(1)})
                 </Typography>
               </Stack>
-            )}
+            )} */}
             {/* <Typography color="customColor.textGray">|</Typography>
             <Stack
               alignItems="center"
@@ -404,8 +405,8 @@ const ProductInformation = ({
                 {t("Reviews")}
               </Typography>
             </Stack> */}
-          </Stack>
-        )}
+          {/* </Stack>
+        )} */}
         <PricePreviewWithStock
           state={state}
           theme={theme}

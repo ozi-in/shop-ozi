@@ -48,13 +48,13 @@ const CategoryInformation = (props) => {
         </Stack>
       )}
 
-      {tags?.length > 0 && (
+      {/* {tags?.length > 0 && (
         <Stack direction="row" alignItems="center" gap="10px" flexWrap="wrap">
           {tags.map((item, index) => {
             return <Tags item={item?.name} key={index} />;
           })}
         </Stack>
-      )}
+      )} */}
     </CustomStackFullWidth>
   );
 };
