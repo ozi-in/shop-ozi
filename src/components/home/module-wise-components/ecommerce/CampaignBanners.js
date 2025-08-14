@@ -445,12 +445,25 @@ const CampaignBanners = () => {
       }, 2000);
     }
   };
-  const handleBannerClick1 = (item) => {
-    console.log("title of the data ", item);
-    router.push(
-      { pathname: "/home", query: { search: item, data_type: "searched" } }
-    );
+
+  const handleBannerClick1 = (keywordOrTitle) => {
+    // Ensure we have a string
+    let searchValue = String(keywordOrTitle || "").trim();
+
+    // Replace multiple spaces (2 or more) with a single space
+    searchValue = searchValue.replace(/\s+/g, " ");
+
+    // Encode for URL safety
+    const encodedValue = encodeURIComponent(searchValue);
+
+    // console.log("Formatted search value:", searchValue);
+
+    router.push({
+      pathname: "/home",
+      query: { search: encodedValue, data_type: "searched" },
+    });
   };
+
 
   const handleBannerClick = (item) => {
     window.location.href = item.link;
@@ -535,7 +548,7 @@ const CampaignBanners = () => {
             <div
               key={`${item.id || index}-${Math.floor(index / displayBanners.length)}`}
               className="banner-item"
-              onClick={() => handleBannerClick1(item.title)}
+              onClick={() => handleBannerClick1(item.banner_keywords || item.title)}
             >
               <img
                 src={item.image_full_url || item.image}
