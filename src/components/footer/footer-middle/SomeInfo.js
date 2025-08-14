@@ -1,5 +1,119 @@
+// // import { useTheme } from "@emotion/react";
+// // import { Typography } from "@mui/material";
+// // import React from "react";
+// // import {
+// //   CustomStackFullWidth,
+// //   CustomTypographyBold,
+// // } from "../../../styled-components/CustomStyles.style";
+// // import CustomImageContainer from "../../CustomImageContainer";
+// // import ClickToCall from "../../header/top-navbar/ClickToCall";
+// // import SendMail from "../../SendMail";
+// // import Link from "next/link";
+
+// // const SomeInfo = (props) => {
+// //   const { image, alt, title, info, t, href } = props;
+// //   const theme = useTheme();
+// //   return (
+// //     <>{href ? (
+// //       <Link href={href}>
+// //         <CustomStackFullWidth
+// //           alignItems="center"
+// //           justifyContent="center"
+// //           spacing={3}
+// //           sx={{
+// //             cursor: "pointer",
+// //             img: {
+// //               transition: "all ease 0.5s",
+// //             },
+// //             "&:hover": {
+// //               ".MuiTypography-body1": {
+// //                 color: theme.palette.primary.main,
+// //               },
+// //               ".MuiTypography-body2": {
+// //                 color: theme.palette.primary.main,
+// //               },
+// //             },
+// //           }}
+// //         >
+// //           <CustomImageContainer src={image.src} alt={alt} height={50} width={50} />
+// //           <CustomStackFullWidth
+// //             alignItems="center"
+// //             justifyContent="center"
+// //             spacing={1}
+// //           >
+// //             <CustomTypographyBold
+// //               sx={{
+// //                 textTransform: "capitalize",
+// //               }}
+// //             >
+// //               {t(title)}
+// //             </CustomTypographyBold>
+// //             <Typography
+// //               variant="body2"
+// //               sx={{
+// //                 textAlign: "center",
+// //               }}
+// //             >
+// //               {info}
+// //             </Typography>
+// //           </CustomStackFullWidth>
+// //         </CustomStackFullWidth>
+// //       </Link>
+// //     ) : (
+// //       <CustomStackFullWidth
+// //         alignItems="center"
+// //         justifyContent="center"
+// //         spacing={3}
+// //         sx={{
+// //           cursor: "pointer",
+// //           img: {
+// //             transition: "all ease 0.5s",
+// //           },
+// //           "&:hover": {
+// //             ".MuiTypography-body1": {
+// //               color: theme.palette.primary.main,
+// //             },
+// //             ".MuiTypography-body2": {
+// //               color: theme.palette.primary.main,
+// //             },
+// //           },
+// //         }}
+// //       >
+// //         <CustomImageContainer src={image.src} alt={alt} height={50} width={50} />
+// //         <CustomStackFullWidth
+// //           alignItems="center"
+// //           justifyContent="center"
+// //           spacing={1}
+// //         >
+// //           <CustomTypographyBold
+// //             sx={{
+// //               textTransform: "capitalize",
+// //             }}
+// //           >
+// //             {t(title)}
+// //           </CustomTypographyBold>
+// //           <Typography
+// //             variant="body2"
+// //             sx={{
+// //               textAlign: "center",
+// //             }}
+// //           >
+// //             {info}
+// //           </Typography>
+// //         </CustomStackFullWidth>
+// //       </CustomStackFullWidth>
+// //     )
+
+// //     }
+// //     </>
+// //   );
+// // };
+
+// // SomeInfo.propTypes = {};
+
+// // export default SomeInfo;
 // import { useTheme } from "@emotion/react";
-// import { Typography } from "@mui/material";
+// import { Typography, alpha } from "@mui/material";
 // import React from "react";
 // import {
 //   CustomStackFullWidth,
@@ -14,14 +128,69 @@
 //   const { image, alt, title, info, t, href } = props;
 //   const theme = useTheme();
 //   return (
-//     <>{href ? (
-//       <Link href={href}>
+//     <>
+//       {href ? (
+//         <Link href={href}>
+//           <CustomStackFullWidth
+//             alignItems="flex-start" // changed from "center"
+//             justifyContent="flex-start" // changed from "center"
+//             spacing={3}
+//             direction={"row"}
+//             sx={{
+//               color: (theme) => theme.palette.buttonColors.main,
+//               cursor: "default",
+//               img: {
+//                 transition: "all ease 0.5s",
+//               },
+//               "&:hover": {
+//                 ".MuiTypography-body1": {
+//                   color: theme.palette.primary.main,
+//                 },
+//                 ".MuiTypography-body2": {
+//                   color: theme.palette.primary.main,
+//                 },
+//               },
+//             }}
+//           >
+//             <CustomImageContainer
+//               src={image.src}
+//               alt={alt}
+//               height={32} // modified to 32 from 50
+//               width={32}
+//             />
+//             <CustomStackFullWidth
+//               alignItems="flex-start" // changed from "center"
+//               justifyContent="flex-start" // changed from "center"
+//               spacing={1}
+//             >
+//               {/* <CustomTypographyBold
+//                 sx={{
+//                   textTransform: "capitalize",
+//                 }}
+//               >
+//                 {t(title)}
+//               </CustomTypographyBold> */}
+//               <Typography
+//                 variant="body2"
+//                 sx={{
+//                   color: (theme) => alpha(theme.palette.neutral[500], 0.8),
+//                   textAlign: "center",
+//                 }}
+//               >
+//                 {info}
+//               </Typography>
+//             </CustomStackFullWidth>
+//           </CustomStackFullWidth>
+//         </Link>
+//       ) : (
 //         <CustomStackFullWidth
-//           alignItems="center"
-//           justifyContent="center"
+//           alignItems="flex-start" // changed from "center"
+//           justifyContent="flex-start" // changed from "center"
 //           spacing={3}
+//           direction={"row"}
 //           sx={{
-//             cursor: "pointer",
+//             color: (theme) => theme.palette.buttonColors.main,
+//             cursor: "default",
 //             img: {
 //               transition: "all ease 0.5s",
 //             },
@@ -35,11 +204,18 @@
 //             },
 //           }}
 //         >
-//           <CustomImageContainer src={image.src} alt={alt} height={50} width={50} />
+//           <CustomImageContainer
+//             src={image.src}
+//             alt={alt}
+//             height={32} // modified to 32 from 50
+//             width={32}
+
+//           />
 //           <CustomStackFullWidth
-//             alignItems="center"
-//             justifyContent="center"
+//             alignItems="flex-start" // changed from "center"
+//             justifyContent="flex-start" // changed from "center"
 //             spacing={1}
+//             sx={{ flex: 1 }}
 //           >
 //             <CustomTypographyBold
 //               sx={{
@@ -51,60 +227,25 @@
 //             <Typography
 //               variant="body2"
 //               sx={{
-//                 textAlign: "center",
+//                 textAlign: "left",
+//                 whiteSpace: "normal",
+//                 overflow: "visible",
+//                 textOverflow: "unset",
+//                 color: (theme) => alpha(theme.palette.neutral[500], 0.8),
+//                 maxWidth: "120px",
+//                 // For hover effect
+//                 "&:hover": {
+//                   whiteSpace: "normal",
+//                   overflow: "visible",
+//                   textOverflow: "unset",
+//                 },
 //               }}
 //             >
 //               {info}
 //             </Typography>
 //           </CustomStackFullWidth>
 //         </CustomStackFullWidth>
-//       </Link>
-//     ) : (
-//       <CustomStackFullWidth
-//         alignItems="center"
-//         justifyContent="center"
-//         spacing={3}
-//         sx={{
-//           cursor: "pointer",
-//           img: {
-//             transition: "all ease 0.5s",
-//           },
-//           "&:hover": {
-//             ".MuiTypography-body1": {
-//               color: theme.palette.primary.main,
-//             },
-//             ".MuiTypography-body2": {
-//               color: theme.palette.primary.main,
-//             },
-//           },
-//         }}
-//       >
-//         <CustomImageContainer src={image.src} alt={alt} height={50} width={50} />
-//         <CustomStackFullWidth
-//           alignItems="center"
-//           justifyContent="center"
-//           spacing={1}
-//         >
-//           <CustomTypographyBold
-//             sx={{
-//               textTransform: "capitalize",
-//             }}
-//           >
-//             {t(title)}
-//           </CustomTypographyBold>
-//           <Typography
-//             variant="body2"
-//             sx={{
-//               textAlign: "center",
-//             }}
-//           >
-//             {info}
-//           </Typography>
-//         </CustomStackFullWidth>
-//       </CustomStackFullWidth>
-//     )
-
-//     }
+//       )}
 //     </>
 //   );
 // };
@@ -112,6 +253,8 @@
 // SomeInfo.propTypes = {};
 
 // export default SomeInfo;
+
+
 import { useTheme } from "@emotion/react";
 import { Typography, alpha } from "@mui/material";
 import React from "react";
@@ -132,9 +275,10 @@ const SomeInfo = (props) => {
       {href ? (
         <Link href={href}>
           <CustomStackFullWidth
-            alignItems="flex-start" // changed from "center"
-            justifyContent="flex-start" // changed from "center"
+            alignItems="center" // changed from "center"
+            justifyContent="center" // changed from "center"
             spacing={3}
+            direction={"row"}
             sx={{
               color: (theme) => theme.palette.buttonColors.main,
               cursor: "default",
@@ -156,23 +300,25 @@ const SomeInfo = (props) => {
               alt={alt}
               height={32} // modified to 32 from 50
               width={32}
+              padding={"6px"}
             />
             <CustomStackFullWidth
               alignItems="flex-start" // changed from "center"
               justifyContent="flex-start" // changed from "center"
               spacing={1}
+
             >
-              <CustomTypographyBold
+              {/* <CustomTypographyBold
                 sx={{
                   textTransform: "capitalize",
                 }}
               >
                 {t(title)}
-              </CustomTypographyBold>
+              </CustomTypographyBold> */}
               <Typography
                 variant="body2"
                 sx={{
-                 color: (theme) => alpha(theme.palette.neutral[500], 0.8),
+                  color: (theme) => alpha(theme.palette.neutral[500], 0.8),
                   textAlign: "center",
                 }}
               >
@@ -185,6 +331,7 @@ const SomeInfo = (props) => {
         <CustomStackFullWidth
           alignItems="flex-start" // changed from "center"
           justifyContent="flex-start" // changed from "center"
+          direction={"row"}
           spacing={3}
           sx={{
             color: (theme) => theme.palette.buttonColors.main,
@@ -212,6 +359,7 @@ const SomeInfo = (props) => {
             alignItems="flex-start" // changed from "center"
             justifyContent="flex-start" // changed from "center"
             spacing={1}
+            sx={{ flex: 1 }}
           >
             <CustomTypographyBold
               sx={{
@@ -223,12 +371,13 @@ const SomeInfo = (props) => {
             <Typography
               variant="body2"
               sx={{
+                width: "100%",
                 textAlign: "left",
                 whiteSpace: "normal",
                 overflow: "visible",
                 textOverflow: "unset",
                 color: (theme) => alpha(theme.palette.neutral[500], 0.8),
-                maxWidth: "120px",
+                // maxWidth: "120px",
                 // For hover effect
                 "&:hover": {
                   whiteSpace: "normal",

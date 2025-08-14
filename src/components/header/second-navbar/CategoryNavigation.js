@@ -280,13 +280,17 @@ import {
 } from "redux/slices/categoryIds";
 
 // Custom Chevron Arrow Component
-const ChevronArrow = ({ size = 12, color = "#1a1a2e" }) => (
+const ChevronArrow = ({ size = 12, color = "#1a1a2e", isOpen }) => (
   <svg
     width={size}
     height={size}
     viewBox="0 0 24 24"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
+    style={{
+      transition: "transform 0.2s ease",
+      transform: isOpen ? "rotate(0deg)" : "rotate(-90deg)",
+    }}
   >
     <path
       d="M7 10L12 15L17 10"
@@ -553,7 +557,7 @@ const CategoryNavigation = () => {
                 onClick={() => handleSuperCategoryClick(superCat)}
               >
                 <Box component="span">{superCat.name}</Box>
-                <ChevronArrow size={20} color="#1a1a2e" />
+                <ChevronArrow size={20} color="#1a1a2e" isOpen={hoveredSuperCategory?.name !== superCat.name} />
               </Typography>
             ))}
         </Stack>
@@ -621,7 +625,7 @@ const CategoryNavigation = () => {
                 >
                   {catObj.name}
                   {catObj.childes?.length > 0 && (
-                    <ChevronArrow size={16} color="#1a1a2e" />
+                    <ChevronArrow size={16} color="#1a1a2e" isOpen={hoveredCategory !== catObj} />
                   )}
                 </Typography>
               ))}

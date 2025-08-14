@@ -1,4 +1,4 @@
-import { Grid, Typography } from "@mui/material";
+import { Grid, Typography, Button, useTheme } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useState } from "react";
 import {
@@ -21,34 +21,121 @@ const HelpAndSupport = (props) => {
   const handleOpenCloseMap = () => {
     setOpen(!open);
   };
+  const theme = useTheme();
   return (
     <Box>
-      <Grid container mt="1rem">
+      <Grid container mt="1rem" spacing={2}>
         <Grid item md={12} xs={12}>
-          <SupportImgSvg />
-        </Grid>
-        <Grid item md={12} xs={12} sx={{ marginY: "1rem" }}>
-          <HelpTypographyBox>
+          <Box
+            component="form"
+            onSubmit={async (e) => {
+              e.preventDefault();
+              const formData = {
+                name: e.target.name.value,
+                email: e.target.email.value,
+                message: e.target.message.value,
+              };
+
+              const res = await fetch("/api/send-help-email", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(formData),
+              });
+
+              if (res.ok) {
+                alert("Your message has been sent!");
+                e.target.reset();
+              } else {
+                alert("Failed to send. Please try again later.");
+              }
+            }}
+            sx={{
+              background: "#fff",
+              p: 3,
+              borderRadius: 2,
+              boxShadow: 4,
+            }}
+          >
             <Typography
               sx={{
                 fontSize: { xs: "24px", sm: "28px", md: "32px" },
+                color: "black",
                 fontWeight: "600",
+                mb: 2,
               }}
             >
-              {t("Need Any help?")}
+              {t("Need Any Help?")}
             </Typography>
             <Typography
               sx={{
                 color: (theme) => theme.palette.customColor.textGray,
+                mb: 3,
               }}
             >
-              {t(
-                "Communicate with our support team to get proper guidance to your quaternaries."
-              )}
+              {t("Send us your message and our support team will contact you.")}
             </Typography>
-          </HelpTypographyBox>
+
+            <input
+              name="name"
+              placeholder={t("Your Name")}
+              required
+              style={{
+                width: "100%",
+                padding: "12px",
+                marginBottom: "12px",
+                border: "1px solid #ccc",
+                borderRadius: "8px",
+              }}
+            />
+
+            <input
+              name="email"
+              type="email"
+              placeholder={t("Your Email")}
+              required
+              style={{
+                width: "100%",
+                padding: "12px",
+                marginBottom: "12px",
+                border: "1px solid #ccc",
+                borderRadius: "8px",
+              }}
+            />
+
+            <textarea
+              name="message"
+              placeholder={t("Your Message")}
+              required
+              rows={5}
+              style={{
+                width: "100%",
+                padding: "12px",
+                marginBottom: "12px",
+                border: "1px solid #ccc",
+                borderRadius: "8px",
+              }}
+            />
+
+            <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+              <Button
+                type="submit"
+                sx={{
+                  padding: "12px 20px",
+                  backgroundColor: "#000",
+                  color: "#fff",
+                  borderRadius: "8px",
+                  "&:hover": {
+                    backgroundColor: theme.palette.primary.main,
+                  },
+                }}
+              >
+                {t("Send Message")}
+              </Button>
+            </Box>
+          </Box>
         </Grid>
       </Grid>
+
 
       <HelpGrid container spacing={2}>
         <Grid item md={4} xs={12}>

@@ -73,6 +73,43 @@ const CustomSearch = ({
     setSearchValue?.(value);
   };
 
+  useEffect(() => {
+    if (label !== labelRef.current) {
+      let i = 0;
+      let isDeleting = false;
+      let currentText = "";
+
+      const typeInterval = setInterval(() => {
+        if (!isDeleting) {
+          // Typing forward
+          if (i < label.length) {
+            currentText = label.substring(0, i + 1);
+            setAnimatedLabel(currentText);
+            i++;
+          } else {
+            // Pause before deleting
+            isDeleting = true;
+            return; // ek tick skip hoga yaha
+          }
+        } else {
+          // Deleting backward
+          if (i > 0) {
+            currentText = label.substring(0, i - 1);
+            setAnimatedLabel(currentText);
+            i--;
+          } else {
+            // Fully deleted
+            clearInterval(typeInterval);
+            labelRef.current = label;
+          }
+        }
+      }, isDeleting ? 100 : 150); // deleting faster
+
+      return () => clearInterval(typeInterval);
+    }
+  }, [label]);
+
+
   const isMobile = useMediaQuery("(max-width:600px)");
 
   const getTypeWiseChanges = () => {
@@ -89,7 +126,7 @@ const CustomSearch = ({
               marginInlineEnd: "-8px",
             }}
           />
-          <Box sx={{ position: "relative", width: "100%" }}>
+          {/* <Box sx={{ position: "relative", width: "100%" }}>
             <StyledInputBase
               placeholder=""
               value={value}
@@ -117,13 +154,55 @@ const CustomSearch = ({
                 {t(animatedLabel)}
               </span>
             )}
+          </Box> */}
+
+
+          <Box sx={{ position: "relative", width: "100%" }}>
+            <StyledInputBase
+              placeholder=""
+              value={value}
+              onChange={(e) => handleChange(e.target.value)}
+              onKeyPress={(e) => handleKeyPress(e)}
+              language_direction={language_direction}
+              sx={{
+                paddingLeft: { xs: "25px" },
+              }}
+            />
+
+            {value === "" && (
+              <span
+                style={{
+                  position: "absolute",
+                  left: 0,
+                  top: 0,
+                  width: "100%",
+                  color: "#aaa",
+                  pointerEvents: "none",
+                  paddingLeft: 42,
+                  lineHeight: "40px",
+                  fontSize: "1rem",
+                  display: "flex", // ek line me lane ke liye
+                  alignItems: "center",
+                }}
+              >
+                <span style={{ marginRight: "4px" }}>Search for</span>
+                <span
+                  style={{
+                    opacity: fade ? 1 : 0,
+                    transition: "opacity 0.5s",
+                  }}
+                >
+                  {t(animatedLabel)}
+                </span>
+              </span>
+            )}
           </Box>
         </>
       );
     } else {
       return (
         <>
-          <Box sx={{ position: "relative", width: "100%" }}>
+          {/* <Box sx={{ position: "relative", width: "100%" }}>
             <StyledInputBase
               placeholder=""
               value={value}
@@ -152,6 +231,47 @@ const CustomSearch = ({
                 }}
               >
                 {t(animatedLabel)}
+              </span>
+            )}
+          </Box> */}
+
+          <Box sx={{ position: "relative", width: "100%" }}>
+            <StyledInputBase
+              placeholder=""
+              value={value}
+              onChange={(e) => handleChange(e.target.value)}
+              onKeyPress={(e) => handleKeyPress(e)}
+              language_direction={language_direction}
+              sx={{
+                paddingLeft: { xs: "25px" },
+              }}
+            />
+
+            {value === "" && (
+              <span
+                style={{
+                  position: "absolute",
+                  left: 0,
+                  top: 0,
+                  width: "100%",
+                  color: "#aaa",
+                  pointerEvents: "none",
+                  paddingLeft: 42,
+                  lineHeight: "40px",
+                  fontSize: "1rem",
+                  display: "flex", // ek line me lane ke liye
+                  alignItems: "center",
+                }}
+              >
+                <span style={{ marginRight: "4px" }}>Search for</span>
+                <span
+                  style={{
+                    opacity: fade ? 1 : 0,
+                    transition: "opacity 0.5s",
+                  }}
+                >
+                  {t(animatedLabel)}
+                </span>
               </span>
             )}
           </Box>

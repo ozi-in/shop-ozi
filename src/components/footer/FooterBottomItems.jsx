@@ -3,14 +3,14 @@ import { t } from 'i18next';
 import React from 'react'
 import { CustomStackFullWidth } from '../../styled-components/CustomStyles.style';
 
-const FooterBottomItems = ({ configData,handleClickToRoute }) => {
+const FooterBottomItems = ({ configData, handleClickToRoute }) => {
     const theme = useTheme();
     return (
         <CustomStackFullWidth
             direction={{ xs: "column", sm: "row" }}
             spacing={{ xs: 2, md: 3 }}
-            alignItems={{ xs: "start", sm:"center"}}
-            justifyContent={{xs:"flex-start", sm:"flex-end"}}
+            alignItems={{ xs: "start", sm: "center" }}
+            justifyContent={{ xs: "flex-start", sm: "flex-end" }}
         >
             <Typography
                 onClick={() => handleClickToRoute("/terms-and-conditions")}
@@ -47,7 +47,7 @@ const FooterBottomItems = ({ configData,handleClickToRoute }) => {
                     {t("Refund Policy")}
                 </Typography>
             )}
-            {configData?.cancelation_policy !== 0 && (
+            {/* {configData?.cancelation_policy !== 0 && (
                 <Typography
                     onClick={() => handleClickToRoute("/cancellation-policy")}
                     sx={{
@@ -72,7 +72,7 @@ const FooterBottomItems = ({ configData,handleClickToRoute }) => {
                 >
                     {t("Shipping Policy")}
                 </Typography>
-            )}
+            )} */}
         </CustomStackFullWidth>
     )
 }

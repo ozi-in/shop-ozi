@@ -134,7 +134,8 @@ const FooterBottom = (props) => {
                 textAlign={{ xs: "center", sm: "start" }}
                 fontSize="14px"
               >
-                {configData?.footer_text}
+                {/* {configData?.footer_text} */}
+                Ozi is operated by Ozi Technologies Pvt Ltd (U46901HR2025PTC132282)
               </Typography>
             </Box>
           </CustomStackFullWidth>

@@ -152,7 +152,7 @@ const ManageSearch = ({
     };
   }, [searchRef]);
 
-  const examples = ["lotion", "diaper", "bottles", "baby oil", "serelac"];
+  const examples = ["lotion", "diaper", "bottles", "baby oil", "cerelac"];
   const [dynamicLabelIndex, setDynamicLabelIndex] = useState(0);
   useEffect(() => {
     const interval = setInterval(() => {
@@ -163,7 +163,7 @@ const ManageSearch = ({
 
   const dynamicLabel = () => {
     if (getCurrentModuleType() === ModuleTypes.ECOMMERCE) {
-      return `Search for '${examples[dynamicLabelIndex]}'`;
+      return `${examples[dynamicLabelIndex]}`;
     }
   };
 

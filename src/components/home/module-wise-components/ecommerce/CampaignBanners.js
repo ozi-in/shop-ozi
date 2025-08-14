@@ -338,216 +338,212 @@
 // };
 
 // export default CampaignBanners;
-import React, { useRef } from "react";
+import React, { useRef, useEffect, useState, useCallback } from "react";
+import useGetBanners from "../../../../api-manage/hooks/react-query/useGetBanners";
+import { useDispatch, useSelector } from "react-redux";
+import { setBanners } from "../../../../redux/slices/storedData";
+import { useRouter } from "next/router";
 
 const CampaignBanners = () => {
-  const bannersData = [
-    // {
-    //   id: 1,
-    //   title: "Fresh Fruits",
-    //   image:
-    //     "https://i.ibb.co/v6yXmm4n/stock-vector-baby-goods-sale-banner-special-offer-sale-could-be-used-for-store-shop-internet-1118890.jpg",
-    //   link: "/product/1",
-    // },
-    // {
-    //   id: 2,
-    //   title: "Dry Fruits Sale",
-    //   image: "https://i.ibb.co/Nd7k0VYW/aeee02e75075c546711ea8d64421f26d.jpg",
-    //   link: "/product/2",
-    // },
-    // {
-    //   id: 3,
-    //   title: "Dairy Specials",
-    //   image:
-    //     "https://i.ibb.co/60CkJP7z/baby-shop-social-media-banner-post-template-603667-74.jpg",
-    //   link: "/product/3",
-    // },
-    // {
-    //   id: 4,
-    //   title: "Bakery Delights",
-    //   image:
-    //     "https://i.ibb.co/qFyqPZCD/1c085ad4d8df2b06b5b41696ef9711f2a7f91e7e.png",
-    //   link: "/product/4",
-    // },
-    // {
-    //   id: 5,
-    //   title: "Hospital Bag 1",
-    //   image: "https://i.ibb.co/gZp2rHS2/Web-Hospital-Bag-Essentials.png",
-    //   link: "/product/5",
-    // },
-    // {
-    //   id: 6,
-    //   title: "Hospital Bag 2",
-    //   image: "https://i.ibb.co/LDMjnkr4/Hospital-Bag-Essentials-web.png",
-    //   link: "/product/6",
-    // },
+  const dispatch = useDispatch();
+  const { banners } = useSelector((state) => state.storedData);
+  const { data, refetch: refetchBannerData, isFetched } = useGetBanners();
+  const router = useRouter();
+  // Scroll container refs and state
+  const scrollContainerRef = useRef(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
+  const autoScrollRef = useRef(null);
 
-    {
-      id: 1,
-      title: "Breastfeeding Needs",
-      image: "https://i.ibb.co/Vp0yHMcw/Web-Breastfeeding-Needs.png",
-      link: "/product/1",
-    },
-    {
-      id: 2,
-      title: "Formula - Authentic Wide Range",
-      image: "https://i.ibb.co/tpRxnLsz/Web-Formula-Authentic-Wide-Range.png",
-      link: "/product/2",
-    },
-    {
-      id: 3,
-      title: "Formula for Special Needs",
-      image: "https://i.ibb.co/hRdV1jbH/Web-Sebamed.png",
-      link: "/product/3",
-    },
-    {
-      id: 4,
-      title: "Germ Protection",
-      image: "https://i.ibb.co/M5j4tmkN/Web-Germ-Protection.png",
-      link: "/product/4",
-    },
-    {
-      id: 5,
-      title: "Haus Kinder",
-      image: "https://i.ibb.co/dwxCvSGq/Web-Haus-Kinder.png",
-      link: "/product/5",
-    },
-    {
-      id: 6,
-      title: "Hospital Bag Essentials",
-      image: "https://i.ibb.co/RTKBt1bM/Web-Hospital-Bag-Essentials.png",
-      link: "/product/6",
-    },
-    {
-      id: 7,
-      title: "Mosquito Protection",
-      image: "https://i.ibb.co/69CszzB/Web-Mosquito-Protection.png",
-      link: "/product/7",
-    },
-    {
-      id: 8,
-      title: "Mustela",
-      image: "https://i.ibb.co/VbJWJWr/Web-Mustela.png",
-      link: "/product/8",
-    },
-    {
-      id: 9,
-      title: "Sebamed",
-      image: "https://i.ibb.co/zhYYtvQ5/Web-Formula-for-Special-Needs.png",
-      link: "/product/9",
-    },
-    {
-      id: 10,
-      title: "Sensitive Baby Skin",
-      image: "https://i.ibb.co/KcVm49pm/Web-Sensitive-Baby-Skin.png",
-      link: "/product/10",
-    },
-    {
-      id: 11,
-      title: "Sophie La Girafe",
-      image: "https://i.ibb.co/zVM1ysxq/Web-Sophie-La-Girafe.png",
-      link: "/product/11",
-    },
-    {
-      id: 12,
-      title: "Windmil Baby",
-      image: "https://i.ibb.co/DHscRS2q/Web-Windmil-baby.png",
-      link: "/product/12",
-    },
-  ];
 
-  const repeatedData = Array(12).fill(bannersData).flat();
-  const marqueeRef = useRef(null);
+
+  // Banner data effects
+  useEffect(() => {
+    if (data?.campaigns) {
+      dispatch(setBanners(data));
+    }
+  }, [data]);
+
+  useEffect(() => {
+    console.log("campaignBannerAPiData", banners.length);
+    if (banners.campaigns?.length === 0) {
+      refetchBannerData();
+    }
+  }, [banners]);
+
+  // Auto scroll functionality with infinite loop
+  const startAutoScroll = useCallback(() => {
+    if (isDragging) return;
+
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    autoScrollRef.current = setInterval(() => {
+      if (isDragging) return;
+
+      const maxScrollLeft = container.scrollWidth - container.clientWidth;
+      const currentScrollLeft = container.scrollLeft;
+
+      if (currentScrollLeft >= maxScrollLeft - 1) {
+        // Reset to start for infinite scroll
+        container.scrollTo({ left: 0, behavior: 'auto' });
+      } else {
+        // Smooth continuous scroll
+        container.scrollBy({ left: 1, behavior: 'auto' });
+      }
+    }, 20); // Smooth pixel-by-pixel scroll
+  }, [isDragging]);
+
+  const stopAutoScroll = useCallback(() => {
+    if (autoScrollRef.current) {
+      clearInterval(autoScrollRef.current);
+      autoScrollRef.current = null;
+    }
+  }, []);
+
+  // Auto scroll effects
+  useEffect(() => {
+    startAutoScroll();
+    return stopAutoScroll;
+  }, [startAutoScroll, stopAutoScroll]);
+
+  // Mouse drag handlers
+  const handleMouseDown = (e) => {
+    setIsDragging(true);
+    stopAutoScroll();
+    setStartX(e.pageX - scrollContainerRef.current.offsetLeft);
+    setScrollLeft(scrollContainerRef.current.scrollLeft);
+    scrollContainerRef.current.style.cursor = 'grabbing';
+  };
+
+  const handleMouseMove = (e) => {
+    if (!isDragging) return;
+    e.preventDefault();
+    const x = e.pageX - scrollContainerRef.current.offsetLeft;
+    const walk = (x - startX) * 2;
+    scrollContainerRef.current.scrollLeft = scrollLeft - walk;
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+    scrollContainerRef.current.style.cursor = 'grab';
+    // Resume auto scroll after 2 seconds
+    setTimeout(() => {
+      if (!isDragging) {
+        startAutoScroll();
+      }
+    }, 2000);
+  };
+
+  const handleMouseLeave = () => {
+    if (isDragging) {
+      setIsDragging(false);
+      scrollContainerRef.current.style.cursor = 'grab';
+      setTimeout(() => {
+        startAutoScroll();
+      }, 2000);
+    }
+  };
+  const handleBannerClick1 = (item) => {
+    console.log("title of the data ", item);
+    router.push(
+      { pathname: "/home", query: { search: item, data_type: "searched" } }
+    );
+  };
 
   const handleBannerClick = (item) => {
     window.location.href = item.link;
   };
 
+  // Use only API data with duplication for infinite scroll
+  const displayBanners = banners.banners || [];
+  // Duplicate banners multiple times for seamless infinite scroll
+  const infiniteBanners = displayBanners.length > 0 ? [...displayBanners, ...displayBanners, ...displayBanners] : [];
+
   return (
     <>
       <style>{`
-        .marquee-wrapper {
+        .scroll-container {
+          position: relative;
           width: 100%;
+          overflow: hidden;
+        }
+
+        .scroll-wrapper {
+          display: flex;
           overflow-x: auto;
           overflow-y: hidden;
-          white-space: nowrap;
           cursor: grab;
+          padding: 20px 0;
+          gap: 20px;
           scrollbar-width: none; /* Firefox */
-          -ms-overflow-style: none;  /* IE 10+ */
+          -ms-overflow-style: none; /* IE 10+ */
         }
-        .marquee-wrapper::-webkit-scrollbar {
+
+        .scroll-wrapper::-webkit-scrollbar {
           display: none; /* Chrome, Safari, Opera */
         }
 
-        .marquee-content {
-          display: inline-block;
-          white-space: nowrap;
-          animation: scroll-left 620s linear infinite;
-        }
-
-        .marquee-wrapper:hover .marquee-content {
-          animation-play-state: paused;
-        }
-
-        .marquee-content img {
-          height: 260px;
-          margin: 0 10px;
+        .banner-item {
+          flex-shrink: 0;
+          width: 400px;
+          height: auto;
+          border-radius: 20px;
+          overflow: hidden;
           cursor: pointer;
-          border-radius: 28px;
-          display: inline-block;
+          transition: transform 0.3s ease;
+        }
+
+        .banner-item:hover {
+          transform: scale(1.02);
+        }
+
+        .banner-item img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          border-radius: 20px;
         }
 
         @media (max-width: 768px) {
-          .marquee-content img {
-            height: 160px;
-            margin: 0 6px;
+          .banner-item {
+            width: 300px;
+            height: 150px;
           }
         }
 
-        @keyframes scroll-left {
-          0% {
-            transform: translateX(0%);
-          }
-          100% {
-            transform: translateX(-50%);
+        @media (max-width: 480px) {
+          .banner-item {
+            width: 250px;
+            height: 125px;
           }
         }
       `}</style>
 
-      <div
-        className="marquee-wrapper"
-        ref={marqueeRef}
-        onMouseDown={(e) => {
-          const el = marqueeRef.current;
-          el.isDown = true;
-          el.startX = e.pageX - el.offsetLeft;
-          el.scrollLeftStart = el.scrollLeft;
-        }}
-        onMouseLeave={() => {
-          const el = marqueeRef.current;
-          el.isDown = false;
-        }}
-        onMouseUp={() => {
-          const el = marqueeRef.current;
-          el.isDown = false;
-        }}
-        onMouseMove={(e) => {
-          const el = marqueeRef.current;
-          if (!el.isDown) return;
-          e.preventDefault();
-          const x = e.pageX - el.offsetLeft;
-          const walk = (x - el.startX) * 2;
-          el.scrollLeft = el.scrollLeftStart - walk;
-        }}
-      >
-        <div className="marquee-content">
-          {repeatedData.map((item, index) => (
-            <img
-              key={index}
-              src={item.image}
-              alt={item.title}
-              // onClick={() => handleBannerClick(item)}
-            />
+      <div className="scroll-container">
+        {/* Scroll container */}
+        <div
+          ref={scrollContainerRef}
+          className="scroll-wrapper"
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUp}
+          onMouseLeave={handleMouseLeave}
+        >
+          {infiniteBanners.map((item, index) => (
+            <div
+              key={`${item.id || index}-${Math.floor(index / displayBanners.length)}`}
+              className="banner-item"
+              onClick={() => handleBannerClick1(item.title)}
+            >
+              <img
+                src={item.image_full_url || item.image}
+                alt={item.title}
+                draggable="false"
+
+              />
+            </div>
           ))}
         </div>
       </div>
