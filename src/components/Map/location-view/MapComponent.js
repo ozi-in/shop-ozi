@@ -107,17 +107,32 @@ const MapComponent = (props) => {
     }
   }, [state.map]);
 
+  // const directionRoute = async () => {
+  //   if (google && google.maps) {
+  //     const directionsService = new google.maps.DirectionsService();
+  //     const results = await directionsService.route({
+  //       origin: center,
+  //       destination: center1,
+  //       travelMode: google.maps.TravelMode.DRIVING,
+  //     });
+  //     setDirectionsResponse(results);
+  //   }
+  // };
+
   const directionRoute = async () => {
-    if (google && google.maps) {
-      const directionsService = new google.maps.DirectionsService();
+    if (window.google?.maps?.DirectionsService) {
+      const directionsService = new window.google.maps.DirectionsService();
       const results = await directionsService.route({
         origin: center,
         destination: center1,
-        travelMode: google.maps.TravelMode.DRIVING,
+        travelMode: window.google.maps.TravelMode.DRIVING,
       });
       setDirectionsResponse(results);
+    } else {
+      console.error("Google Maps DirectionsService not loaded yet");
     }
   };
+  
   useEffect(() => {
     if (deliveryManLat) {
       directionRoute();

@@ -21,8 +21,10 @@ export const getAmountWithSign = (amount, needDecimal = true) => {
   if (amount == null || isNaN(Number(amount))) return "";
 
   const { configData } = store?.getState()?.configData || {};
-  const decimals = configData?.digit_after_decimal_point ?? 2;
-  const symbol = configData?.currency_symbol || "";
+  // const decimals = configData?.digit_after_decimal_point ?? 2;
+  const decimals = 0;
+  // const symbol = configData?.currency_symbol || "";
+  const symbol = "₹";
   const direction = configData?.currency_symbol_direction || "left";
 
   // Function to format large numbers

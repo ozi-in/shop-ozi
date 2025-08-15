@@ -147,16 +147,18 @@ const TrackOrder = ({ configData, trackOrderData }) => {
       img: orderConfirmImage.src,
     },
     {
-      label: `Packing ${
-        trackOrderData?.module?.module_type === "food" ? "foods" : "items"
-      }`,
+      label: `Packing items`,
+      // ${
+      //   trackOrderData?.module?.module_type === "food" ? "foods" : "items"
+      // }`,
       time: trackOrderData?.processing,
       img: shippedImage.src,
     },
     {
-      label: ` ${
-        trackOrderData?.module?.module_type === "food" ? "foods" : "items"
-      } is on the way`,
+      label: `Order is on the way`,
+      // ${
+      //   trackOrderData?.module?.module_type === "food" ? "foods" : "items"
+      // }`,
       time: trackOrderData?.picked_up,
       img: outForDelivery.src,
     },

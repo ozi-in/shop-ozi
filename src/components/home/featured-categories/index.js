@@ -1178,7 +1178,7 @@ const FeaturedCategories = () => {
     infinite: false,
     speed: 500,
     swipeToSlide: true,
-    slidesToShow: 2.5, 
+    slidesToShow: 3.5, 
     slidesToScroll: 1,
     rows: 2,
     slidesPerRow: 1,

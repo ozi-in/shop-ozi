@@ -255,7 +255,7 @@ const Shop = ({ configData }) => {
         </CustomContainer>
       </Grid> */}
 
-      <Grid item xs={12}>
+      {/* <Grid item xs={12}>
         <CustomContainer>
           <BestReviewedItems
             menus={menus}
@@ -264,7 +264,7 @@ const Shop = ({ configData }) => {
             url={`${data?.promotional_banner_url}/${data?.best_reviewed_section_banner}`}
           />
         </CustomContainer>
-      </Grid>
+      </Grid> */}
       {/* <Grid item xs={12}>
         <CustomContainer>
           <LoveItem />

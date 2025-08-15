@@ -392,7 +392,7 @@ const CampaignBanners = () => {
         // Smooth continuous scroll
         container.scrollBy({ left: 1, behavior: 'auto' });
       }
-    }, 20); // Smooth pixel-by-pixel scroll
+    }, 15); // Smooth pixel-by-pixel scroll
   }, [isDragging]);
 
   const stopAutoScroll = useCallback(() => {
