@@ -181,12 +181,9 @@ const Order = (props) => {
 
   const notDeliveredInformation = () => (
     <>
-      {order?.order_status !== "delivered" &&
-        order?.order_status !== "failed" &&
-        order?.order_status !== "canceled" &&
-        order?.order_status !== "refund_requested" &&
-        order?.order_status !== "refund_request_canceled" &&
-        order?.order_status !== "refunded" && (
+      {((order?.order_status === "pending" && order?.payment_method !== "digital_payment" && order?.payment_method !== "razor_pay") ||
+        order?.order_status === "picked_up") &&
+         (
           <Stack
             flexWrap="wrap"
             paddingRight={{ xs: "0px", md: "20px" }}

@@ -92,7 +92,7 @@ export const CardWrapper = styled(Card)(
   }) => ({
     cursor: "pointer",
     backgroundColor: theme.palette.background.custom6,
-    padding: horizontalcard !== "true" ? "10px" : "0px",
+    // padding: horizontalcard !== "true" ? "10px" : "0px",
     borderRadius: "8px",
     boxShadow: "none",
     overflow: "hidden",
@@ -119,7 +119,7 @@ export const CardWrapper = styled(Card)(
     [theme.breakpoints.down("sm")]: {
       // height: cardheight || "320px",
       width:
-        horizontalcard === "true" ? cardWidth || "100%" : cardWidth || "170px",
+        horizontalcard === "true" ? cardWidth || "100%" : cardWidth || "100%",
     },
 
     [theme.breakpoints.up("sm")]: {
@@ -553,6 +553,8 @@ const ProductCard = (props) => {
       });
     }
   };
+
+  console.log("item?.tag_names", item?.tag_names);
   const lanDirection = getLanguage() ? getLanguage() : "ltr";
   const popularCardUi = () => {
     return (
@@ -572,72 +574,85 @@ const ProductCard = (props) => {
       >
 
 
-        {item?.tag_names && Array.isArray(item?.tag_names) && item?.tag_names.length > 0 ? (
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              minHeight: "30px",
-              height: "30px",
-              mt: 1,
-              mb: 1,
-            }}
-          >
-            <Box
-              sx={{
-                backgroundColor: (theme) => theme.palette.primary.mainLight,
-                color: (theme) => theme.palette.primary.main,
-                px: 1.5,
-                py: 0.5,
-                borderRadius: '12px',
-                fontSize: '11px',
-                fontWeight: 'semi-bold',
-                textAlign: 'center',
-              }}
-            >
-              {item.tag_names[0]}
-            </Box>
-          </Box>
-        ) : (<Box style={{ height: "46px" }} ></Box>)}
-
-
-        {/* Heart icon */}
-        <Box sx={{ position: "absolute", top: 10, right: 10, zIndex: 10 }} />
-
-        {/* Product Name with fixed height */}
+        {/* Tags + Product Name Wrapper */}
         <Box
           sx={{
-            minHeight: "42px", // Ensures room for 2 lines even if 1 exists
-            width: "100%",
-            padding: "0 5px",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "flex-start",
+            minHeight: "76px", // enough to fit tags + 2 lines name OR 3-4 lines name if no tags
+            justifyContent: item?.tag_names?.length > 0 ? "flex-start" : "center",
           }}
         >
-          <PrimaryToolTip text={item?.name} placement="bottom" arrow="false">
-            <Typography
-              variant={horizontalcard === "true" ? "subtitle2" : "h6"}
-              component="h3"
-              className="name"
+          {/* Tags */}
+          {item?.tag_names && Array.isArray(item?.tag_names) && item?.tag_names.length > 0 && (
+            <Box
               sx={{
-                lineHeight: "20px",
-                textAlign: lanDirection === "rtl" ? "end" : "start",
-                color: (theme) => theme.palette.text.custom,
-                fontSize: { xs: "13px", sm: "inherit" },
-                overflow: "hidden",
-                textOverflow: "ellipsis",
-                display: "-webkit-box",
-                WebkitLineClamp: 2,
-                WebkitBoxOrient: "vertical",
-                wordBreak: "break-word",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                minHeight: "30px",
+                height: "30px",
+                gap: { xs: "2px", sm: "6px" },
+                // mb: 1,
               }}
             >
-              {item?.name}
-            </Typography>
-          </PrimaryToolTip>
+              {item.tag_names.slice(0, 2).map((tag, index) => (
+                <Box
+                  key={index}
+                  sx={{
+                    // backgroundColor: (theme) => theme.palette.primary.mainLight,
+                    color: (theme) => theme.palette.primary.main,
+                    px: 1,
+                    py: 0.5,
+                    borderRadius: "12px",
+                    border: `1px solid ${theme.palette.primary.mainLight}`,
+                    fontSize: { xs: "8px", sm: "12px" },
+                    fontWeight: "semi-bold",
+                    textAlign: "center",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  {tag}
+                </Box>
+              ))}
+            </Box>
+          )}
+
+          {/* Product Name */}
+          <Box
+            sx={{
+              width: "100%",
+              padding: "0 5px",
+            }}
+          >
+            <PrimaryToolTip text={item?.name} placement="bottom" arrow="false">
+              <Typography
+                variant={horizontalcard === "true" ? "subtitle2" : "h6"}
+                component="h3"
+                className="name"
+                sx={{
+                  lineHeight: "20px",
+                  textAlign: lanDirection === "rtl" ? "end" : "start",
+                  color: "black",
+                  fontSize: { xs: "12px", sm: "inherit" },
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  display: "-webkit-box",
+                  WebkitLineClamp: item?.tag_names?.length > 0 ? 2 : 3, // show more lines if no tags
+                  WebkitBoxOrient: "vertical",
+                  wordBreak: "break-word",
+                }}
+              >
+                {item?.name}
+              </Typography>
+            </PrimaryToolTip>
+          </Box>
         </Box>
 
+
         {/* Price Display */}
-        <Box mt={1} mb={1}>
+        <Box mb={1}>
           <CartProductPriceDisplay item={item} />
         </Box>
 
