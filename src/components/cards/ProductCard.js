@@ -658,7 +658,7 @@ const ProductCard = (props) => {
             ></Typography>
             {isFrom === "new-arival" ||
               isFrom === "plp-list-view" ||
-              isFrom === "top-rated" ||
+              isFrom === "top-rated" || isFrom === "best-reviewed" ||
               isFrom === dealTitle ? (
               (item?.stock ?? 0) > 0 ? (
                 <AddWithIncrementDecrement
@@ -1336,7 +1336,7 @@ const ProductCard = (props) => {
               {isFrom === "new-arival" ||
                 isFrom === "top-rated" ||
                 isFrom === dealTitle ||
-                isFrom === "plp" ||
+                isFrom === "plp" || isFrom === "best-reviewed" ||
                 isFrom === "plp-list-view" ? (
                 <Stack>
                   {/* Product Image */}

@@ -15,6 +15,9 @@ import {
   setOfflineInfoStep,
   setOfflineMethod,
 } from "redux/slices/offlinePaymentData";
+import NextImage from "components/NextImage";
+import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 const PaymentMethodCard = (props) => {
   const {
@@ -55,7 +58,7 @@ const PaymentMethodCard = (props) => {
         py={{ xs: "10px", sm: "10px", md: "0px" }}
 
       >
-        {parcel === "true" ? (
+        {/* {parcel === "true" ? (
           <CustomImageContainer
             src={digitalPaymentMethodActive ? image : image.src}
             width="20px"
@@ -73,7 +76,12 @@ const PaymentMethodCard = (props) => {
               src={digitalPaymentMethodActive ? image : image.src}
             />
           )
-        )}
+        )} */}
+        <NextImage
+          src={"../ic_razorpay.svg"}
+          height={20}
+          width={20}
+        ></NextImage>
 
         <Typography
           fontWeight={parcel === "true" ? "400" : "500"}
@@ -106,8 +114,11 @@ const PaymentMethodCard = (props) => {
             value={type}
             control={
               <Radio
+               icon={<RadioButtonUncheckedIcon />}
                 sx={{ padding: { xs: "2px", md: "10px" } }}
                 checked={paymentMethod === type}
+                  checkedIcon={<CheckCircleIcon color="primary" />}
+
               />
             }
             label={radioLabel()}

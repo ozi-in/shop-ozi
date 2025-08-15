@@ -13,6 +13,7 @@ import {
   Typography,
   Box,
   IconButton,
+  useMediaQuery
 } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { t } from "i18next";
@@ -105,7 +106,7 @@ const OtherModulePayment = (props) => {
   const [isCheckedOffline, setIsCheckedOffline] = useState(
     offlineMethod !== ""
   );
-
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const handleClickOffline = () => {
     setOpenOfflineOptions(!openOfflineOptions);
   };
@@ -146,7 +147,7 @@ const OtherModulePayment = (props) => {
           </Stack>
           <Stack>
             <Typography pb="5px" fontSize="14px" fontWeight="500">
-              {t("Total Bill")}
+              {isMobile ? "Total" : "Total Bill"}
             </Typography>
             <Typography fontSize="20px" fontWeight="700">
               {getAmountWithSign(payableAmount)}

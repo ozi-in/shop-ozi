@@ -400,8 +400,8 @@ const TopDetails = (props) => {
         getToken() &&
         data?.length > 0 &&
         hasChatAndReview(trackData?.store)?.isReview === 1 && (
-          <Stack direction="row" spacing={0.5}>
-            <Link href={`/rate-and-review/${id}`}>
+          <Stack direction="row" spacing={0.5} sx={{mt: { xs: "30px", sm: "8px"}}}>
+            <Link href={`/rate-and-review/${id}`} >
               <Button
                 variant="outlined"
                 background={theme.palette.error.light}
@@ -434,6 +434,7 @@ const TopDetails = (props) => {
         trackData?.payment_status === "unpaid" && trackData?.order_status !== "canceled" &&
         zoneData?.data?.zone_data?.[0]?.cash_on_delivery ? (
         <OrderStatusButton
+        sx={{mt: { xs: "30px", sm: "8px"}}}
           background={theme.palette.primary.main}
           onClick={() => setModalOpenForPayment(true)}
         // color={theme.palette.whiteContainer}
