@@ -128,7 +128,7 @@ const FeaturedItemCard = ({
             },
           }}
         >
-          <CustomBoxFullWidth sx={{ px: "10px" }}>
+          <CustomBoxFullWidth>
             {/* <Typography
               textAlign="center"
               className={classes.singleLineEllipsis}

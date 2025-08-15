@@ -40,8 +40,8 @@ export const getAmountWithSign = (amount, needDecimal = true) => {
 
   // Return amount with currency symbol
   return direction === "left"
-    ? `${symbol}${formattedAmount}`
-    : `${formattedAmount}${symbol}`;
+    ? `${symbol} ${formattedAmount}`
+    : `${formattedAmount} ${symbol}`;
 };
 export const getDiscountPercentage = (cartList, discountedPrice) => {
   const originalPrice = getSubTotalPrice(cartList);
