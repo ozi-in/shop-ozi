@@ -92,7 +92,7 @@ export const CardWrapper = styled(Card)(
   }) => ({
     cursor: "pointer",
     backgroundColor: theme.palette.background.custom6,
-    // padding: horizontalcard !== "true" ? "10px" : "0px",
+    padding: horizontalcard !== "true" ? "2px" : "0px",
     borderRadius: "8px",
     boxShadow: "none",
     overflow: "hidden",

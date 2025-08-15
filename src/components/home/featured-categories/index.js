@@ -1186,9 +1186,10 @@ const FeaturedCategories = () => {
       {
         breakpoint: 400,
         settings: {
-          slidesPerRow: 3,
-          rows: 2,
-        },
+        slidesToShow: 3.5, 
+        rows: 2,
+        slidesPerRow: 1,
+      },
       },
     ],
   };
@@ -1245,7 +1246,7 @@ const FeaturedCategories = () => {
             <Box mt={1}>
               <Slider {...smallDeviceSliderSettings}>
                 {featuredCategories.map((item, index) => (
-                  <Box key={item?.id || index} px={0.25}>
+                  <Box key={item?.id || index} px={0.25} >
                     <FeaturedItemCard
                       image={item?.image_full_url}
                       title={item?.name}
