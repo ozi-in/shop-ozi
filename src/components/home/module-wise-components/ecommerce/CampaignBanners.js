@@ -450,17 +450,13 @@ const CampaignBanners = () => {
     // Ensure we have a string
     let searchValue = String(keywordOrTitle || "").trim();
 
-    // Replace multiple spaces (2 or more) with a single space
+    // Replace multiple spaces with a single space
     searchValue = searchValue.replace(/\s+/g, " ");
 
-    // Encode for URL safety
-    const encodedValue = encodeURIComponent(searchValue);
-
-    // console.log("Formatted search value:", searchValue);
-
+    // Pass the raw value (do not encode here)
     router.push({
       pathname: "/home",
-      query: { search: encodedValue, data_type: "searched" },
+      query: { search: searchValue, data_type: "searched" },
     });
   };
 

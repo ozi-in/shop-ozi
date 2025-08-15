@@ -100,6 +100,13 @@ const ChatWithAdmin = ({ automateMessageData, orderID }) => {
             <PrimaryButton
               disabled={value === "" && text === ""}
               onClick={handleSubmit}
+              sx={{
+                color: "#fff", // normal text color
+                "&.Mui-disabled": {
+                  color: "#fff", // keep white when disabled
+                  opacity: 0.5, // optional dim effect for disabled look
+                },
+              }}
             >
               {t("Send Massage")}
             </PrimaryButton>

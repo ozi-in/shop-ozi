@@ -497,7 +497,7 @@ const OrderSummery = (props) => {
                   sx={{ cursor: "pointer" }}
                   onClick={() => setOpenAdmin(true)}
                 >
-                  {t(`Massage to `)}
+                  {t(`Message to `)}
                   <Typography
                     component="span"
                     fontSize={{ xs: "14px", md: "16px" }}
