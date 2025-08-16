@@ -482,7 +482,7 @@ const ProductCard = (props) => {
       if (getCurrentModuleType() === "food") {
         if (item?.maximum_cart_quantity) {
           if (item?.maximum_cart_quantity <= isExisted?.quantity) {
-            toast.error(t(out_of_limits));
+            toast.error(t(out_of_limits), { id: "max_limit" })
           } else {
             updateMutate(itemObject, {
               onSuccess: cartUpdateHandleSuccess,
@@ -499,7 +499,7 @@ const ProductCard = (props) => {
         if (isExisted?.quantity + 1 <= item?.stock) {
           if (item?.maximum_cart_quantity) {
             if (item?.maximum_cart_quantity <= isExisted?.quantity) {
-              toast.error(t(out_of_limits));
+              toast.error(t(out_of_limits), { id: "max_limit" })
             } else {
               updateMutate(itemObject, {
                 onSuccess: cartUpdateHandleSuccess,
@@ -514,7 +514,7 @@ const ProductCard = (props) => {
             reduxDispatch(setIncrementToCartItem(isInCart));
           }
         } else {
-          toast.error(t(out_of_stock));
+          toast.error(t(out_of_stock), { id: "out-of-stock", });;
         }
       }
     }
@@ -690,7 +690,7 @@ const ProductCard = (props) => {
               ) : (
                 <ShopNowButton
                   onClick={() => {
-                    toast.error(t("Out of stock"));
+                    toast.error(t(out_of_stock), { id: "out-of-stock", });
                   }}
                   sx={{
                     width: "100%",
@@ -829,7 +829,7 @@ const ProductCard = (props) => {
           ) : (
             <ShopNowButton
               onClick={() => {
-                toast.error(t("Out of stock"));
+                toast.error(t(out_of_stock), { id: "out-of-stock", });
               }}
               sx={{
                 width: {
@@ -1060,7 +1060,7 @@ const ProductCard = (props) => {
             ) : (
               <ShopNowButton
                 onClick={() => {
-                  toast.error(t("Out of stock"));
+                  toast.error(t(out_of_stock), { id: "out-of-stock", });
                 }}
                 sx={{
                   width: "100%",

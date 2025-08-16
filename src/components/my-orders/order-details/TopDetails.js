@@ -76,7 +76,7 @@ const TopDetails = (props) => {
       return theme.palette.error.main;
     }
 
-    if (trackData?.order_status === "pending") {
+    if (trackData?.order_status === "pending"  ||trackData?.order_status === "out_for_delivery"   ) {
       return theme.palette.info.main;
     }
     if (trackData?.order_status === "confirmed") {
@@ -86,14 +86,15 @@ const TopDetails = (props) => {
       trackData?.order_status === "processing" ||
       trackData?.order_status === "handover" ||
       trackData?.order_status === "picked_up" ||
-      trackData?.order_status === "accepted"
+      trackData?.order_status === "accepted"||
+      trackData?.order_status === "in_transit"
     ) {
       return theme.palette.warning.dark;
     }
-    if (trackData?.order_status === "delivered") {
+    if (trackData?.order_status === "reached_delivery"  ||  trackData?.order_status === "delivered") {
       return theme.palette.primary.main;
     }
-    if (trackData?.order_status === "canceled") {
+    if (trackData?.order_status === "canceled" || trackData?.order_status === "cancelled"  || trackData?.order_status === "undelivered" ) { 
       return theme.palette.error.main;
     }
     if (
@@ -108,7 +109,9 @@ const TopDetails = (props) => {
     if (trackData?.order_status === "failed") {
       return theme.palette.error.main;
     }
+      return theme.palette.warning.dark;
   };
+  
   const fontColor = () => {
     if (trackData?.order_status === "pending") {
       return theme.palette.info.main;
@@ -307,7 +310,7 @@ const TopDetails = (props) => {
             </Typography>
           </Typography>
 
-          {trackData?.module_type === "ecommerce" && (getCustomerFacingStatus(trackData?.order_status, trackData?.payment_status, trackData?.payment_method) === "Order Getting Packed" || getCustomerFacingStatus(trackData?.order_status, trackData?.payment_status, trackData?.payment_method) === "Order Out for Delivery") &&
+          {trackData?.module_type === "ecommerce" && (getCustomerFacingStatus(trackData?.order_status, trackData?.payment_status, trackData?.payment_method) === "Order Getting Packed" || getCustomerFacingStatus(trackData?.order_status, trackData?.payment_status, trackData?.payment_method) === "Order Out for Delivery") && trackData?.delivery_tat &&
             // trackData?.module_type === "ecommerce" && trackData?.order_status !== "canceled" && trackData?.order_status !== "delivered" && !(
             // trackData?.order_status?.toLowerCase() === "pending" &&
             // trackData?.payment_status?.toLowerCase() === "unpaid" &&

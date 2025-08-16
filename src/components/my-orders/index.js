@@ -154,9 +154,20 @@ const MyOrders = (props) => {
 		offset: offset,
 	});
 
+	// useEffect(() => {
+	// 	refetch();
+	// 	dispatch(setOrderType(orderType === 0 ? 0 : 1));
+	// }, [orderType, offset]);
+
 	useEffect(() => {
 		refetch();
 		dispatch(setOrderType(orderType === 0 ? 0 : 1));
+		const interval = setInterval(() => {
+			refetch();
+			dispatch(setOrderType(orderType === 0 ? 0 : 1));
+		}, 30 * 1000); // 30 sec
+
+		return () => clearInterval(interval);
 	}, [orderType, offset]);
 
 	useEffect(() => {
